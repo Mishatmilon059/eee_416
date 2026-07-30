@@ -150,6 +150,37 @@ export class LearnerState {
     localStorage.removeItem(this.key);
     this.data = { chars: {}, sessionNumber: 0, difficulty: 1, sessionIds: [], days: [] };
   }
+
+  rebuildFromRows(rows) {
+    this.data = {
+      chars: {},
+      sessionNumber: 0,
+      difficulty: 1,
+      sessionIds: [],
+      days: [],
+    };
+    const userRows = rows.filter((r) => r.user_id === this.userId || !r.user_id)
+                         .sort((a, b) => new Date(a.created_at || 0) - new Date(b.created_at || 0));
+    
+    for (const r of userRows) {
+      if (r.session_id && !this.data.sessionIds.includes(r.session_id)) {
+        this.data.sessionIds.push(r.session_id);
+        this.data.sessionNumber = this.data.sessionIds.length;
+      }
+      if (r.created_at) {
+        const day = new Date(r.created_at).toISOString().slice(0, 10);
+        if (!this.data.days.includes(day)) this.data.days.push(day);
+      }
+      const charId = Number(r.char_id);
+      const isCorrect = Boolean(r.is_correct);
+      const conf = Number(r.confidence_state || 1);
+      const ms = r.created_at ? new Date(r.created_at).getTime() : Date.now();
+      if (!isNaN(charId)) {
+        this.applyOutcome(charId, isCorrect, conf, ms);
+      }
+    }
+    this.save();
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -239,6 +270,9 @@ export class AttemptLogger {
       if (!res.ok) return;
       const remoteRows = await res.json();
       if (Array.isArray(remoteRows) && remoteRows.length > 0) {
+        if (learner && typeof learner.rebuildFromRows === 'function') {
+          learner.rebuildFromRows(remoteRows);
+        }
         const existingKeys = new Set(this.rows.map((r) => `${r.session_id}:${r.attempt_index}`));
         let added = 0;
         for (const row of remoteRows) {
@@ -249,10 +283,8 @@ export class AttemptLogger {
             added++;
           }
         }
-        if (added > 0) {
-          writeJSON(ROWS_KEY, this.rows);
-          this.onStatus('ok', `synced · ${this.rows.length} rows`);
-        }
+        writeJSON(ROWS_KEY, this.rows);
+        this.onStatus('ok', `synced · ${this.rows.length} rows`);
       }
     } catch (e) {
       console.warn('Could not sync remote user rows:', e);
