@@ -122,10 +122,14 @@ function renderMapBanner(map) {
     <span class="mono">tools/import_braille_images.py</span>.`;
 }
 
-function loadLearner() {
+async function loadLearner() {
   const id = (ui.userId.value || 'P01').trim();
   state.learner = new LearnerState(id);
   localStorage.setItem('braille.lastUser', id);
+  if (state.logger && state.logger.configured) {
+    await state.logger.syncRemoteForUser(id, state.learner);
+    renderAll();
+  }
 }
 
 function wireEvents() {

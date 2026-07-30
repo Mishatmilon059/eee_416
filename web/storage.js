@@ -227,6 +227,38 @@ export class AttemptLogger {
     }
   }
 
+  async syncRemoteForUser(userId, learner) {
+    if (!this.configured || !navigator.onLine) return;
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/attempts?user_id=eq.${encodeURIComponent(userId)}&select=*`, {
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+      });
+      if (!res.ok) return;
+      const remoteRows = await res.json();
+      if (Array.isArray(remoteRows) && remoteRows.length > 0) {
+        const existingKeys = new Set(this.rows.map((r) => `${r.session_id}:${r.attempt_index}`));
+        let added = 0;
+        for (const row of remoteRows) {
+          const key = `${row.session_id}:${row.attempt_index}`;
+          if (!existingKeys.has(key)) {
+            this.rows.push(row);
+            existingKeys.add(key);
+            added++;
+          }
+        }
+        if (added > 0) {
+          writeJSON(ROWS_KEY, this.rows);
+          this.onStatus('ok', `synced · ${this.rows.length} rows`);
+        }
+      }
+    } catch (e) {
+      console.warn('Could not sync remote user rows:', e);
+    }
+  }
+
   toCSV() {
     const esc = (v) => {
       if (v === null || v === undefined) return '';
