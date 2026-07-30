@@ -57,10 +57,11 @@ const state = {
 // ---------------------------------------------------------------------------
 
 async function boot() {
-  const res = await fetch('../data/braille_map.json');
-  if (!res.ok) {
-    alert('Could not load data/braille_map.json.\n\nServe the REPOSITORY ROOT, not web/:\n' +
-          '  python3 -m http.server 8000\nthen open http://localhost:8000/web/');
+  let res = await fetch('./data/braille_map.json').catch(() => null);
+  if (!res || !res.ok) res = await fetch('../data/braille_map.json').catch(() => null);
+  if (!res || !res.ok) res = await fetch('/data/braille_map.json').catch(() => null);
+  if (!res || !res.ok) {
+    alert('Could not load braille_map.json.\n\nPlease check server path.');
     return;
   }
   const map = await res.json();
