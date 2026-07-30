@@ -14,6 +14,8 @@ import {
 import { BrailleCell, KeyPad, dotsToMask, maskToDots } from './braille_cell.js';
 import { LearnerState, AttemptLogger, deviceId, uuid } from './storage.js';
 
+import { FALLBACK_MAP } from './braille_map_fallback.js';
+
 const MAX_TRIES_PER_PROMPT = 4;   // then move on regardless
 const $ = (id) => document.getElementById(id);
 
@@ -57,14 +59,16 @@ const state = {
 // ---------------------------------------------------------------------------
 
 async function boot() {
-  let res = await fetch('./data/braille_map.json').catch(() => null);
-  if (!res || !res.ok) res = await fetch('../data/braille_map.json').catch(() => null);
-  if (!res || !res.ok) res = await fetch('/data/braille_map.json').catch(() => null);
-  if (!res || !res.ok) {
-    alert('Could not load braille_map.json.\n\nPlease check server path.');
-    return;
+  let map = null;
+  try {
+    let res = await fetch('./data/braille_map.json').catch(() => null);
+    if (!res || !res.ok) res = await fetch('../data/braille_map.json').catch(() => null);
+    if (!res || !res.ok) res = await fetch('/data/braille_map.json').catch(() => null);
+    if (res && res.ok) map = await res.json().catch(() => null);
+  } catch (e) {
+    console.warn('Network map fetch failed, using fallback:', e);
   }
-  const map = await res.json();
+  if (!map) map = FALLBACK_MAP;
   state.letters = map.letters;
   state.mapVerified = Boolean(map.verified);
   renderMapBanner(map);
