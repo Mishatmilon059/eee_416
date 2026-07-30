@@ -41,10 +41,38 @@ CSV_COLUMNS = [
 PAGE = 1000
 
 
+def load_dotenv(path=None):
+    """Read .env into a dict. Deliberately not exported into os.environ, so a
+    secret key cannot leak into a subprocess that had no business seeing it."""
+    path = path or (ROOT / ".env")
+    out = {}
+    if not path.exists():
+        return out
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        k, _, v = line.partition("=")
+        out[k.strip()] = v.strip().strip('"').strip("'")
+    return out
+
+
 def creds():
-    url = os.environ.get("SUPABASE_URL", "").strip()
-    key = os.environ.get("SUPABASE_SERVICE_KEY", "").strip() or \
-          os.environ.get("SUPABASE_ANON_KEY", "").strip()
+    """Resolution order: environment, then .env, then web/config.js.
+
+    The secret key is preferred when present because it bypasses RLS -- needed
+    if you tighten the select policy in schema.sql. It must only ever come from
+    the environment or .env, never from web/config.js, which is served to
+    every browser.
+    """
+    env = load_dotenv()
+
+    def pick(name):
+        return (os.environ.get(name, "").strip() or env.get(name, "").strip())
+
+    url = pick("SUPABASE_URL")
+    key = pick("SUPABASE_SERVICE_KEY") or pick("SUPABASE_SERVICE_ROLE_KEY") \
+        or pick("SUPABASE_ANON_KEY")
     if url and key:
         return url.rstrip("/"), key
     cfg = ROOT / "web" / "config.js"

@@ -67,9 +67,19 @@ async function main() {
       .find((p) => existsSync(p));
   const browser = await chromium.launch(executablePath ? { executablePath } : {});
   const page = await browser.newPage();
+
+  // A backend that cannot be reached is a CONDITION THIS APP IS BUILT TO
+  // SURVIVE, not a defect: rows queue in localStorage and flush on reconnect.
+  // Those failures are logged on purpose, so they are classified apart from
+  // genuine JS errors rather than failing the run. The offline-resilience
+  // section below then asserts the queue actually did its job.
   const errors = [];
-  page.on('pageerror', (e) => errors.push(String(e)));
-  page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
+  const backendErrors = [];
+  const isBackendNoise = (t) =>
+    /supabase|ERR_TUNNEL_CONNECTION_FAILED|ERR_NAME_NOT_RESOLVED|ERR_INTERNET_DISCONNECTED|ERR_CONNECTION_REFUSED|Failed to fetch/i.test(t);
+  const record = (t) => (isBackendNoise(t) ? backendErrors : errors).push(t);
+  page.on('pageerror', (e) => record(String(e)));
+  page.on('console', (m) => { if (m.type() === 'error') record(m.text()); });
 
   await page.goto(`http://localhost:${PORT}/web/`, { waitUntil: 'networkidle' });
 
@@ -220,9 +230,42 @@ async function main() {
   });
   check('CSV has 29 columns', csv.colCount === 29, `got ${csv.colCount}`);
 
+  // --- offline resilience -------------------------------------------------
+  // The core promise of storage.js is that collection never stops because the
+  // backend is down. When the backend IS unreachable during a run, that is a
+  // free real-world test of exactly that path -- so assert it rather than
+  // waving the errors away.
+  console.log('\n-- offline resilience --');
+  const cfg = await page.evaluate(async () => {
+    const m = await import('./config.js');
+    return { configured: Boolean(m.SUPABASE_URL && m.SUPABASE_ANON_KEY) };
+  });
+  const queued = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem('braille.queue') || '[]').length);
+
+  if (!cfg.configured) {
+    console.log('  info  no backend configured -- offline queue not exercised');
+  } else if (backendErrors.length) {
+    console.log(`  info  backend unreachable this run (${backendErrors.length} network ` +
+      'error(s)) -- exercising the offline path for real');
+    check('a failed backend did not stop the session',
+      rows.length === TOTAL, `only ${rows.length}/${TOTAL} rows logged`);
+    check('unsent rows are queued for retry, not dropped',
+      queued === rows.length, `${queued} queued vs ${rows.length} logged`);
+    check('rows survive locally regardless of the backend',
+      rows.length === TOTAL);
+  } else {
+    console.log(`  info  backend reachable; ${queued} row(s) still queued`);
+    check('queue drains when the backend is reachable', queued === 0, `${queued} left`);
+  }
+
   console.log('\n-- runtime errors --');
   check('no uncaught JS errors during the whole run', errors.length === 0,
     errors.slice(0, 3).join(' | '));
+  if (backendErrors.length) {
+    console.log(`  info  ${backendErrors.length} backend network error(s) ignored ` +
+      '(expected and handled -- see offline resilience above)');
+  }
 
   await browser.close();
   server.close();

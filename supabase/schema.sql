@@ -73,6 +73,11 @@ create unique index if not exists attempts_dedupe_idx
 -- ---------------------------------------------------------------------------
 -- Row Level Security
 -- ---------------------------------------------------------------------------
+-- Note on Supabase's newer API keys: a `sb_publishable_...` key maps to the
+-- `anon` role exactly as the legacy anon JWT did, so the policies below apply
+-- to it unchanged. A `sb_secret_...` key maps to `service_role` and BYPASSES
+-- every policy here -- which is why it must never appear in web/config.js.
+--
 -- The web app runs with the public anon key, so anon must be able to INSERT.
 -- These policies also let anon SELECT, which is what makes tools/export_dataset.py
 -- work without a service key.

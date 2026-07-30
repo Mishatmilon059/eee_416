@@ -132,10 +132,29 @@ across **several days per participant**, otherwise `session_number` and
   selection toward genuinely stale and genuinely weak characters — it does not
   fabricate feature values.
 
-Set up Supabase (optional but recommended for two people on two laptops):
-run `supabase/schema.sql` in the SQL editor, then put the project URL and anon
-key in `web/config.js`. Without it the app still works fully offline and
-exports CSV per device.
+**Supabase is already wired up** (`web/config.js` holds the project URL and
+publishable key). Two things left to do once:
+
+```bash
+# 1. paste supabase/schema.sql into the Supabase SQL editor and run it
+# 2. prove it works -- this was NOT runnable where the project was built,
+#    because supabase.co is blocked by egress policy there
+cp .env.example .env
+python3 tools/test_supabase.py --write
+```
+
+`test_supabase.py` checks the things that actually break collection: that the
+table exists, that the publishable key can INSERT (a project can be reachable
+and readable while still rejecting writes), and that the dedupe index turns a
+replayed row into a no-op — which is what the offline queue depends on when a
+laptop reconnects mid-session.
+
+Without any of this the app still runs fully offline and exports CSV per device.
+
+**Key hygiene:** the publishable key in `web/config.js` is meant to be public —
+RLS decides what it can do. The **secret** key bypasses RLS entirely and belongs
+only in `.env` (gitignored). If it is ever pasted into a chat, a screenshot, or
+a commit, rotate it in Supabase → Settings → API Keys. Rotation is instant.
 
 ### 2. Generate synthetic data — *after* step 1, not before
 

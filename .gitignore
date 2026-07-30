@@ -7,6 +7,7 @@ node_modules/
 
 # local Supabase credentials (anon key is public, but keep it out of git anyway)
 web/config.local.js
+.env
 
 # training intermediates
 dataset/*.csv
