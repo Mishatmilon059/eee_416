@@ -1,0 +1,4 @@
+is_real,rule_label,model_label,model_confidence,char_id,response_time,press_duration,retry_count,prev_accuracy,prev_mastery,hint_count,session_number,difficulty_level,time_since_last_practice,prev_confidence,current_streak,wrong_streak,prev_mistakes
+False,NORMAL_PRACTICE,REPEAT,0.698,2.0,1661.5897166051348,100.02970729084716,0.0,0.0,0.0,0.0,3.0,1.0,442660.85677197267,1.0,1.0,0.0,4.0
+False,INCREASE_DIFFICULTY,WORD_PRACTICE,0.837,43.0,2465.882155973428,143.13948502410872,0.0,0.782608695652174,0.9678397178887319,0.0,3.0,5.0,15.127791015625,0.0,10.0,0.0,5.0
+False,NORMAL_PRACTICE,REPEAT,0.929,46.0,1487.283480025744,77.44968920831114,0.0,0.0,0.0,0.0,1.0,1.0,604800.0,1.0,1.0,0.0,0.0

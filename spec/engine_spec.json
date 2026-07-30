@@ -107,12 +107,13 @@
     {
       "id": "ta_review_after_long_gap",
       "conditions": [
+        { "feature": "prev_mastery",             "op": ">=", "value": 0.05 },
         { "feature": "time_since_last_practice", "op": ">=", "value": 86400 },
         { "feature": "prev_mastery",             "op": "<",  "value": 0.50 }
       ],
       "logic": "AND",
       "result": "REVIEW_PREVIOUS",
-      "rationale": "Weak character not seen for a day; refresh it."
+      "rationale": "Character was partly learned, then went stale for a day and faded. The prev_mastery >= 0.05 floor is load-bearing: a never-before-seen character reports maximum time_since_last_practice (the 'never practiced' sentinel) with mastery 0, and without the floor this rule fires on first sight of EVERY character -- which is nonsense, you cannot review something never learned. It also excludes characters the learner has only ever failed (mastery stays exactly 0), which need NORMAL_PRACTICE, not review."
     },
     {
       "id": "ta_default",

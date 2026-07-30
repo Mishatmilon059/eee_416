@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
-"""Prove web/rule_engine.js and firmware/rule_engine.h behave identically.
+"""Prove all THREE generated rule engines behave identically.
 
-Pushes N random feature vectors through both implementations and compares the
-teaching action, the confidence state, and all 14 normalized values.
+  web/rule_engine.js          labels rows during collection
+  firmware/rule_engine.h      runs on the ESP32
+  tools/rule_engine_gen.py    labels synthetic rows and evaluates the model
 
-This test failing means a model trained on web-collected data will misbehave on
-the ESP32. It must stay green. Run it after every tools/gen_engine.py.
+Pushes N feature vectors through all three and compares the teaching action,
+the confidence state, and all 14 normalized values.
+
+This failing means one of three things, all bad: a model trained on
+web-collected data will misbehave on the ESP32, or 60% of the dataset carries
+labels that disagree with the 40% collected from real users. It must stay
+green. Run it after every tools/gen_engine.py.
 
     python3 tools/test_parity.py [N]
 
@@ -136,10 +142,24 @@ def main():
             return 1
         js_out = r.stdout
 
+    # --- Python engine, in-process -----------------------------------------
+    sys.path.insert(0, str(ROOT / "tools"))
+    import rule_engine_gen as py_engine  # noqa: E402  (generated, must exist by now)
+
+    py_lines = []
+    for row in rows:
+        f = {name: row[i] for i, name, _, _ in py_engine.FEATURE_RANGES}
+        norm = py_engine.normalize_features(f)
+        parts = [str(int(py_engine.evaluate_teaching_action(f))),
+                 str(int(py_engine.evaluate_confidence(f)))]
+        parts += [f"{v:.9g}" for v in norm]
+        py_lines.append(" ".join(parts))
+
     c_lines = [l for l in c_out.strip().split("\n") if l]
     js_lines = [l for l in js_out.strip().split("\n") if l]
-    if len(c_lines) != len(js_lines) != n:
-        print(f"FAIL: row count mismatch C={len(c_lines)} JS={len(js_lines)} expected={n}")
+    if not (len(c_lines) == len(js_lines) == len(py_lines) == n):
+        print(f"FAIL: row count mismatch C={len(c_lines)} JS={len(js_lines)} "
+              f"PY={len(py_lines)} expected={n}")
         return 1
 
     ta_names = SPEC["outputs"]["teaching_action"]["classes"]
@@ -147,22 +167,25 @@ def main():
     mismatches = []
     ta_hist, cs_hist = {}, {}
 
-    for i, (cl, jl) in enumerate(zip(c_lines, js_lines)):
-        cf, jf = cl.split(), jl.split()
+    for i, (cl, jl, pl) in enumerate(zip(c_lines, js_lines, py_lines)):
+        cf, jf, pf = cl.split(), jl.split(), pl.split()
         ta_hist[int(cf[0])] = ta_hist.get(int(cf[0]), 0) + 1
         cs_hist[int(cf[1])] = cs_hist.get(int(cf[1]), 0) + 1
 
-        if cf[0] != jf[0]:
-            mismatches.append(f"row {i}: teaching_action C={ta_names[int(cf[0])]} "
-                              f"JS={ta_names[int(jf[0])]}  in={rows[i]}")
-        if cf[1] != jf[1]:
-            mismatches.append(f"row {i}: confidence C={cs_names[int(cf[1])]} "
-                              f"JS={cs_names[int(jf[1])]}  in={rows[i]}")
+        for other, label in ((jf, "JS"), (pf, "PY")):
+            if cf[0] != other[0]:
+                mismatches.append(f"row {i}: teaching_action C={ta_names[int(cf[0])]} "
+                                  f"{label}={ta_names[int(other[0])]}  in={rows[i]}")
+            if cf[1] != other[1]:
+                mismatches.append(f"row {i}: confidence C={cs_names[int(cf[1])]} "
+                                  f"{label}={cs_names[int(other[1])]}  in={rows[i]}")
         for k in range(len(FEATURES)):
-            cv, jv = float(cf[2 + k]), float(jf[2 + k])
-            if abs(cv - jv) > TOL:
-                mismatches.append(f"row {i}: norm[{FEATURES[k]['name']}] "
-                                  f"C={cv!r} JS={jv!r} delta={abs(cv - jv):.3g}")
+            cv = float(cf[2 + k])
+            for other, label in ((jf, "JS"), (pf, "PY")):
+                ov = float(other[2 + k])
+                if abs(cv - ov) > TOL:
+                    mismatches.append(f"row {i}: norm[{FEATURES[k]['name']}] "
+                                      f"C={cv!r} {label}={ov!r} delta={abs(cv - ov):.3g}")
 
     print(f"vectors compared : {n}")
     print(f"fields per vector: {2 + len(FEATURES)}")
@@ -186,7 +209,7 @@ def main():
             print(f"  ... {len(mismatches) - 20} more")
         return 1
 
-    print("\nOK - JS and C rule engines agree on every vector")
+    print("\nOK - JS, C and Python rule engines agree on every vector")
     return 0
 
 

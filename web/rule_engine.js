@@ -98,8 +98,8 @@ export function evaluateTeachingAction(f) {
   // ta_increase_difficulty: Doing well; raise the tier.
   if (f.prev_mastery >= 0.7 && f.current_streak >= 3.0) return TEACHING_ACTION.INCREASE_DIFFICULTY;
 
-  // ta_review_after_long_gap: Weak character not seen for a day; refresh it.
-  if (f.time_since_last_practice >= 86400.0 && f.prev_mastery < 0.5) return TEACHING_ACTION.REVIEW_PREVIOUS;
+  // ta_review_after_long_gap: Character was partly learned, then went stale for a day and faded. The prev_mastery >= 0.05 floor is load-bearing: a never-before-seen character reports maximum time_since_last_practice (the 'never practiced' sentinel) with mastery 0, and without the floor this rule fires on first sight of EVERY character -- which is nonsense, you cannot review something never learned. It also excludes characters the learner has only ever failed (mastery stays exactly 0), which need NORMAL_PRACTICE, not review.
+  if (f.prev_mastery >= 0.05 && f.time_since_last_practice >= 86400.0 && f.prev_mastery < 0.5) return TEACHING_ACTION.REVIEW_PREVIOUS;
 
   // ta_default: Default.
   return TEACHING_ACTION.NORMAL_PRACTICE;

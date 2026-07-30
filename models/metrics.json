@@ -1,0 +1,24 @@
+{
+  "params": 1161,
+  "rows": {
+    "real": 0,
+    "synthetic": 600
+  },
+  "test": {
+    "teaching_combined": 0.967032967032967,
+    "teaching_real_only": NaN,
+    "teaching_majority_baseline": 0.37362637362637363,
+    "confidence_combined": 0.8791208791208791,
+    "confidence_real_only": NaN,
+    "confidence_majority_baseline": 0.5274725274725275
+  },
+  "rule_agreement": 0.967032967032967,
+  "disagreements": {
+    "total": 3,
+    "real": 0
+  },
+  "tflite_bytes": 5928,
+  "tflite_vs_keras_teaching": 1.0,
+  "spec_version": 1,
+  "trained_on_real_data": false
+}
