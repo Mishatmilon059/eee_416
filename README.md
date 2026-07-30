@@ -269,6 +269,15 @@ with the data already collected and the volunteers gone.
 
 ---
 
+## Full report
+
+`docs/PROJECT_REPORT.md` — end-to-end write-up: architecture, the 14 features
+and why correctness is derivable from the streaks, measured results, hardware
+design, every known limitation, and what can and cannot honestly be claimed
+today. Every figure in it is checked against the source data.
+
+---
+
 ## Layout
 
 ```
