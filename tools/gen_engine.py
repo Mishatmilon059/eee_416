@@ -183,8 +183,10 @@ typedef enum {{
 {cs_enum}
 }} ConfidenceState;
 
-static const char *TEACHING_ACTION_NAMES[] = {{ {ta_names} }};
-static const char *CONFIDENCE_STATE_NAMES[] = {{ {cs_names} }};
+// Only referenced by the SD-card log path, so a build that does not log would
+// warn on them; the attribute keeps -Wall -Wextra clean either way.
+__attribute__((unused)) static const char *TEACHING_ACTION_NAMES[] = {{ {ta_names} }};
+__attribute__((unused)) static const char *CONFIDENCE_STATE_NAMES[] = {{ {cs_names} }};
 
 // All fields are the state AFTER the current attempt has been scored.
 // current_streak > 0 => that attempt was CORRECT; wrong_streak > 0 => WRONG.

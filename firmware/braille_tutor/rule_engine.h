@@ -21,8 +21,10 @@ typedef enum {
   CS_GUESSING = 2
 } ConfidenceState;
 
-static const char *TEACHING_ACTION_NAMES[] = { "REPEAT", "HINT", "NORMAL_PRACTICE", "INCREASE_DIFFICULTY", "REVIEW_PREVIOUS", "WORD_PRACTICE" };
-static const char *CONFIDENCE_STATE_NAMES[] = { "CONFIDENT", "HESITANT", "GUESSING" };
+// Only referenced by the SD-card log path, so a build that does not log would
+// warn on them; the attribute keeps -Wall -Wextra clean either way.
+__attribute__((unused)) static const char *TEACHING_ACTION_NAMES[] = { "REPEAT", "HINT", "NORMAL_PRACTICE", "INCREASE_DIFFICULTY", "REVIEW_PREVIOUS", "WORD_PRACTICE" };
+__attribute__((unused)) static const char *CONFIDENCE_STATE_NAMES[] = { "CONFIDENT", "HESITANT", "GUESSING" };
 
 // All fields are the state AFTER the current attempt has been scored.
 // current_streak > 0 => that attempt was CORRECT; wrong_streak > 0 => WRONG.
