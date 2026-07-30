@@ -1,0 +1,219 @@
+{
+  "_comment": "Track number -> meaning. DFPlayer plays by number, not name.",
+  "voice": "espeak-ng bn",
+  "human_recorded": false,
+  "letters": {
+    "1": {
+      "char": "অ",
+      "name": "a"
+    },
+    "2": {
+      "char": "আ",
+      "name": "aa"
+    },
+    "3": {
+      "char": "ই",
+      "name": "i"
+    },
+    "4": {
+      "char": "ঈ",
+      "name": "ii"
+    },
+    "5": {
+      "char": "উ",
+      "name": "u"
+    },
+    "6": {
+      "char": "ঊ",
+      "name": "uu"
+    },
+    "7": {
+      "char": "ঋ",
+      "name": "ri"
+    },
+    "8": {
+      "char": "এ",
+      "name": "e"
+    },
+    "9": {
+      "char": "ঐ",
+      "name": "oi"
+    },
+    "10": {
+      "char": "ও",
+      "name": "o"
+    },
+    "11": {
+      "char": "ঔ",
+      "name": "ou"
+    },
+    "12": {
+      "char": "ক",
+      "name": "ka"
+    },
+    "13": {
+      "char": "খ",
+      "name": "kha"
+    },
+    "14": {
+      "char": "গ",
+      "name": "ga"
+    },
+    "15": {
+      "char": "ঘ",
+      "name": "gha"
+    },
+    "16": {
+      "char": "ঙ",
+      "name": "uma"
+    },
+    "17": {
+      "char": "চ",
+      "name": "cha"
+    },
+    "18": {
+      "char": "ছ",
+      "name": "chha"
+    },
+    "19": {
+      "char": "জ",
+      "name": "ja"
+    },
+    "20": {
+      "char": "ঝ",
+      "name": "jha"
+    },
+    "21": {
+      "char": "ঞ",
+      "name": "nia"
+    },
+    "22": {
+      "char": "ট",
+      "name": "tta"
+    },
+    "23": {
+      "char": "ঠ",
+      "name": "ttha"
+    },
+    "24": {
+      "char": "ড",
+      "name": "dda"
+    },
+    "25": {
+      "char": "ঢ",
+      "name": "ddha"
+    },
+    "26": {
+      "char": "ণ",
+      "name": "nna"
+    },
+    "27": {
+      "char": "ত",
+      "name": "ta"
+    },
+    "28": {
+      "char": "থ",
+      "name": "tha"
+    },
+    "29": {
+      "char": "দ",
+      "name": "da"
+    },
+    "30": {
+      "char": "ধ",
+      "name": "dha"
+    },
+    "31": {
+      "char": "ন",
+      "name": "na"
+    },
+    "32": {
+      "char": "প",
+      "name": "pa"
+    },
+    "33": {
+      "char": "ফ",
+      "name": "pha"
+    },
+    "34": {
+      "char": "ব",
+      "name": "ba"
+    },
+    "35": {
+      "char": "ভ",
+      "name": "bha"
+    },
+    "36": {
+      "char": "ম",
+      "name": "ma"
+    },
+    "37": {
+      "char": "য",
+      "name": "ya"
+    },
+    "38": {
+      "char": "র",
+      "name": "ra"
+    },
+    "39": {
+      "char": "ল",
+      "name": "la"
+    },
+    "40": {
+      "char": "শ",
+      "name": "sha"
+    },
+    "41": {
+      "char": "ষ",
+      "name": "ssa"
+    },
+    "42": {
+      "char": "স",
+      "name": "sa"
+    },
+    "43": {
+      "char": "হ",
+      "name": "ha"
+    },
+    "44": {
+      "char": "ড়",
+      "name": "rra"
+    },
+    "45": {
+      "char": "ঢ়",
+      "name": "rha"
+    },
+    "46": {
+      "char": "য়",
+      "name": "yya"
+    },
+    "47": {
+      "char": "ৎ",
+      "name": "khanda_ta"
+    },
+    "48": {
+      "char": "ং",
+      "name": "anushar"
+    },
+    "49": {
+      "char": "ঃ",
+      "name": "bisharga"
+    },
+    "50": {
+      "char": "ঁ",
+      "name": "chandrabindu"
+    }
+  },
+  "prompts": {
+    "51": "correct",
+    "52": "wrong",
+    "53": "try_again",
+    "54": "hint",
+    "55": "well_done",
+    "56": "next_letter",
+    "57": "review",
+    "58": "harder",
+    "59": "session_start",
+    "60": "session_end"
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "_comment": "SINGLE SOURCE OF TRUTH for the 14 features, the rule engine, and feature normalization.",
+  "_generated_files": [
+    "web/rule_engine.js",
+    "firmware/braille_tutor/rule_engine.h"
+  ],
+  "_do_not_edit_generated": "Never hand-edit the generated files. Edit this spec and run tools/gen_engine.py, then tools/test_parity.py.",
+  "version": 1,
+
+  "_feature_timing_contract": {
+    "critical": "ALL 14 features describe the state AFTER the current attempt has been scored, not before. This is what makes the rule engine's decision fully determined by the 14 features -- so the model can actually learn it.",
+    "correctness_is_derivable": "There is deliberately no is_correct feature. current_streak > 0 means the attempt just scored was CORRECT; wrong_streak > 0 means it was WRONG. They are mutually exclusive and exactly one is > 0 after any scored attempt.",
+    "why_it_matters": "If the rule engine branched on a variable the model never sees, the model could not reproduce the rule and accuracy would cap out for reasons that look like a training bug."
+  },
+
+  "features": [
+    { "index": 0,  "name": "char_id",                  "unit": "id",      "min": 0,     "max": 49,    "desc": "Index into data/braille_map.json letters[]" },
+    { "index": 1,  "name": "response_time",            "unit": "ms",      "min": 0,     "max": 15000, "desc": "Audio prompt end -> first key press. Clamped at max." },
+    { "index": 2,  "name": "press_duration",           "unit": "ms",      "min": 0,     "max": 2000,  "desc": "Mean press->release duration across the keys used in this attempt" },
+    { "index": 3,  "name": "retry_count",              "unit": "count",   "min": 0,     "max": 10,    "desc": "Retries on THIS character within the current prompt" },
+    { "index": 4,  "name": "prev_accuracy",            "unit": "ratio",   "min": 0,     "max": 1,     "desc": "Rolling accuracy on this character across all prior attempts" },
+    { "index": 5,  "name": "prev_mastery",             "unit": "ratio",   "min": 0,     "max": 1,     "desc": "Mastery score for this character (see mastery_update)" },
+    { "index": 6,  "name": "hint_count",               "unit": "count",   "min": 0,     "max": 10,    "desc": "Hints used on this character within the current prompt" },
+    { "index": 7,  "name": "session_number",           "unit": "count",   "min": 1,     "max": 50,    "desc": "1-based session index for this user" },
+    { "index": 8,  "name": "difficulty_level",         "unit": "level",   "min": 1,     "max": 5,     "desc": "Current adaptive difficulty tier" },
+    { "index": 9,  "name": "time_since_last_practice", "unit": "s",       "min": 0,     "max": 604800,"desc": "Seconds since this character was last practiced. Clamped at 7 days." },
+    { "index": 10, "name": "prev_confidence",          "unit": "enum",    "min": 0,     "max": 2,     "desc": "Previous confidence state: 0 CONFIDENT, 1 HESITANT, 2 GUESSING" },
+    { "index": 11, "name": "current_streak",           "unit": "count",   "min": 0,     "max": 20,    "desc": "Consecutive CORRECT attempts on this character. >0 means the attempt just scored was correct." },
+    { "index": 12, "name": "wrong_streak",             "unit": "count",   "min": 0,     "max": 20,    "desc": "Consecutive WRONG attempts on this character. >0 means the attempt just scored was wrong." },
+    { "index": 13, "name": "prev_mistakes",            "unit": "count",   "min": 0,     "max": 50,    "desc": "Lifetime wrong attempts on this character, all sessions" }
+  ],
+
+  "_normalization_note": "Fixed min-max scaling with clamping, using the min/max above. DELIBERATELY NOT dataset-derived: fixed ranges mean the ESP32's normalization can never drift from what the model was trained on, even when the dataset grows and the model is retrained. normalized = clamp((raw - min) / (max - min), 0, 1)",
+  "normalization": "minmax_clamped",
+
+  "outputs": {
+    "teaching_action": {
+      "head_size": 6,
+      "classes": ["REPEAT", "HINT", "NORMAL_PRACTICE", "INCREASE_DIFFICULTY", "REVIEW_PREVIOUS", "WORD_PRACTICE"]
+    },
+    "confidence_state": {
+      "head_size": 3,
+      "classes": ["CONFIDENT", "HESITANT", "GUESSING"]
+    }
+  },
+
+  "_rules_note": "Ordered list, FIRST MATCH WINS. All conditions in a rule are ANDed unless logic is OR. The final rule must have an empty condition list (the default).",
+
+  "teaching_action_rules": [
+    {
+      "id": "ta_review_on_repeated_failure",
+      "conditions": [ { "feature": "wrong_streak", "op": ">=", "value": 3 } ],
+      "logic": "AND",
+      "result": "REVIEW_PREVIOUS",
+      "rationale": "Three wrong in a row on one character means the learner is stuck; go back rather than grind."
+    },
+    {
+      "id": "ta_hint_after_retries",
+      "conditions": [
+        { "feature": "retry_count", "op": ">=", "value": 2 },
+        { "feature": "hint_count",  "op": "==", "value": 0 }
+      ],
+      "logic": "AND",
+      "result": "HINT",
+      "rationale": "Struggling but no hint given yet."
+    },
+    {
+      "id": "ta_repeat_on_wrong",
+      "conditions": [ { "feature": "wrong_streak", "op": ">=", "value": 1 } ],
+      "logic": "AND",
+      "result": "REPEAT",
+      "rationale": "Attempt was wrong (see correctness_is_derivable) but not yet stuck."
+    },
+    {
+      "id": "ta_word_practice_on_mastery",
+      "conditions": [
+        { "feature": "prev_mastery",   "op": ">=", "value": 0.85 },
+        { "feature": "current_streak", "op": ">=", "value": 5 },
+        { "feature": "prev_accuracy",  "op": ">=", "value": 0.80 }
+      ],
+      "logic": "AND",
+      "result": "WORD_PRACTICE",
+      "rationale": "Character is solid; move to word-level use."
+    },
+    {
+      "id": "ta_increase_difficulty",
+      "conditions": [
+        { "feature": "prev_mastery",   "op": ">=", "value": 0.70 },
+        { "feature": "current_streak", "op": ">=", "value": 3 }
+      ],
+      "logic": "AND",
+      "result": "INCREASE_DIFFICULTY",
+      "rationale": "Doing well; raise the tier."
+    },
+    {
+      "id": "ta_review_after_long_gap",
+      "conditions": [
+        { "feature": "time_since_last_practice", "op": ">=", "value": 86400 },
+        { "feature": "prev_mastery",             "op": "<",  "value": 0.50 }
+      ],
+      "logic": "AND",
+      "result": "REVIEW_PREVIOUS",
+      "rationale": "Weak character not seen for a day; refresh it."
+    },
+    {
+      "id": "ta_default",
+      "conditions": [],
+      "logic": "AND",
+      "result": "NORMAL_PRACTICE",
+      "rationale": "Default."
+    }
+  ],
+
+  "confidence_rules": [
+    {
+      "id": "cs_guessing",
+      "conditions": [
+        { "feature": "retry_count",   "op": ">=", "value": 2 },
+        { "feature": "response_time", "op": ">=", "value": 6000 }
+      ],
+      "logic": "OR",
+      "result": "GUESSING",
+      "rationale": "Many retries or a very long pause both read as guessing."
+    },
+    {
+      "id": "cs_confident",
+      "conditions": [
+        { "feature": "response_time",  "op": "<=", "value": 2500 },
+        { "feature": "retry_count",    "op": "==", "value": 0 },
+        { "feature": "wrong_streak",   "op": "==", "value": 0 },
+        { "feature": "press_duration", "op": "<=", "value": 400 }
+      ],
+      "logic": "AND",
+      "result": "CONFIDENT",
+      "rationale": "Fast, clean, first-try, correct."
+    },
+    {
+      "id": "cs_default",
+      "conditions": [],
+      "logic": "AND",
+      "result": "HESITANT",
+      "rationale": "Default."
+    }
+  ],
+
+  "mastery_update": {
+    "_comment": "Exponential moving average, applied AFTER each scored attempt. Shared by web, firmware, and the synthetic generator so mastery curves are identical everywhere.",
+    "alpha_correct": 0.25,
+    "alpha_wrong": 0.35,
+    "formula": "correct ? m + alpha_correct * (1 - m) : m - alpha_wrong * m",
+    "initial": 0.0
+  },
+
+  "difficulty_update": {
+    "_comment": "Applied after the teaching action is chosen.",
+    "min": 1,
+    "max": 5,
+    "increase_on": ["INCREASE_DIFFICULTY"],
+    "decrease_on": ["REVIEW_PREVIOUS"]
+  },
+
+  "session": {
+    "_comment": "Definition of a session, so session_number and time_since_last_practice mean the same thing everywhere.",
+    "idle_timeout_s": 900,
+    "target_attempts": 20
+  }
+}

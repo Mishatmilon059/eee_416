@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="240" viewBox="0 0 160 240" role="img" aria-label="Bangla ল (la), Braille dots 1-2-3">
+<rect width="160" height="240" fill="#ffffff"/>
+<circle cx="40" cy="40" r="22" fill="#1a1a1a"/>
+<circle cx="40" cy="120" r="22" fill="#1a1a1a"/>
+<circle cx="40" cy="200" r="22" fill="#1a1a1a"/>
+<circle cx="120" cy="40" r="22" fill="#ffffff" stroke="#c8c8c8" stroke-width="2" stroke-dasharray="4 4"/>
+<circle cx="120" cy="120" r="22" fill="#ffffff" stroke="#c8c8c8" stroke-width="2" stroke-dasharray="4 4"/>
+<circle cx="120" cy="200" r="22" fill="#ffffff" stroke="#c8c8c8" stroke-width="2" stroke-dasharray="4 4"/>
+</svg>

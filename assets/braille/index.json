@@ -1,0 +1,610 @@
+[
+  {
+    "id": 0,
+    "char": "অ",
+    "name": "a",
+    "dots": [
+      1
+    ],
+    "svg": "00_a.svg",
+    "png": "00_a.png"
+  },
+  {
+    "id": 1,
+    "char": "আ",
+    "name": "aa",
+    "dots": [
+      3,
+      4,
+      5
+    ],
+    "svg": "01_aa.svg",
+    "png": "01_aa.png"
+  },
+  {
+    "id": 2,
+    "char": "ই",
+    "name": "i",
+    "dots": [
+      2,
+      4
+    ],
+    "svg": "02_i.svg",
+    "png": "02_i.png"
+  },
+  {
+    "id": 3,
+    "char": "ঈ",
+    "name": "ii",
+    "dots": [
+      3,
+      5
+    ],
+    "svg": "03_ii.svg",
+    "png": "03_ii.png"
+  },
+  {
+    "id": 4,
+    "char": "উ",
+    "name": "u",
+    "dots": [
+      1,
+      3,
+      6
+    ],
+    "svg": "04_u.svg",
+    "png": "04_u.png"
+  },
+  {
+    "id": 5,
+    "char": "ঊ",
+    "name": "uu",
+    "dots": [
+      1,
+      2,
+      5,
+      6
+    ],
+    "svg": "05_uu.svg",
+    "png": "05_uu.png"
+  },
+  {
+    "id": 6,
+    "char": "ঋ",
+    "name": "ri",
+    "dots": [
+      2,
+      3,
+      5
+    ],
+    "svg": "06_ri.svg",
+    "png": "06_ri.png"
+  },
+  {
+    "id": 7,
+    "char": "এ",
+    "name": "e",
+    "dots": [
+      1,
+      5
+    ],
+    "svg": "07_e.svg",
+    "png": "07_e.png"
+  },
+  {
+    "id": 8,
+    "char": "ঐ",
+    "name": "oi",
+    "dots": [
+      3,
+      4
+    ],
+    "svg": "08_oi.svg",
+    "png": "08_oi.png"
+  },
+  {
+    "id": 9,
+    "char": "ও",
+    "name": "o",
+    "dots": [
+      1,
+      3,
+      5
+    ],
+    "svg": "09_o.svg",
+    "png": "09_o.png"
+  },
+  {
+    "id": 10,
+    "char": "ঔ",
+    "name": "ou",
+    "dots": [
+      2,
+      4,
+      6
+    ],
+    "svg": "10_ou.svg",
+    "png": "10_ou.png"
+  },
+  {
+    "id": 11,
+    "char": "ক",
+    "name": "ka",
+    "dots": [
+      1,
+      3
+    ],
+    "svg": "11_ka.svg",
+    "png": "11_ka.png"
+  },
+  {
+    "id": 12,
+    "char": "খ",
+    "name": "kha",
+    "dots": [
+      4,
+      6
+    ],
+    "svg": "12_kha.svg",
+    "png": "12_kha.png"
+  },
+  {
+    "id": 13,
+    "char": "গ",
+    "name": "ga",
+    "dots": [
+      1,
+      2,
+      4,
+      5
+    ],
+    "svg": "13_ga.svg",
+    "png": "13_ga.png"
+  },
+  {
+    "id": 14,
+    "char": "ঘ",
+    "name": "gha",
+    "dots": [
+      1,
+      2,
+      6
+    ],
+    "svg": "14_gha.svg",
+    "png": "14_gha.png"
+  },
+  {
+    "id": 15,
+    "char": "ঙ",
+    "name": "uma",
+    "dots": [
+      3,
+      4,
+      6
+    ],
+    "svg": "15_uma.svg",
+    "png": "15_uma.png"
+  },
+  {
+    "id": 16,
+    "char": "চ",
+    "name": "cha",
+    "dots": [
+      1,
+      4
+    ],
+    "svg": "16_cha.svg",
+    "png": "16_cha.png"
+  },
+  {
+    "id": 17,
+    "char": "ছ",
+    "name": "chha",
+    "dots": [
+      1,
+      6
+    ],
+    "svg": "17_chha.svg",
+    "png": "17_chha.png"
+  },
+  {
+    "id": 18,
+    "char": "জ",
+    "name": "ja",
+    "dots": [
+      2,
+      4,
+      5
+    ],
+    "svg": "18_ja.svg",
+    "png": "18_ja.png"
+  },
+  {
+    "id": 19,
+    "char": "ঝ",
+    "name": "jha",
+    "dots": [
+      3,
+      5,
+      6
+    ],
+    "svg": "19_jha.svg",
+    "png": "19_jha.png"
+  },
+  {
+    "id": 20,
+    "char": "ঞ",
+    "name": "nia",
+    "dots": [
+      2,
+      5
+    ],
+    "svg": "20_nia.svg",
+    "png": "20_nia.png"
+  },
+  {
+    "id": 21,
+    "char": "ট",
+    "name": "tta",
+    "dots": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "svg": "21_tta.svg",
+    "png": "21_tta.png"
+  },
+  {
+    "id": 22,
+    "char": "ঠ",
+    "name": "ttha",
+    "dots": [
+      2,
+      4,
+      5,
+      6
+    ],
+    "svg": "22_ttha.svg",
+    "png": "22_ttha.png"
+  },
+  {
+    "id": 23,
+    "char": "ড",
+    "name": "dda",
+    "dots": [
+      1,
+      2,
+      4,
+      6
+    ],
+    "svg": "23_dda.svg",
+    "png": "23_dda.png"
+  },
+  {
+    "id": 24,
+    "char": "ঢ",
+    "name": "ddha",
+    "dots": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "svg": "24_ddha.svg",
+    "png": "24_ddha.png"
+  },
+  {
+    "id": 25,
+    "char": "ণ",
+    "name": "nna",
+    "dots": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "svg": "25_nna.svg",
+    "png": "25_nna.png"
+  },
+  {
+    "id": 26,
+    "char": "ত",
+    "name": "ta",
+    "dots": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "svg": "26_ta.svg",
+    "png": "26_ta.png"
+  },
+  {
+    "id": 27,
+    "char": "থ",
+    "name": "tha",
+    "dots": [
+      1,
+      4,
+      5,
+      6
+    ],
+    "svg": "27_tha.svg",
+    "png": "27_tha.png"
+  },
+  {
+    "id": 28,
+    "char": "দ",
+    "name": "da",
+    "dots": [
+      1,
+      4,
+      5
+    ],
+    "svg": "28_da.svg",
+    "png": "28_da.png"
+  },
+  {
+    "id": 29,
+    "char": "ধ",
+    "name": "dha",
+    "dots": [
+      2,
+      3,
+      4,
+      6
+    ],
+    "svg": "29_dha.svg",
+    "png": "29_dha.png"
+  },
+  {
+    "id": 30,
+    "char": "ন",
+    "name": "na",
+    "dots": [
+      1,
+      3,
+      4,
+      5
+    ],
+    "svg": "30_na.svg",
+    "png": "30_na.png"
+  },
+  {
+    "id": 31,
+    "char": "প",
+    "name": "pa",
+    "dots": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "svg": "31_pa.svg",
+    "png": "31_pa.png"
+  },
+  {
+    "id": 32,
+    "char": "ফ",
+    "name": "pha",
+    "dots": [
+      1,
+      2,
+      4
+    ],
+    "svg": "32_pha.svg",
+    "png": "32_pha.png"
+  },
+  {
+    "id": 33,
+    "char": "ব",
+    "name": "ba",
+    "dots": [
+      1,
+      2
+    ],
+    "svg": "33_ba.svg",
+    "png": "33_ba.png"
+  },
+  {
+    "id": 34,
+    "char": "ভ",
+    "name": "bha",
+    "dots": [
+      4,
+      5
+    ],
+    "svg": "34_bha.svg",
+    "png": "34_bha.png"
+  },
+  {
+    "id": 35,
+    "char": "ম",
+    "name": "ma",
+    "dots": [
+      1,
+      3,
+      4
+    ],
+    "svg": "35_ma.svg",
+    "png": "35_ma.png"
+  },
+  {
+    "id": 36,
+    "char": "য",
+    "name": "ya",
+    "dots": [
+      1,
+      3,
+      4,
+      5,
+      6
+    ],
+    "svg": "36_ya.svg",
+    "png": "36_ya.png"
+  },
+  {
+    "id": 37,
+    "char": "র",
+    "name": "ra",
+    "dots": [
+      1,
+      2,
+      3,
+      5
+    ],
+    "svg": "37_ra.svg",
+    "png": "37_ra.png"
+  },
+  {
+    "id": 38,
+    "char": "ল",
+    "name": "la",
+    "dots": [
+      1,
+      2,
+      3
+    ],
+    "svg": "38_la.svg",
+    "png": "38_la.png"
+  },
+  {
+    "id": 39,
+    "char": "শ",
+    "name": "sha",
+    "dots": [
+      1,
+      4,
+      6
+    ],
+    "svg": "39_sha.svg",
+    "png": "39_sha.png"
+  },
+  {
+    "id": 40,
+    "char": "ষ",
+    "name": "ssa",
+    "dots": [
+      1,
+      2,
+      3,
+      4,
+      6
+    ],
+    "svg": "40_ssa.svg",
+    "png": "40_ssa.png"
+  },
+  {
+    "id": 41,
+    "char": "স",
+    "name": "sa",
+    "dots": [
+      2,
+      3,
+      4
+    ],
+    "svg": "41_sa.svg",
+    "png": "41_sa.png"
+  },
+  {
+    "id": 42,
+    "char": "হ",
+    "name": "ha",
+    "dots": [
+      1,
+      2,
+      5
+    ],
+    "svg": "42_ha.svg",
+    "png": "42_ha.png"
+  },
+  {
+    "id": 43,
+    "char": "ড়",
+    "name": "rra",
+    "dots": [
+      1,
+      2,
+      4,
+      5,
+      6
+    ],
+    "svg": "43_rra.svg",
+    "png": "43_rra.png"
+  },
+  {
+    "id": 44,
+    "char": "ঢ়",
+    "name": "rha",
+    "dots": [
+      1,
+      2,
+      3,
+      5,
+      6
+    ],
+    "svg": "44_rha.svg",
+    "png": "44_rha.png"
+  },
+  {
+    "id": 45,
+    "char": "য়",
+    "name": "yya",
+    "dots": [
+      2,
+      3,
+      5,
+      6
+    ],
+    "svg": "45_yya.svg",
+    "png": "45_yya.png"
+  },
+  {
+    "id": 46,
+    "char": "ৎ",
+    "name": "khanda_ta",
+    "dots": [
+      2,
+      3,
+      6
+    ],
+    "svg": "46_khanda_ta.svg",
+    "png": "46_khanda_ta.png"
+  },
+  {
+    "id": 47,
+    "char": "ং",
+    "name": "anushar",
+    "dots": [
+      5,
+      6
+    ],
+    "svg": "47_anushar.svg",
+    "png": "47_anushar.png"
+  },
+  {
+    "id": 48,
+    "char": "ঃ",
+    "name": "bisharga",
+    "dots": [
+      2,
+      3
+    ],
+    "svg": "48_bisharga.svg",
+    "png": "48_bisharga.png"
+  },
+  {
+    "id": 49,
+    "char": "ঁ",
+    "name": "chandrabindu",
+    "dots": [
+      4
+    ],
+    "svg": "49_chandrabindu.svg",
+    "png": "49_chandrabindu.png"
+  }
+]

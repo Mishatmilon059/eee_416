@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/
+.DS_Store
+
+# local Supabase credentials (anon key is public, but keep it out of git anyway)
+web/config.local.js
+
+# training intermediates
+dataset/*.csv
+!dataset/.gitkeep
+models/*.keras
+models/*.h5
+.tmp_*.wav
