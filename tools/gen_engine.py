@@ -78,6 +78,8 @@ def gen_js(spec):
     return f"""// {BANNER}
 // spec version: {spec['version']}
 
+export const SPEC_VERSION = {spec['version']};
+
 export const TEACHING_ACTION = {{
 {ta_enum}
 }};
@@ -169,6 +171,7 @@ def gen_h(spec):
 #ifndef RULE_ENGINE_H
 #define RULE_ENGINE_H
 
+#define SPEC_VERSION {spec['version']}
 #define FEATURE_COUNT {len(feats)}
 
 typedef enum {{

@@ -8,9 +8,21 @@
   "version": 1,
 
   "_feature_timing_contract": {
-    "critical": "ALL 14 features describe the state AFTER the current attempt has been scored, not before. This is what makes the rule engine's decision fully determined by the 14 features -- so the model can actually learn it.",
-    "correctness_is_derivable": "There is deliberately no is_correct feature. current_streak > 0 means the attempt just scored was CORRECT; wrong_streak > 0 means it was WRONG. They are mutually exclusive and exactly one is > 0 after any scored attempt.",
-    "why_it_matters": "If the rule engine branched on a variable the model never sees, the model could not reproduce the rule and accuracy would cap out for reasons that look like a training bug."
+    "critical": "Each feature is sampled at a specific moment. Web and firmware MUST sample at the same moments or the model misbehaves on hardware. The three groups:",
+    "pre_attempt": {
+      "features": ["char_id", "prev_accuracy", "prev_mastery", "prev_mistakes", "prev_confidence", "session_number", "difficulty_level", "time_since_last_practice"],
+      "when": "Read from stored history BEFORE this attempt is scored. These answer 'what did we know about this learner going in'."
+    },
+    "current_attempt": {
+      "features": ["response_time", "press_duration", "retry_count", "hint_count"],
+      "when": "Measured during this attempt itself."
+    },
+    "post_attempt": {
+      "features": ["current_streak", "wrong_streak"],
+      "when": "Updated WITH this attempt's result, then read. This is the group that must not be sampled early."
+    },
+    "correctness_is_derivable": "There is deliberately no is_correct feature. Because the streaks are post-attempt, current_streak > 0 means the attempt just scored was CORRECT and wrong_streak > 0 means it was WRONG. They are mutually exclusive and exactly one is > 0 after any scored attempt.",
+    "why_it_matters": "The rule engine branches on wrong_streak to decide REPEAT. If the streaks were sampled pre-attempt, the engine would be branching on information the model cannot see in its input vector, and model accuracy would cap out for reasons that look like a training bug but are not."
   },
 
   "features": [

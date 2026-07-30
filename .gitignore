@@ -14,3 +14,4 @@ dataset/*.csv
 models/*.keras
 models/*.h5
 .tmp_*.wav
+package-lock.json

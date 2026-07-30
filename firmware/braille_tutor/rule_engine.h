@@ -3,6 +3,7 @@
 #ifndef RULE_ENGINE_H
 #define RULE_ENGINE_H
 
+#define SPEC_VERSION 1
 #define FEATURE_COUNT 14
 
 typedef enum {

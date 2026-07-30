@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>বাংলা ব্রেইল — Bangla Braille Tutor</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f1115'/%3E%3Cg fill='%234f9cf9'%3E%3Ccircle cx='11' cy='8' r='3.5'/%3E%3Ccircle cx='11' cy='16' r='3.5'/%3E%3Ccircle cx='21' cy='16' r='3.5'/%3E%3C/g%3E%3Cg fill='%23262b35'%3E%3Ccircle cx='21' cy='8' r='3.5'/%3E%3Ccircle cx='11' cy='24' r='3.5'/%3E%3Ccircle cx='21' cy='24' r='3.5'/%3E%3C/g%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #0f1115;
+    --panel: #171a21;
+    --panel-2: #1e222b;
+    --line: #2a2f3a;
+    --text: #e8eaed;
+    --muted: #9aa3b2;
+    --accent: #4f9cf9;
+    --ok: #3ecf8e;
+    --warn: #f5a524;
+    --bad: #f45b5b;
+    --dot-off: #262b35;
+    --dot-on: #4f9cf9;
+    --radius: 12px;
+    font-size: 16px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Noto Sans Bengali", "Hind Siliguri", system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 20px 20px 64px; }
+
+  /* --- unverified-map banner: deliberately loud ------------------------- */
+  #mapWarning {
+    display: none; background: #4a2c00; border: 1px solid var(--warn);
+    color: #ffd591; padding: 12px 16px; border-radius: var(--radius);
+    margin-bottom: 16px; font-size: 0.9rem;
+  }
+  #mapWarning.show { display: block; }
+  #mapWarning b { color: var(--warn); }
+
+  header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
+  header h1 { font-size: 1.35rem; margin: 0; font-weight: 650; }
+  header .sub { color: var(--muted); font-size: 0.85rem; }
+  .grow { flex: 1; }
+
+  .panel {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 18px; margin-bottom: 16px;
+  }
+  .panel h2 {
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--muted); margin: 0 0 14px; font-weight: 600;
+  }
+
+  label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 5px; }
+  input, select {
+    background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
+    padding: 9px 11px; border-radius: 8px; font: inherit; font-size: 0.92rem; width: 100%;
+  }
+  input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .row > div { flex: 1; min-width: 150px; }
+
+  button {
+    background: var(--accent); color: #06121f; border: 0; padding: 10px 18px;
+    border-radius: 8px; font: inherit; font-weight: 650; cursor: pointer;
+  }
+  button:hover { filter: brightness(1.1); }
+  button:disabled { opacity: 0.4; cursor: not-allowed; filter: none; }
+  button.ghost { background: transparent; border: 1px solid var(--line); color: var(--text); font-weight: 500; }
+  button.ghost:hover { border-color: var(--accent); filter: none; }
+
+  /* --- practice ---------------------------------------------------------- */
+  #practice { display: none; }
+  #practice.show { display: block; }
+
+  .stage { display: flex; gap: 26px; flex-wrap: wrap; align-items: flex-start; }
+  .stage > .left  { flex: 0 0 300px; }
+  .stage > .right { flex: 1; min-width: 300px; }
+
+  .prompt-char {
+    font-size: 5rem; line-height: 1; text-align: center; margin: 4px 0 2px;
+    font-weight: 600;
+  }
+  .prompt-name { text-align: center; color: var(--muted); font-size: 0.9rem; margin-bottom: 14px; }
+  .prompt-hidden { color: var(--line); }
+
+  /* Braille cell: dots 1,2,3 left column; 4,5,6 right column */
+  .cell {
+    display: grid; grid-template-columns: repeat(2, 62px); grid-template-rows: repeat(3, 62px);
+    gap: 10px; justify-content: center; margin: 0 auto 8px;
+  }
+  .dot {
+    width: 62px; height: 62px; border-radius: 50%;
+    background: var(--dot-off); border: 2px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    color: #4a5262; font-size: 0.85rem; font-weight: 700;
+    transition: background 120ms, box-shadow 200ms, transform 120ms;
+  }
+  .dot.on {
+    background: var(--dot-on); border-color: var(--dot-on); color: #06121f;
+    box-shadow: 0 0 22px rgba(79,156,249,0.55);
+  }
+  .dot.pulse { animation: pulse 420ms ease-out; }
+  @keyframes pulse {
+    0%   { transform: scale(1); }
+    45%  { transform: scale(1.16); }
+    100% { transform: scale(1); }
+  }
+  .dot.correct { background: var(--ok); border-color: var(--ok); box-shadow: 0 0 22px rgba(62,207,142,0.5); }
+  .dot.wrong   { background: var(--bad); border-color: var(--bad); box-shadow: 0 0 22px rgba(244,91,91,0.5); }
+
+  .keys { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; max-width: 340px; }
+  .key {
+    background: var(--panel-2); border: 1px solid var(--line); color: var(--text);
+    padding: 16px 10px; border-radius: 10px; cursor: pointer; text-align: center;
+    font-weight: 650; user-select: none; transition: background 90ms, border-color 90ms;
+  }
+  .key .kb { display: block; font-size: 0.72rem; color: var(--muted); font-weight: 500; margin-top: 3px; }
+  .key.active { background: var(--accent); color: #06121f; border-color: var(--accent); }
+  .key.active .kb { color: #06121f; }
+
+  .actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+
+  .feedback { margin-top: 16px; padding: 13px 15px; border-radius: 10px; font-size: 0.92rem; display: none; }
+  .feedback.show { display: block; }
+  .feedback.ok   { background: rgba(62,207,142,0.12);  border: 1px solid var(--ok);  color: #9ff0cb; }
+  .feedback.bad  { background: rgba(244,91,91,0.12);   border: 1px solid var(--bad); color: #ffb3b3; }
+  .feedback .act { display: block; margin-top: 6px; color: var(--muted); font-size: 0.84rem; }
+
+  /* --- stats ------------------------------------------------------------- */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(115px, 1fr)); gap: 12px; }
+  .stat { background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+  .stat .v { font-size: 1.5rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+  .stat .k { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+  th, td { text-align: left; padding: 7px 9px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  .bar { height: 6px; background: var(--panel-2); border-radius: 3px; overflow: hidden; min-width: 60px; }
+  .bar > i { display: block; height: 100%; background: var(--accent); }
+  .bar > i.low  { background: var(--bad); }
+  .bar > i.mid  { background: var(--warn); }
+  .bar > i.good { background: var(--ok); }
+
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.72rem; border: 1px solid var(--line); color: var(--muted); }
+  .pill.ok   { border-color: var(--ok);  color: var(--ok); }
+  .pill.warn { border-color: var(--warn);color: var(--warn); }
+  .pill.bad  { border-color: var(--bad); color: var(--bad); }
+
+  #syncStatus { font-size: 0.78rem; color: var(--muted); }
+  #syncStatus.pending { color: var(--warn); }
+  #syncStatus.error   { color: var(--bad); }
+  #syncStatus.ok      { color: var(--ok); }
+
+  .hint-box { background: var(--panel-2); border: 1px dashed var(--line); border-radius: 10px;
+              padding: 11px 13px; margin-top: 12px; font-size: 0.86rem; color: var(--muted); display: none; }
+  .hint-box.show { display: block; }
+  .note { font-size: 0.8rem; color: var(--muted); margin-top: 10px; }
+  .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div id="mapWarning">
+    <b>⚠ Braille mapping is UNVERIFIED.</b>
+    The dot patterns currently loaded are a Bharati Braille placeholder and have
+    <b>not</b> been checked against the Bangladesh National Braille code.
+    Data collected now is still structurally valid, but do not use this build
+    with real learners until <span class="mono">data/braille_map.json</span> is
+    replaced and <span class="mono">verified</span> is set to true.
+  </div>
+
+  <header>
+    <h1>বাংলা ব্রেইল</h1>
+    <span class="sub">Bangla Braille Tutor — data collection MVP</span>
+    <span class="grow"></span>
+    <span id="syncStatus">not started</span>
+  </header>
+
+  <!-- ---------------- setup ---------------- -->
+  <div class="panel" id="setup">
+    <h2>Session setup</h2>
+    <div class="row">
+      <div>
+        <label for="userId">Participant code</label>
+        <input id="userId" placeholder="P01" autocomplete="off">
+      </div>
+      <div>
+        <label for="mode">Collection mode</label>
+        <select id="mode">
+          <option value="normal">Normal practice</option>
+          <option value="targeted">Targeted — drive rare classes</option>
+          <option value="review">Review — weak characters only</option>
+        </select>
+      </div>
+      <div>
+        <label for="setLen">Attempts this session</label>
+        <input id="setLen" type="number" value="20" min="5" max="100">
+      </div>
+      <div>
+        <label for="charSet">Character set</label>
+        <select id="charSet">
+          <option value="vowels">Vowels only (11)</option>
+          <option value="all" selected>All letters (50)</option>
+          <option value="consonants">Consonants only (39)</option>
+        </select>
+      </div>
+    </div>
+    <div class="actions">
+      <button id="startBtn">Start session</button>
+      <button id="exportBtn" class="ghost">Export CSV</button>
+      <button id="flushBtn"  class="ghost">Retry queued rows</button>
+      <button id="resetBtn"  class="ghost">Reset this participant</button>
+    </div>
+    <p class="note" id="modeNote"></p>
+  </div>
+
+  <!-- ---------------- practice ---------------- -->
+  <div class="panel" id="practice">
+    <h2>Attempt <span id="attemptNo">1</span> / <span id="attemptTotal">20</span>
+        &nbsp;·&nbsp; difficulty <span id="diffLevel">1</span></h2>
+
+    <div class="stage">
+      <div class="left">
+        <div class="prompt-char" id="promptChar">?</div>
+        <div class="prompt-name" id="promptName">listen to the prompt</div>
+        <div class="cell" id="cell">
+          <div class="dot" data-dot="1">1</div><div class="dot" data-dot="4">4</div>
+          <div class="dot" data-dot="2">2</div><div class="dot" data-dot="5">5</div>
+          <div class="dot" data-dot="3">3</div><div class="dot" data-dot="6">6</div>
+        </div>
+        <div class="actions" style="justify-content:center">
+          <button id="replayBtn" class="ghost">🔊 Replay</button>
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="keys">
+          <div class="key" data-dot="1">Dot 1<span class="kb">F</span></div>
+          <div class="key" data-dot="4">Dot 4<span class="kb">J</span></div>
+          <div class="key" data-dot="2">Dot 2<span class="kb">D</span></div>
+          <div class="key" data-dot="5">Dot 5<span class="kb">K</span></div>
+          <div class="key" data-dot="3">Dot 3<span class="kb">S</span></div>
+          <div class="key" data-dot="6">Dot 6<span class="kb">L</span></div>
+        </div>
+
+        <div class="actions">
+          <button id="submitBtn">Submit <span class="mono" style="opacity:.6">↵</span></button>
+          <button id="clearBtn" class="ghost">Clear <span class="mono" style="opacity:.6">esc</span></button>
+          <button id="hintBtn"  class="ghost">Hint <span class="mono" style="opacity:.6">H</span></button>
+          <button id="stopBtn"  class="ghost">End session</button>
+        </div>
+
+        <div class="hint-box" id="hintBox"></div>
+        <div class="feedback" id="feedback"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------------- live stats ---------------- -->
+  <div class="panel">
+    <h2>Progress</h2>
+    <div class="stats">
+      <div class="stat"><div class="v" id="stRows">0</div>   <div class="k">rows logged</div></div>
+      <div class="stat"><div class="v" id="stAcc">—</div>    <div class="k">accuracy</div></div>
+      <div class="stat"><div class="v" id="stSess">0</div>   <div class="k">sessions</div></div>
+      <div class="stat"><div class="v" id="stDays">0</div>   <div class="k">distinct days</div></div>
+      <div class="stat"><div class="v" id="stChars">0</div>  <div class="k">chars seen</div></div>
+      <div class="stat"><div class="v" id="stQueue">0</div>  <div class="k">queued offline</div></div>
+    </div>
+    <p class="note">
+      <b>Distinct days matters.</b> Features 8 and 10 (<span class="mono">session_number</span>,
+      <span class="mono">time_since_last_practice</span>) carry no signal if every session
+      happens in one sitting. Spread sessions across several days per participant.
+    </p>
+  </div>
+
+  <!-- ---------------- class balance ---------------- -->
+  <div class="panel">
+    <h2>Class balance — watch this while collecting</h2>
+    <div class="row">
+      <div>
+        <table id="taTable">
+          <thead><tr><th>Teaching action</th><th class="num">rows</th><th style="width:90px"></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div>
+        <table id="csTable">
+          <thead><tr><th>Confidence state</th><th class="num">rows</th><th style="width:90px"></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <p class="note">
+      Target ≥30 rows per class before training. Classes stuck near zero in normal
+      use are what <span class="mono">targeted</span> mode and
+      <span class="mono">tools/gen_synthetic.py</span> exist to fill.
+    </p>
+  </div>
+
+  <!-- ---------------- per-character mastery ---------------- -->
+  <div class="panel">
+    <h2>Per-character mastery</h2>
+    <table id="charTable">
+      <thead><tr>
+        <th>Char</th><th>Name</th><th class="num">seen</th><th class="num">acc</th>
+        <th style="width:110px">mastery</th><th class="num">streak</th><th class="num">mistakes</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>
