@@ -94,13 +94,24 @@ export class KeyPad {
     }
 
     // Perkins brailler layout: S D F = dots 3 2 1, J K L = dots 4 5 6
-    this.keymap = { f: 1, d: 2, s: 3, j: 4, k: 5, l: 6 };
+    // Numpad 3x2 grid: 7 4 1 = dots 1 2 3 (Left), 8 5 2 = dots 4 5 6 (Right)
+    this.keymap = {
+      f: 1, d: 2, s: 3, j: 4, k: 5, l: 6,
+      '7': 1, '4': 2, '1': 3,
+      '8': 4, '5': 5, '2': 6,
+      numpad7: 1, numpad4: 2, numpad1: 3,
+      numpad8: 4, numpad5: 5, numpad2: 6,
+    };
     this._down = (e) => {
-      const dot = this.keymap[e.key.toLowerCase()];
+      const k = e.key.toLowerCase();
+      const c = e.code.toLowerCase();
+      const dot = this.keymap[k] || this.keymap[c];
       if (dot && !e.repeat) { e.preventDefault(); this.press(dot); }
     };
     this._up = (e) => {
-      const dot = this.keymap[e.key.toLowerCase()];
+      const k = e.key.toLowerCase();
+      const c = e.code.toLowerCase();
+      const dot = this.keymap[k] || this.keymap[c];
       if (dot) { e.preventDefault(); this.release(dot); }
     };
     this.enabled = false;
