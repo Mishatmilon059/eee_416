@@ -38,6 +38,15 @@
   }
   #mapWarning.show { display: block; }
   #mapWarning b { color: var(--warn); }
+  #mapWarning.ok { background: #0d2f1f; border-color: var(--ok); color: #9ff0cb; }
+  #mapWarning.ok b { color: var(--ok); }
+
+  /* per-prompt marker when THIS character is still a placeholder */
+  .unverified-tag {
+    display: none; margin-top: 6px; font-size: 0.74rem; color: var(--warn);
+    border: 1px solid var(--warn); border-radius: 999px; padding: 2px 9px;
+  }
+  .unverified-tag.show { display: inline-block; }
 
   header { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
   header h1 { font-size: 1.35rem; margin: 0; font-weight: 650; }
@@ -166,14 +175,7 @@
 <body>
 <div class="wrap">
 
-  <div id="mapWarning">
-    <b>⚠ Braille mapping is UNVERIFIED.</b>
-    The dot patterns currently loaded are a Bharati Braille placeholder and have
-    <b>not</b> been checked against the Bangladesh National Braille code.
-    Data collected now is still structurally valid, but do not use this build
-    with real learners until <span class="mono">data/braille_map.json</span> is
-    replaced and <span class="mono">verified</span> is set to true.
-  </div>
+  <div id="mapWarning"></div>
 
   <header>
     <h1>বাংলা ব্রেইল</h1>
@@ -229,6 +231,9 @@
       <div class="left">
         <div class="prompt-char" id="promptChar">?</div>
         <div class="prompt-name" id="promptName">listen to the prompt</div>
+        <div style="text-align:center">
+          <span class="unverified-tag" id="unverifiedTag">⚠ placeholder pattern</span>
+        </div>
         <div class="cell" id="cell">
           <div class="dot" data-dot="1">1</div><div class="dot" data-dot="4">4</div>
           <div class="dot" data-dot="2">2</div><div class="dot" data-dot="5">5</div>

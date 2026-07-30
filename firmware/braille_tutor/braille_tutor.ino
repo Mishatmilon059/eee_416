@@ -207,7 +207,10 @@ static void log_attempt(uint8_t id, const Features *f, uint8_t action, uint8_t c
     (int)f->prev_confidence, (int)f->current_streak, (int)f->wrong_streak,
     (int)f->prev_mistakes,
     action, confidence, expected, entered, correct ? "true" : "false",
-    order, (int)SPEC_VERSION, BRAILLE_MAP_VERIFIED ? "true" : "false",
+    // Per-CHARACTER, not per-map: rows for letters read from a supplied image
+    // stay usable at training time even while the rest of the alphabet is
+    // still on placeholder patterns.
+    order, (int)SPEC_VERSION, BRAILLE_VERIFIED[id] ? "true" : "false",
     g_rtc_present ? 1 : 0);
 
   if (!sd_append(line)) Serial.println("SD append failed");
@@ -341,7 +344,9 @@ void setup() {
                   ASSUMED_OFF_GAP_S);
   }
   if (!BRAILLE_MAP_VERIFIED) {
-    Serial.println("!! Braille map is UNVERIFIED (placeholder patterns).");
+    Serial.printf("!! Braille map verified for %d of %d letters; the rest are\n",
+                  BRAILLE_VERIFIED_COUNT, BRAILLE_LETTER_COUNT);
+    Serial.println("!! placeholder patterns. Rows carry per-character verification.");
   }
 
   if (!audio_begin()) Serial.println("DFPlayer not found -- running silent");

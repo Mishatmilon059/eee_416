@@ -49,6 +49,9 @@ python3 tools/gen_braille_header.py    # firmware dot table
 python3 tools/gen_braille_images.py    # 50 SVG + 50 PNG + contact sheet
 python3 tools/gen_audio.py             # 50 letters + 10 prompts
 
+python3 tools/import_braille_images.py --write   # read braille_img/ into the map
+python3 tools/verify_braille_images.py           # QA sheet -- then look at it
+
 python3 tools/run_all_tests.py         # everything must be green
 ```
 
@@ -62,29 +65,53 @@ python3 -m http.server 8000
 
 ---
 
-## ⚠ Before any real learner sees this
+## Braille verification status — 11 of 50
 
-`data/braille_map.json` currently holds **Bharati Braille placeholder
-patterns** and is marked `"verified": false`. Bangladesh Braille differs from
-Indian Bharati Braille in places. The app shows a loud banner and every logged
-row is stamped `braille_map_verified=false` while this is true.
+Verification is tracked **per letter**, because reference images arrive in
+batches. All 11 vowels were read from `braille_img/`; the 39 consonants still
+carry Bharati **placeholder** patterns.
 
-To fix it — a one-file change, no code touched:
+The 11 vowels confirmed 10 of my placeholder guesses and **corrected one**:
+ঋ was `[2,3,5]`, actually `[1,2,3,5]` (`⠗`).
 
-1. Replace the `dots` arrays in `data/braille_map.json` from a verified
-   Bangladesh National Braille chart.
-2. Set `"verified": true` and `"standard": "BANGLADESH_NATIONAL"`.
-3. Re-run:
-   ```bash
-   python3 tools/validate_braille_map.py     # catches duplicate patterns
-   python3 tools/gen_braille_header.py
-   python3 tools/gen_braille_images.py
-   ```
-4. Print `assets/braille/_contact_sheet.png` and check all 50 against the chart.
+### Adding the remaining 39
 
-Data collected before this is still *structurally* valid — the features and
-timings are real — but the character↔pattern association is unverified, so
-treat it as a pilot, not as final results.
+Drop images into `braille_img/` — one Braille cell per image, any of
+webp/png/jpg — add their filenames to `tools/braille_aliases.json`, then:
+
+```bash
+python3 tools/import_braille_images.py           # dry run: shows what would change
+python3 tools/import_braille_images.py --write
+python3 tools/verify_braille_images.py           # then LOOK at the sheet
+python3 tools/gen_braille_header.py
+python3 tools/gen_braille_images.py
+```
+
+The importer **refuses to guess** a filename it does not recognise. That is
+deliberate: your `uu.webp` is উ, which this project calls `u`, while your
+`uuuu.webp` is ঊ, which it calls `uu`. The literal string `uu` means different
+letters in the two schemes, so any fallback name matching would put one
+letter's pattern on another — producing a map that passes every structural
+check while being wrong. The alias table is the only lookup path.
+
+### What "verified" changes
+
+- **Per-row provenance.** `braille_map_verified` records whether *that row's
+  character* was verified, not whether the whole map was. Rows for the 11
+  vowels are usable now; you can filter at training time instead of throwing
+  away whole sessions.
+- **The app** shows "verified for N of 50" and tags an individual prompt when
+  that character is still a placeholder.
+- **The firmware** exposes `BRAILLE_VERIFIED[id]` and stamps each SD row the
+  same way.
+
+### One known collision
+
+Corrected ঋ = `[1,2,3,5]`, which equals the **unverified placeholder** for
+র (ra). Two letters cannot share a pattern. Since র's value is itself a guess,
+this most likely resolves when you supply `ra.webp`. The tooling reports it as
+a warning rather than an error — a clash between two *verified* letters would
+be a hard failure and blocks the import.
 
 ---
 
@@ -215,6 +242,7 @@ python3 tools/run_all_tests.py
 | `test_parity.py` | JS, C and Python rule engines agree on every vector |
 | `test_web_e2e.mjs` | A real browser session logs usable rows |
 | `test_firmware_headers.py` | Generated headers compile and agree with the source data |
+| `verify_braille_images.py` | Every stored pattern re-reads identically from its source image |
 
 `test_web_e2e.mjs` is the one that earns its keep: it catches a session that
 looks fine but logs null or NaN features — otherwise discovered weeks later
@@ -226,7 +254,9 @@ with the data already collected and the volunteers gone.
 
 ```
 spec/engine_spec.json        ⭐ 14 features, thresholds, normalization
-data/braille_map.json        ⭐ 50 letters → dot patterns
+data/braille_map.json        ⭐ 50 letters → dot patterns + per-letter verified
+braille_img/                 your reference cell images (11 vowels so far)
+tools/braille_aliases.json   filename → letter, the ONLY lookup path
 assets/braille/              generated SVG + PNG + contact sheet
 web/                         MVP app (rule_engine.js is GENERATED)
 tools/                       generators, dataset, training, tests

@@ -33,7 +33,7 @@ const ui = {
   promptChar: $('promptChar'), promptName: $('promptName'),
   replayBtn: $('replayBtn'), submitBtn: $('submitBtn'), clearBtn: $('clearBtn'),
   hintBtn: $('hintBtn'), stopBtn: $('stopBtn'),
-  hintBox: $('hintBox'), feedback: $('feedback'),
+  hintBox: $('hintBox'), feedback: $('feedback'), unverifiedTag: $('unverifiedTag'),
   stRows: $('stRows'), stAcc: $('stAcc'), stSess: $('stSess'), stDays: $('stDays'),
   stChars: $('stChars'), stQueue: $('stQueue'),
   taTable: $('taTable'), csTable: $('csTable'), charTable: $('charTable'),
@@ -66,7 +66,7 @@ async function boot() {
   const map = await res.json();
   state.letters = map.letters;
   state.mapVerified = Boolean(map.verified);
-  ui.mapWarning.classList.toggle('show', !state.mapVerified);
+  renderMapBanner(map);
 
   state.cell = new BrailleCell($('cell'));
   state.pad = new KeyPad(document.querySelector('.keys'), {
@@ -85,6 +85,36 @@ async function boot() {
 
   wireEvents();
   renderAll();
+}
+
+/**
+ * Verification is per letter, because images arrive in batches. A blanket
+ * "everything is unverified" banner would stay up for weeks while genuinely
+ * verified characters were already usable, and would train everyone to ignore it.
+ */
+function renderMapBanner(map) {
+  const total = map.letters.length;
+  const n = map.letters.filter((l) => l.verified).length;
+  const el = ui.mapWarning;
+  el.classList.add('show');
+
+  if (n === total) {
+    el.classList.add('ok');
+    el.innerHTML = `<b>✓ Braille mapping verified.</b> All ${total} letters were read from
+      supplied reference images. Safe to use with real learners.`;
+    return;
+  }
+  el.classList.remove('ok');
+  const missing = map.letters.filter((l) => !l.verified);
+  const vowels = missing.filter((l) => l.category === 'vowel').length;
+  el.innerHTML = `<b>⚠ Braille mapping verified for ${n} of ${total} letters.</b>
+    The remaining ${total - n} (${vowels} vowel, ${missing.length - vowels} consonant)
+    still carry <b>Bharati placeholder</b> patterns not checked against the Bangladesh
+    National Braille code. Practising a placeholder character is marked on the prompt,
+    and every logged row records whether <i>that character</i> was verified — so
+    verified rows stay usable while the rest of the alphabet is confirmed.
+    Add images to <span class="mono">braille_img/</span> and run
+    <span class="mono">tools/import_braille_images.py</span>.`;
 }
 
 function loadLearner() {
@@ -270,6 +300,7 @@ function nextPrompt(prevAction = null, prevLetter = null) {
   ui.promptChar.textContent = displayChar(letter.char);
   ui.promptChar.classList.remove('prompt-hidden');
   ui.promptName.textContent = `${letter.name} — enter the dots you hear`;
+  ui.unverifiedTag.classList.toggle('show', !letter.verified);
   ui.attemptNo.textContent = state.session.attemptIndex + 1;
   ui.diffLevel.textContent = state.learner.data.difficulty;
   playPrompt(true);
@@ -371,7 +402,10 @@ function submit() {
     source: 'web',
     is_synthetic: false,
     spec_version: SPEC_VERSION,
-    braille_map_verified: state.mapVerified,
+    // Per-CHARACTER, not per-map. A row for a verified letter is usable even
+    // while other letters are unconfirmed, so you can filter at training time
+    // instead of discarding whole collection sessions.
+    braille_map_verified: Boolean(letter.verified),
   });
 
   showFeedback(correct, action, confidence, expectedMask, enteredMask);

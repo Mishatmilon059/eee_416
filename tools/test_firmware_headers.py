@@ -45,7 +45,8 @@ int main() {
   printf("INPUT_ZP %d\n", MODEL_INPUT_ZERO_POINT);
 
   for (int i = 0; i < BRAILLE_LETTER_COUNT; i++)
-    printf("PATTERN %d %d\n", i, (int)BRAILLE_PATTERN[i]);
+    printf("PATTERN %d %d %d\n", i, (int)BRAILLE_PATTERN[i], (int)BRAILLE_VERIFIED[i]);
+  printf("VERIFIED_COUNT %d\n", BRAILLE_VERIFIED_COUNT);
 
   // the sketch indexes audio by this
   printf("TRACK_FIRST %d\n", (int)braille_track(0));
@@ -127,11 +128,12 @@ def main():
         out = subprocess.run([str(td / "probe")], capture_output=True,
                              text=True, check=True).stdout
 
-    vals, patterns = {}, {}
+    vals, patterns, verified = {}, {}, {}
     for line in out.strip().splitlines():
         parts = line.split()
         if parts[0] == "PATTERN":
             patterns[int(parts[1])] = int(parts[2])
+            verified[int(parts[1])] = bool(int(parts[3]))
         else:
             vals[parts[0]] = parts[1]
 
@@ -163,8 +165,34 @@ def main():
     check("every C dot mask matches data/braille_map.json",
           not mismatched, "; ".join(mismatched[:3]))
 
-    dupes = len(patterns) != len(set(patterns.values()))
-    check("no duplicate dot patterns in the C table", not dupes)
+    # Two-tier, same rule as validate_braille_map.py. Two VERIFIED letters
+    # sharing a pattern is a real defect -- a learner could not tell them apart
+    # and neither could the model. A verified letter sharing with an unverified
+    # PLACEHOLDER is expected while images arrive in batches, and blocking on it
+    # would stall every build until all 50 images exist.
+    groups = {}
+    for lid, mask in patterns.items():
+        groups.setdefault(mask, []).append(lid)
+    hard, soft = [], []
+    id_to_name = {l["id"]: f'{l["char"]}({l["name"]})' for l in bmap["letters"]}
+    for mask, ids in sorted(groups.items()):
+        if len(ids) < 2:
+            continue
+        v = [i for i in ids if verified[i]]
+        if len(v) > 1:
+            hard.append(f"{[id_to_name[i] for i in v]} share pattern {mask:#04x}")
+        else:
+            soft.append(f"{[id_to_name[i] for i in ids]} share {mask:#04x} "
+                        "(one is an unverified placeholder)")
+    check("no two VERIFIED letters share a dot pattern", not hard, "; ".join(hard))
+    for s in soft:
+        print(f"  note  {s}")
+
+    check("BRAILLE_VERIFIED[] agrees with data/braille_map.json",
+          all(verified[l["id"]] == bool(l.get("verified")) for l in bmap["letters"]))
+    check("BRAILLE_VERIFIED_COUNT matches the array",
+          int(vals["VERIFIED_COUNT"]) == sum(verified.values()),
+          f'{vals["VERIFIED_COUNT"]} vs {sum(verified.values())}')
 
     print("\n-- audio track numbering --")
     check("track numbers are 1..50 (DFPlayer plays by number)",

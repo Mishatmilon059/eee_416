@@ -61,14 +61,29 @@ def main():
             warnings.append(f"id {l['id']} ({l['char']}): dots not sorted {l['dots']}")
 
     # --- duplicate patterns: the important one ---
+    # Two tiers. A pattern shared by two VERIFIED letters is a real conflict:
+    # a learner could not tell them apart and neither could the model, so one
+    # reading must be wrong. A pattern shared by a verified letter and an
+    # unverified PLACEHOLDER is expected while images arrive in batches -- the
+    # placeholder is a guess and should change once its own image lands.
     by_mask = {}
     for l in letters:
         m = dots_to_mask(l["dots"])
         by_mask.setdefault(m, []).append(l)
     for mask, group in sorted(by_mask.items()):
-        if len(group) > 1:
-            names = ", ".join(f"{g['char']}({g['name']})" for g in group)
-            errors.append(f"DUPLICATE pattern {sorted(group[0]['dots'])}: {names}")
+        if len(group) < 2:
+            continue
+        ver = [g for g in group if g.get("verified")]
+        unver = [g for g in group if not g.get("verified")]
+        fmt = lambda gs: ", ".join(f"{g['char']}({g['name']})" for g in gs)
+        if len(ver) > 1:
+            errors.append(f"DUPLICATE pattern {sorted(group[0]['dots'])} between "
+                          f"VERIFIED letters: {fmt(ver)}")
+        else:
+            warnings.append(f"pattern {sorted(group[0]['dots'])}: "
+                            f"verified {fmt(ver) or '(none)'} vs "
+                            f"unverified placeholder {fmt(unver)} "
+                            "-- expected until that letter's image arrives")
 
     # --- audio filename checks (DFPlayer needs 4-digit zero-padded) ---
     audio = [l["audio"] for l in letters]
@@ -80,16 +95,25 @@ def main():
             errors.append(f"id {l['id']}: audio should be {expected}, got {l['audio']}")
 
     # --- report ---
+    n_ver = sum(1 for l in letters if l.get("verified"))
     print(f"letters      : {len(letters)}")
     print(f"vowels       : {cats['vowel']}")
     print(f"consonants   : {cats['consonant']}")
     print(f"unique dots  : {len(by_mask)}")
     print(f"standard     : {data['standard']}")
-    print(f"verified     : {data['verified']}")
+    print(f"verified     : {n_ver}/{len(letters)} letters")
 
-    if not data["verified"]:
-        print("\n  !! braille_map.json is NOT verified against the Bangladesh")
-        print("     National Braille code. Do not show to real learners yet.")
+    if n_ver < len(letters):
+        missing = [l for l in letters if not l.get("verified")]
+        by_cat = Counter(l["category"] for l in missing)
+        print(f"\n  {len(missing)} letter(s) still on PLACEHOLDER patterns "
+              f"({by_cat['vowel']} vowel, {by_cat['consonant']} consonant).")
+        print("  Supply images in braille_img/ and run tools/import_braille_images.py.")
+        print("  Rows collected for those characters are stamped "
+              "braille_map_verified=false,")
+        print("  so they stay separable at training time.")
+    else:
+        print("\n  all 50 letters verified from supplied images")
 
     for w in warnings:
         print(f"\nWARN  {w}")

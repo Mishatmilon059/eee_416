@@ -168,7 +168,22 @@ async function main() {
                         r.confidence_state >= 0 && r.confidence_state <= 2));
     check('provenance stamped',
       rows.every((r) => r.source === 'web' && r.is_synthetic === false &&
-                        r.spec_version === 1 && r.braille_map_verified === false));
+                        r.spec_version === 1));
+
+    // braille_map_verified is PER CHARACTER, not per map: a row for a letter
+    // read from a supplied image must be marked verified even while other
+    // letters are still placeholders, otherwise usable rows get discarded.
+    const verifiedById = new Map(map.letters.map((l) => [l.id, Boolean(l.verified)]));
+    const wrongProvenance = rows.filter(
+      (r) => r.braille_map_verified !== verifiedById.get(r.char_id));
+    check('braille_map_verified matches the character, not the whole map',
+      wrongProvenance.length === 0,
+      wrongProvenance.slice(0, 3).map(
+        (r) => `char_id ${r.char_id}: row=${r.braille_map_verified} ` +
+               `map=${verifiedById.get(r.char_id)}`).join('; '));
+    const nVer = map.letters.filter((l) => l.verified).length;
+    console.log(`  info  map has ${nVer}/${map.letters.length} letters verified; ` +
+      `${rows.filter((r) => r.braille_map_verified).length}/${rows.length} rows on verified chars`);
     check('attempt_index contiguous',
       rows.every((r, i) => r.attempt_index === i));
     check('at least one wrong answer recorded', rows.some((r) => !r.is_correct));

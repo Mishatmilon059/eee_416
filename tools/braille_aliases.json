@@ -1,0 +1,23 @@
+{
+  "_comment": "Maps image filenames in braille_img/ to canonical letter names in data/braille_map.json. Add an entry for every new image you supply.",
+
+  "_why_this_file_exists": "The two naming schemes overlap in a way that would silently corrupt the map. YOUR 'uu' is উ, which this project calls 'u'. YOUR 'uuuu' is ঊ, which this project calls 'uu'. So the literal string 'uu' means DIFFERENT LETTERS in the two schemes. Any fuzzy or fallback name matching would put উ's dot pattern onto ঊ and vice versa -- a wrong Braille map that still passes every structural check, because both letters exist and both patterns are valid. The importer therefore refuses to guess: a filename absent from this table is an error, never an assumption.",
+
+  "_how_to_add_more": "Key = image filename without extension (lowercase). Value = the 'name' field of the target letter in data/braille_map.json. Run tools/import_braille_images.py with no --write to see unmapped files listed.",
+
+  "aliases": {
+    "ao":   "a",
+    "aa":   "aa",
+    "ei":   "i",
+    "eiii": "ii",
+    "uu":   "u",
+    "uuuu": "uu",
+    "ri":   "ri",
+    "e":    "e",
+    "oi":   "oi",
+    "o":    "o",
+    "ou":   "ou"
+  },
+
+  "_consonants_not_yet_supplied": "The 39 consonants have no images yet. When you add them, extend the table above. Canonical names are: ka kha ga gha uma cha chha ja jha nia tta ttha dda ddha nna ta tha da dha na pa pha ba bha ma ya ra la sha ssa sa ha rra rha yya khanda_ta anushar bisharga chandrabindu. A numeric prefix in the filename (11_ka.webp) is fine -- the importer strips a leading 'NN_' before lookup."
+}
