@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<title>Hardware architecture</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1600" height="900" fill="#FFFFFF"/>
+<text x="60" y="66" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#111827" text-anchor="start">Hardware architecture</text>
+<text x="60" y="96" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="normal" fill="#6B7280" text-anchor="start">ESP32 with spoken output, 6-key Braille input and 6-motor tactile feedback</text>
+<rect x="1464.8" y="44" width="72.96000000000001" height="26" rx="13.0" ry="13.0" fill="#FEF6EC" stroke="#D97706" stroke-width="1.5"/>
+<text x="1501.28" y="61.68" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#D97706" text-anchor="middle">PLANNED</text>
+<rect x="600" y="290" width="400" height="270" rx="12" ry="12" fill="#FEF3EC" stroke="#EA580C" stroke-width="3"/>
+<text x="800" y="340" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="bold" fill="#111827" text-anchor="middle">ESP32-WROOM-32</text>
+<text x="800" y="368" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="middle">240 MHz dual core</text>
+<text x="800" y="392" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="middle">520 KB SRAM  ·  4 MB flash</text>
+<rect x="650" y="414" width="300" height="50" rx="8" ry="8" fill="#FFFFFF" stroke="#0D9488" stroke-width="2"/>
+<text x="800" y="445" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="bold" fill="#0D9488" text-anchor="middle">TFLite Micro  ·  5,928 B model</text>
+<rect x="650" y="476" width="300" height="50" rx="8" ry="8" fill="#FFFFFF" stroke="#059669" stroke-width="2"/>
+<text x="800" y="507" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="bold" fill="#059669" text-anchor="middle">WiFi OFF  ·  Bluetooth OFF</text>
+<rect x="90" y="150" width="400" height="265" rx="12" ry="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+<text x="110" y="190" font-family="Arial, Helvetica, sans-serif" font-size="17.5" font-weight="bold" fill="#111827" text-anchor="start">DFPlayer Mini + speaker</text>
+<rect x="110" y="208" width="80.48" height="24" rx="12.0" ry="12.0" fill="#FEF3EC" stroke="#EA580C" stroke-width="1.5"/>
+<text x="150.24" y="224.32" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#EA580C" text-anchor="middle">AUDIO OUT</text>
+<text x="110" y="280" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Speaks the Bangla letter</text>
+<text x="110" y="306" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">60 audio clips on microSD</text>
+<text x="110" y="332" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">UART2  ·  GPIO 16, 17</text>
+<rect x="90" y="435" width="400" height="265" rx="12" ry="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+<text x="110" y="475" font-family="Arial, Helvetica, sans-serif" font-size="17.5" font-weight="bold" fill="#111827" text-anchor="start">6 push buttons</text>
+<rect x="110" y="493" width="53.6" height="24" rx="12.0" ry="12.0" fill="#FEF3EC" stroke="#EA580C" stroke-width="1.5"/>
+<text x="136.8" y="509.32" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#EA580C" text-anchor="middle">INPUT</text>
+<text x="110" y="565" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">One per Braille dot</text>
+<text x="110" y="591" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Perkins keyboard layout</text>
+<text x="110" y="617" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">GPIO 32, 33, 25, 26, 27, 14</text>
+<rect x="1110" y="150" width="400" height="265" rx="12" ry="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+<text x="1130" y="190" font-family="Arial, Helvetica, sans-serif" font-size="17.5" font-weight="bold" fill="#111827" text-anchor="start">6 coin vibration motors</text>
+<rect x="1130" y="208" width="93.92" height="24" rx="12.0" ry="12.0" fill="#FEF3EC" stroke="#EA580C" stroke-width="1.5"/>
+<text x="1176.96" y="224.32" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#EA580C" text-anchor="middle">TACTILE OUT</text>
+<text x="1130" y="280" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Driven by a ULN2803A</text>
+<text x="1130" y="306" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Built-in flyback diodes</text>
+<text x="1130" y="332" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">GPIO 13, 4, 21, 22, 2, 15</text>
+<rect x="1110" y="435" width="400" height="265" rx="12" ry="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+<text x="1130" y="475" font-family="Arial, Helvetica, sans-serif" font-size="17.5" font-weight="bold" fill="#111827" text-anchor="start">microSD card</text>
+<rect x="1130" y="493" width="67.04" height="24" rx="12.0" ry="12.0" fill="#FEF3EC" stroke="#EA580C" stroke-width="1.5"/>
+<text x="1163.52" y="509.32" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#EA580C" text-anchor="middle">STORAGE</text>
+<text x="1130" y="565" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Logs every attempt as CSV</text>
+<text x="1130" y="591" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Same columns as the web app</text>
+<text x="1130" y="617" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">SPI  ·  GPIO 18, 19, 23, 5</text>
+<path d="M 495 280 L 595 370" fill="none" stroke="#EA580C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M 495 560 L 595 480" fill="none" stroke="#EA580C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M 1005 370 L 1105 280" fill="none" stroke="#EA580C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M 1005 480 L 1105 560" fill="none" stroke="#EA580C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="60" y="730" width="720" height="165" rx="12" ry="12" fill="#FEF0F0" stroke="#DC2626" stroke-width="2.5"/>
+<text x="84" y="768" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="bold" fill="#DC2626" text-anchor="start">POWER — the most common way this build fails</text>
+<text x="84" y="802" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">6 motors ≈ 480 mA  +  ESP32 ≈ 80 mA  +  audio ≈ 200 mA   →   about 800 mA peak.</text>
+<text x="84" y="824" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start"></text>
+<text x="84" y="846" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">Use a 5 V 2 A supply and a 1000 µF capacitor on the motor rail. A weak supply</text>
+<text x="84" y="868" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">browns out the regulator and reboots the board — which looks exactly like a</text>
+<text x="84" y="890" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">firmware crash, and is not one.</text>
+<rect x="820" y="730" width="720" height="165" rx="12" ry="12" fill="#FEF6EC" stroke="#D97706" stroke-width="2.5"/>
+<text x="844" y="768" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="bold" fill="#D97706" text-anchor="start">USE A ULN2803A, NOT BARE TRANSISTORS</text>
+<text x="844" y="802" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">Coin motors are inductive. Driving them from a GPIO pin, or from a transistor</text>
+<text x="844" y="824" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">with no flyback path, destroys the pin.</text>
+<text x="844" y="846" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start"></text>
+<text x="844" y="868" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">The ULN2803A packs 8 channels with the flyback diodes already inside.</text>
+<text x="844" y="890" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">One chip, and tie its COM pin to +5 V.</text>
+</svg>

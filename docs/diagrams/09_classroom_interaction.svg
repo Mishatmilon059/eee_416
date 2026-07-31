@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<title>Real classroom interaction loop</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1600" height="900" fill="#FFFFFF"/>
+<text x="60" y="66" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#111827" text-anchor="start">How a student actually uses the device</text>
+<text x="60" y="96" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="normal" fill="#6B7280" text-anchor="start">One practice cycle, from spoken prompt to adaptive response</text>
+<rect x="1464.8" y="44" width="72.96000000000001" height="26" rx="13.0" ry="13.0" fill="#FEF6EC" stroke="#D97706" stroke-width="1.5"/>
+<text x="1501.28" y="61.68" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#D97706" text-anchor="middle">PLANNED</text>
+<rect x="60" y="150" width="320" height="175" rx="12" ry="12" fill="#FEF3EC" stroke="#EA580C" stroke-width="2.5"/>
+<circle cx="96" cy="194" r="20" fill="#EA580C" stroke="#EA580C" stroke-width="2"/>
+<text x="96" y="201" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">1</text>
+<text x="128" y="201" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#111827" text-anchor="start">Speaker says a letter</text>
+<text x="82" y="246" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">The device speaks a</text>
+<text x="82" y="270" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">Bangla letter aloud.</text>
+<path d="M 383 237 L 404 237" fill="none" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="408" y="150" width="320" height="175" rx="12" ry="12" fill="#FEF3EC" stroke="#EA580C" stroke-width="2.5"/>
+<circle cx="444" cy="194" r="20" fill="#EA580C" stroke="#EA580C" stroke-width="2"/>
+<text x="444" y="201" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">2</text>
+<text x="476" y="201" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#111827" text-anchor="start">Student feels the cell</text>
+<text x="430" y="246" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">Reads the raised Braille</text>
+<text x="430" y="270" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">reference by touch.</text>
+<path d="M 731 237 L 752 237" fill="none" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="756" y="150" width="320" height="175" rx="12" ry="12" fill="#EFF4FE" stroke="#2563EB" stroke-width="2.5"/>
+<circle cx="792" cy="194" r="20" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+<text x="792" y="201" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">3</text>
+<text x="824" y="201" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#111827" text-anchor="start">Student presses buttons</text>
+<text x="778" y="246" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">Enters the dot pattern</text>
+<text x="778" y="270" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">they believe is correct.</text>
+<path d="M 1079 237 L 1100 237" fill="none" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="1104" y="150" width="320" height="175" rx="12" ry="12" fill="#EDFAF8" stroke="#0D9488" stroke-width="2.5"/>
+<circle cx="1140" cy="194" r="20" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<text x="1140" y="201" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">4</text>
+<text x="1172" y="201" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#111827" text-anchor="start">Device scores it</text>
+<text x="1126" y="246" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">Compares the entered</text>
+<text x="1126" y="270" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">pattern to the expected.</text>
+<rect x="1452" y="150" width="88" height="175" rx="12" ry="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+<text x="1496" y="178" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="bold" fill="#6B7280" text-anchor="middle">REFERENCE</text>
+<circle cx="1478" cy="212" r="10" fill="#111827" stroke="#111827" stroke-width="2"/>
+<circle cx="1478" cy="246" r="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+<circle cx="1478" cy="280" r="10" fill="#111827" stroke="#111827" stroke-width="2"/>
+<circle cx="1514" cy="212" r="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+<circle cx="1514" cy="246" r="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+<circle cx="1514" cy="280" r="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+<text x="1496" y="315" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" fill="#6B7280" text-anchor="middle">raised cell</text>
+<text x="60" y="382" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="start">THE MODEL DECIDES WHAT HAPPENS NEXT</text>
+<text x="60" y="408" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#6B7280" text-anchor="start">14 features go in, a teaching action comes out — in under a millisecond, with no internet connection.</text>
+<rect x="60" y="435" width="720" height="365" rx="12" ry="12" fill="#ECFAF4" stroke="#059669" stroke-width="2.5"/>
+<text x="84" y="473" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="bold" fill="#059669" text-anchor="start">IF THE ANSWER IS CORRECT</text>
+<rect x="84" y="510" width="122" height="40" rx="20" ry="20" fill="#FFFFFF" stroke="#059669" stroke-width="1.5"/>
+<text x="145" y="537" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">Audio</text>
+<text x="226" y="537" font-family="'Noto Sans Bengali', 'Lohit Bengali', Arial, sans-serif" font-size="17" font-weight="bold" fill="#111827" text-anchor="start">সঠিক</text>
+<text x="300" y="537" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">— "correct" is spoken</text>
+<rect x="84" y="578" width="122" height="40" rx="20" ry="20" fill="#FFFFFF" stroke="#059669" stroke-width="1.5"/>
+<text x="145" y="605" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">Motors</text>
+<text x="226" y="605" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">all six buzz briefly as a reward</text>
+<rect x="84" y="646" width="122" height="40" rx="20" ry="20" fill="#FFFFFF" stroke="#059669" stroke-width="1.5"/>
+<text x="145" y="673" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">Model</text>
+<text x="226" y="673" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">mastery rises, correct streak increases</text>
+<rect x="84" y="714" width="122" height="40" rx="20" ry="20" fill="#FFFFFF" stroke="#059669" stroke-width="1.5"/>
+<text x="145" y="741" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">Next</text>
+<text x="226" y="741" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">a harder letter, or move on to word practice</text>
+<rect x="820" y="435" width="720" height="365" rx="12" ry="12" fill="#FEF0F0" stroke="#DC2626" stroke-width="2.5"/>
+<text x="844" y="473" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="bold" fill="#DC2626" text-anchor="start">IF THE ANSWER IS WRONG</text>
+<rect x="844" y="510" width="122" height="40" rx="20" ry="20" fill="#FFFFFF" stroke="#DC2626" stroke-width="1.5"/>
+<text x="905" y="537" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#DC2626" text-anchor="middle">Audio</text>
+<text x="986" y="537" font-family="'Noto Sans Bengali', 'Lohit Bengali', Arial, sans-serif" font-size="17" font-weight="bold" fill="#111827" text-anchor="start">ভুল</text>
+<text x="1040" y="537" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">— then the letter is spoken again</text>
+<rect x="844" y="578" width="122" height="40" rx="20" ry="20" fill="#FFFFFF" stroke="#DC2626" stroke-width="1.5"/>
+<text x="905" y="605" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#DC2626" text-anchor="middle">Motors</text>
+<text x="986" y="605" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">the CORRECT dots buzz one at a time</text>
+<rect x="844" y="646" width="122" height="40" rx="20" ry="20" fill="#FFFFFF" stroke="#DC2626" stroke-width="1.5"/>
+<text x="905" y="673" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#DC2626" text-anchor="middle">Model</text>
+<text x="986" y="673" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">mastery falls, wrong streak increases</text>
+<rect x="844" y="714" width="122" height="40" rx="20" ry="20" fill="#FFFFFF" stroke="#DC2626" stroke-width="1.5"/>
+<text x="905" y="741" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#DC2626" text-anchor="middle">Next</text>
+<text x="986" y="741" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">the model picks: repeat, hint, or go back</text>
+<text x="60" y="866" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#6B7280" text-anchor="start" font-style="italic">Feeling the correct pattern immediately after a mistake is the core teaching mechanism — the motors let a learner check their own answer by touch.</text>
+</svg>

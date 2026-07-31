@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<title>Teacher mobile app</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1600" height="900" fill="#FFFFFF"/>
+<text x="60" y="66" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#111827" text-anchor="start">Teacher app — turning sessions into insight</text>
+<text x="60" y="96" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="normal" fill="#6B7280" text-anchor="start">Every student has a profile; the teacher sees progress, not raw rows</text>
+<rect x="1464.8" y="44" width="72.96000000000001" height="26" rx="13.0" ry="13.0" fill="#FEF6EC" stroke="#D97706" stroke-width="1.5"/>
+<text x="1501.28" y="61.68" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#D97706" text-anchor="middle">PLANNED</text>
+<rect x="90" y="150" width="330" height="650" rx="32" ry="32" fill="#FFFFFF" stroke="#111827" stroke-width="3"/>
+<rect x="112" y="195" width="286" height="582" rx="8" ry="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+<circle cx="255" cy="174" r="6" fill="#CBD5E1" stroke="#CBD5E1" stroke-width="2"/>
+<text x="134" y="232" font-family="'Noto Sans Bengali', 'Lohit Bengali', Arial, sans-serif" font-size="19" font-weight="bold" fill="#111827" text-anchor="start">রাহিম</text>
+<text x="200" y="232" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#6B7280" text-anchor="start">·  Class 4</text>
+<text x="134" y="256" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="normal" fill="#6B7280" text-anchor="start">42 sessions  ·  18 distinct days</text>
+<rect x="134" y="272" width="242" height="78" rx="8" ry="8" fill="#ECFAF4" stroke="#059669" stroke-width="1.5"/>
+<text x="150" y="300" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="bold" fill="#059669" text-anchor="start">MASTERY</text>
+<text x="150" y="332" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="bold" fill="#111827" text-anchor="start">31 / 50 letters</text>
+<text x="134" y="382" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="bold" fill="#6B7280" text-anchor="start">LEARNING CURVE</text>
+<path d="M 134 480.0 L 168 471.25 L 202 463.75 L 236 455.0 L 270 443.75 L 304 437.5 L 338 428.75 L 372 422.5" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="134" cy="480.0" r="4" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+<circle cx="168" cy="471.25" r="4" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+<circle cx="202" cy="463.75" r="4" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+<circle cx="236" cy="455.0" r="4" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+<circle cx="270" cy="443.75" r="4" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+<circle cx="304" cy="437.5" r="4" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+<circle cx="338" cy="428.75" r="4" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+<circle cx="372" cy="422.5" r="4" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+<line x1="134" y1="488" x2="376" y2="488" stroke="#CBD5E1" stroke-width="1.5" stroke-linecap="round"/>
+<text x="134" y="508" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" fill="#6B7280" text-anchor="start">response time falling over 8 weeks</text>
+<rect x="134" y="524" width="242" height="68" rx="8" ry="8" fill="#FEF0F0" stroke="#DC2626" stroke-width="1.5"/>
+<text x="150" y="550" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="bold" fill="#DC2626" text-anchor="start">NEEDS ATTENTION</text>
+<text x="150" y="578" font-family="'Noto Sans Bengali', 'Lohit Bengali', Arial, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="start">ঝ    ণ    ঢ</text>
+<text x="250" y="578" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="normal" fill="#6B7280" text-anchor="start">40% accuracy</text>
+<rect x="134" y="606" width="242" height="74" rx="8" ry="8" fill="#EDFAF8" stroke="#0D9488" stroke-width="1.5"/>
+<text x="150" y="632" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="bold" fill="#0D9488" text-anchor="start">AI SUGGESTION</text>
+<text x="150" y="656" font-family="'Noto Sans Bengali', 'Lohit Bengali', Arial, sans-serif" font-size="12.5" font-weight="normal" fill="#111827" text-anchor="start">Revisit ঝ before</text>
+<text x="150" y="674" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="normal" fill="#111827" text-anchor="start">introducing new letters</text>
+<rect x="134" y="694" width="242" height="58" rx="8" ry="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+<text x="150" y="718" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="bold" fill="#6B7280" text-anchor="start">LAST PRACTISED</text>
+<text x="150" y="740" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="bold" fill="#111827" text-anchor="start">2 days ago</text>
+<rect x="470" y="150" width="520" height="196" rx="12" ry="12" fill="#FDF0F6" stroke="#DB2777" stroke-width="2.5"/>
+<text x="492" y="192" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="start">Student profiles</text>
+<text x="492" y="230" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">One profile per learner, built entirely</text>
+<text x="492" y="254" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">from their own session history.</text>
+<rect x="907.6" y="300" width="60.4" height="22" rx="11" ry="11" fill="#FEF6EC" stroke="#D97706" stroke-width="1.5"/>
+<text x="937.8" y="315.5" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="bold" fill="#D97706" text-anchor="middle">PLANNED</text>
+<rect x="1015" y="150" width="520" height="196" rx="12" ry="12" fill="#EFF4FE" stroke="#2563EB" stroke-width="2.5"/>
+<text x="1037" y="192" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="start">Learning curve</text>
+<text x="1037" y="230" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">Accuracy and response time over weeks —</text>
+<text x="1037" y="254" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">is this child actually improving?</text>
+<rect x="1452.6" y="300" width="60.4" height="22" rx="11" ry="11" fill="#FEF6EC" stroke="#D97706" stroke-width="1.5"/>
+<text x="1482.8" y="315.5" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="bold" fill="#D97706" text-anchor="middle">PLANNED</text>
+<rect x="470" y="372" width="520" height="196" rx="12" ry="12" fill="#FEF0F0" stroke="#DC2626" stroke-width="2.5"/>
+<text x="492" y="414" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="start">Weak characters</text>
+<text x="492" y="452" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">Which letters are failing, ranked, so</text>
+<text x="492" y="476" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">teaching time goes where it counts.</text>
+<rect x="907.6" y="522" width="60.4" height="22" rx="11" ry="11" fill="#FEF6EC" stroke="#D97706" stroke-width="1.5"/>
+<text x="937.8" y="537.5" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="bold" fill="#D97706" text-anchor="middle">PLANNED</text>
+<rect x="1015" y="372" width="520" height="196" rx="12" ry="12" fill="#FEF6EC" stroke="#D97706" stroke-width="2.5"/>
+<text x="1037" y="414" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="start">Confidence trend</text>
+<text x="1037" y="452" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">Confident / hesitant / guessing over time.</text>
+<text x="1037" y="476" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">Catches guessing before it becomes habit.</text>
+<rect x="1452.6" y="522" width="60.4" height="22" rx="11" ry="11" fill="#FEF6EC" stroke="#D97706" stroke-width="1.5"/>
+<text x="1482.8" y="537.5" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="bold" fill="#D97706" text-anchor="middle">PLANNED</text>
+<rect x="470" y="594" width="520" height="196" rx="12" ry="12" fill="#EDFAF8" stroke="#0D9488" stroke-width="2.5"/>
+<text x="492" y="636" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="start">AI suggestions</text>
+<text x="492" y="674" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">The model's recommended next action,</text>
+<text x="492" y="698" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">written in plain language for the teacher.</text>
+<rect x="907.6" y="744" width="60.4" height="22" rx="11" ry="11" fill="#FEF6EC" stroke="#D97706" stroke-width="1.5"/>
+<text x="937.8" y="759.5" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="bold" fill="#D97706" text-anchor="middle">PLANNED</text>
+<rect x="1015" y="594" width="520" height="196" rx="12" ry="12" fill="#ECFAF4" stroke="#059669" stroke-width="2.5"/>
+<text x="1037" y="636" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="start">Class overview</text>
+<text x="1037" y="674" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">Every student at a glance — spot who has</text>
+<text x="1037" y="698" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">not practised at all this week.</text>
+<rect x="1452.6" y="744" width="60.4" height="22" rx="11" ry="11" fill="#FEF6EC" stroke="#D97706" stroke-width="1.5"/>
+<text x="1482.8" y="759.5" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="bold" fill="#D97706" text-anchor="middle">PLANNED</text>
+<text x="60" y="866" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#6B7280" text-anchor="start" font-style="italic">Data reaches the app either from the device's SD card or from the same database the web app already writes to — no new pipeline is needed.</text>
+</svg>

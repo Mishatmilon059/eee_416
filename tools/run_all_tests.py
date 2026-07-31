@@ -75,6 +75,15 @@ def main():
         else:
             print("\nskipping web e2e: needs node + `npm install playwright`")
 
+    if (ROOT / "docs" / "BraillePresentation.pptx").exists():
+        try:
+            import pptx  # noqa: F401
+            results["presentation deck"] = run(
+                "Presentation deck: geometry, white backgrounds, editable SVGs",
+                [py, str(ROOT / "tools" / "test_deck.py")])
+        except ImportError:
+            print("\nskipping deck QA: needs `pip install python-pptx`")
+
     print(f"\n{'=' * 70}\nSUMMARY\n{'=' * 70}")
     for name, ok in results.items():
         print(f"  {'PASS' if ok else 'FAIL'}  {name}")

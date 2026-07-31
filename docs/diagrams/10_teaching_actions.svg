@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<title>Teaching actions and their origin</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1600" height="900" fill="#FFFFFF"/>
+<text x="60" y="66" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#111827" text-anchor="start">The six teaching actions, and where they come from</text>
+<text x="60" y="96" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="normal" fill="#6B7280" text-anchor="start">Written as explicit rules first, then learned by the network</text>
+<rect x="1480.0" y="44" width="58.400000000000006" height="26" rx="13.0" ry="13.0" fill="#ECFAF4" stroke="#059669" stroke-width="1.5"/>
+<text x="1509.2" y="61.68" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">BUILT</text>
+<rect x="60" y="150" width="720" height="128" rx="12" ry="12" fill="#FEF0F0" stroke="#DC2626" stroke-width="2.5"/>
+<text x="80" y="186" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="start">REPEAT</text>
+<text x="80" y="214" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">The answer was wrong, but the learner is not stuck yet.</text>
+<rect x="80" y="230" width="430" height="32" rx="16" ry="16" fill="#FFFFFF" stroke="#DC2626" stroke-width="1.5"/>
+<text x="295" y="252" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="bold" fill="#DC2626" text-anchor="middle">wrong streak &gt;= 1</text>
+<rect x="820" y="150" width="720" height="128" rx="12" ry="12" fill="#FEF6EC" stroke="#D97706" stroke-width="2.5"/>
+<text x="840" y="186" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="start">HINT</text>
+<text x="840" y="214" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">Two or more retries with no hint used — reveal the dot count.</text>
+<rect x="840" y="230" width="430" height="32" rx="16" ry="16" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
+<text x="1055" y="252" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="bold" fill="#D97706" text-anchor="middle">retries &gt;= 2  and  hints = 0</text>
+<rect x="60" y="298" width="720" height="128" rx="12" ry="12" fill="#F6F7F9" stroke="#6B7280" stroke-width="2.5"/>
+<text x="80" y="334" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="start">NORMAL PRACTICE</text>
+<text x="80" y="362" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">Nothing unusual is happening. Continue as normal.</text>
+<rect x="80" y="378" width="430" height="32" rx="16" ry="16" fill="#FFFFFF" stroke="#6B7280" stroke-width="1.5"/>
+<text x="295" y="400" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="bold" fill="#6B7280" text-anchor="middle">default case</text>
+<rect x="820" y="298" width="720" height="128" rx="12" ry="12" fill="#ECFAF4" stroke="#059669" stroke-width="2.5"/>
+<text x="840" y="334" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="start">INCREASE DIFFICULTY</text>
+<text x="840" y="362" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">Doing well on this letter — raise the tier.</text>
+<rect x="840" y="378" width="430" height="32" rx="16" ry="16" fill="#FFFFFF" stroke="#059669" stroke-width="1.5"/>
+<text x="1055" y="400" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="bold" fill="#059669" text-anchor="middle">mastery &gt;= 0.70  and  streak &gt;= 3</text>
+<rect x="60" y="446" width="720" height="128" rx="12" ry="12" fill="#EFF4FE" stroke="#2563EB" stroke-width="2.5"/>
+<text x="80" y="482" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="start">REVIEW PREVIOUS</text>
+<text x="80" y="510" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">Stuck, or a partly-learned letter has gone stale.</text>
+<rect x="80" y="526" width="430" height="32" rx="16" ry="16" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5"/>
+<text x="295" y="548" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="bold" fill="#2563EB" text-anchor="middle">wrong streak &gt;= 3, or stale and weak</text>
+<rect x="820" y="446" width="720" height="128" rx="12" ry="12" fill="#EDFAF8" stroke="#0D9488" stroke-width="2.5"/>
+<text x="840" y="482" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="start">WORD PRACTICE</text>
+<text x="840" y="510" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">The letter is solid — start using it inside words.</text>
+<rect x="840" y="526" width="430" height="32" rx="16" ry="16" fill="#FFFFFF" stroke="#0D9488" stroke-width="1.5"/>
+<text x="1055" y="548" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="bold" fill="#0D9488" text-anchor="middle">mastery &gt;= 0.85  and  streak &gt;= 5</text>
+<rect x="60" y="594" width="1480" height="152" rx="12" ry="12" fill="#FFFFFF" stroke="#111827" stroke-width="2.5"/>
+<text x="84" y="632" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="bold" fill="#111827" text-anchor="start">WHERE THESE DECISIONS COME FROM</text>
+<circle cx="100" cy="668" r="13" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+<text x="100" y="673" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">1</text>
+<text x="126" y="673" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">The rules are hand-written from teaching principles, and applied live while data is collected.</text>
+<circle cx="100" cy="706" r="13" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<text x="100" y="711" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#FFFFFF" text-anchor="middle">2</text>
+<text x="126" y="711" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">The network is trained on those decisions and reproduces them at 96.7% — small enough to run on the ESP32.</text>
+<text x="60" y="866" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#6B7280" text-anchor="start" font-style="italic">The model does not invent teaching strategy. It compresses an explicit policy into 1,161 parameters so it can run offline on a microcontroller.</text>
+</svg>

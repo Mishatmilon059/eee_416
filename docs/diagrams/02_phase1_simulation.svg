@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<title>Phase 1 — simulation and data collection</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1600" height="900" fill="#FFFFFF"/>
+<text x="60" y="66" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#111827" text-anchor="start">Phase 1 — Simulation captures real learner behaviour</text>
+<text x="60" y="96" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="normal" fill="#6B7280" text-anchor="start">The web app is a measuring instrument first and a tutor second</text>
+<rect x="1480.0" y="44" width="58.400000000000006" height="26" rx="13.0" ry="13.0" fill="#ECFAF4" stroke="#059669" stroke-width="1.5"/>
+<text x="1509.2" y="61.68" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">BUILT</text>
+<rect x="60" y="150" width="500" height="650" rx="12" ry="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="7 6"/>
+<text x="80" y="182" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#6B7280" text-anchor="start">IN THE BROWSER</text>
+<rect x="90" y="210" width="440" height="105" rx="12" ry="12" fill="#EFF4FE" stroke="#2563EB" stroke-width="2"/>
+<circle cx="126" cy="262" r="21" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+<text x="126" y="270" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#FFFFFF" text-anchor="middle">1</text>
+<text x="162" y="254" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="start">Audio prompt</text>
+<text x="162" y="282" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">the app speaks a Bangla letter</text>
+<path d="M 310 317 L 310 353" fill="none" stroke="#CBD5E1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="90" y="355" width="440" height="105" rx="12" ry="12" fill="#EFF4FE" stroke="#2563EB" stroke-width="2"/>
+<circle cx="126" cy="407" r="21" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+<text x="126" y="415" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#FFFFFF" text-anchor="middle">2</text>
+<text x="162" y="399" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="start">Learner responds</text>
+<text x="162" y="427" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">presses 6 keys = 6 Braille dots</text>
+<path d="M 310 462 L 310 498" fill="none" stroke="#CBD5E1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="90" y="500" width="440" height="105" rx="12" ry="12" fill="#EFF4FE" stroke="#2563EB" stroke-width="2"/>
+<circle cx="126" cy="552" r="21" fill="#2563EB" stroke="#2563EB" stroke-width="2"/>
+<text x="126" y="560" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#FFFFFF" text-anchor="middle">3</text>
+<text x="162" y="544" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="start">System scores it</text>
+<text x="162" y="572" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">entered pattern vs expected</text>
+<path d="M 310 607 L 310 643" fill="none" stroke="#CBD5E1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="90" y="645" width="440" height="105" rx="12" ry="12" fill="#EDFAF8" stroke="#0D9488" stroke-width="2"/>
+<circle cx="126" cy="697" r="21" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<text x="126" y="705" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#FFFFFF" text-anchor="middle">4</text>
+<text x="162" y="689" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="start">Rule engine decides</text>
+<text x="162" y="717" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">teaching action + confidence</text>
+<rect x="600" y="150" width="480" height="340" rx="12" ry="12" fill="#F5F0FE" stroke="#7C3AED" stroke-width="2.5"/>
+<text x="624" y="188" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#7C3AED" text-anchor="start">RECORDED PER ATTEMPT</text>
+<text x="624" y="228" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">•  response time</text>
+<text x="852" y="228" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">•  press duration</text>
+<text x="624" y="258" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">•  retry count</text>
+<text x="852" y="258" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">•  hint count</text>
+<text x="624" y="288" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">•  prev accuracy</text>
+<text x="852" y="288" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">•  prev mastery</text>
+<text x="624" y="318" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">•  current streak</text>
+<text x="852" y="318" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">•  wrong streak</text>
+<text x="624" y="348" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">•  time since practice</text>
+<text x="852" y="348" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">•  session number</text>
+<text x="624" y="378" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">•  difficulty level</text>
+<text x="852" y="378" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">•  prev mistakes</text>
+<text x="624" y="408" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">•  character id</text>
+<text x="852" y="408" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">•  prev confidence</text>
+<rect x="624" y="435" width="432" height="38" rx="8" ry="8" fill="#FFFFFF" stroke="#7C3AED" stroke-width="1.5"/>
+<text x="840" y="460" font-family="Arial, Helvetica, sans-serif" font-size="15.5" font-weight="bold" fill="#7C3AED" text-anchor="middle">14 features  +  2 labels  =  1 row</text>
+<rect x="600" y="520" width="480" height="280" rx="12" ry="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+<text x="624" y="554" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#6B7280" text-anchor="start">VIRTUAL BRAILLE CELL</text>
+<circle cx="680" cy="600" r="16" fill="#111827" stroke="#111827" stroke-width="2"/>
+<circle cx="680" cy="648" r="16" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+<text x="680" y="652" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" fill="#CBD5E1" text-anchor="middle">2</text>
+<circle cx="680" cy="696" r="16" fill="#111827" stroke="#111827" stroke-width="2"/>
+<circle cx="732" cy="600" r="16" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+<text x="732" y="604" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" fill="#CBD5E1" text-anchor="middle">4</text>
+<circle cx="732" cy="648" r="16" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+<text x="732" y="652" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="normal" fill="#CBD5E1" text-anchor="middle">5</text>
+<circle cx="732" cy="696" r="16" fill="#111827" stroke="#111827" stroke-width="2"/>
+<text x="790" y="602" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">The 6 dots on screen map</text>
+<text x="790" y="627" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">one-to-one onto the 6</text>
+<text x="790" y="652" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">vibration motors on the</text>
+<text x="790" y="677" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">hardware build.</text>
+<rect x="1120" y="150" width="420" height="650" rx="12" ry="12" fill="#ECFAF4" stroke="#059669" stroke-width="2.5"/>
+<text x="1144" y="188" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#059669" text-anchor="start">WHY SIMULATE FIRST</text>
+<text x="1144" y="228" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">No hardware is needed to</text>
+<text x="1144" y="254" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">start collecting real</text>
+<text x="1144" y="280" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">learner behaviour.</text>
+<text x="1144" y="306" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start"></text>
+<text x="1144" y="332" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">Volunteers practise with</text>
+<text x="1144" y="358" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">eyes closed, so the timing</text>
+<text x="1144" y="384" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">and hesitation recorded</text>
+<text x="1144" y="410" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">are genuine.</text>
+<text x="1144" y="436" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start"></text>
+<text x="1144" y="462" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">The same rule engine that</text>
+<text x="1144" y="488" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">runs here is generated</text>
+<text x="1144" y="514" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">into the ESP32 firmware,</text>
+<text x="1144" y="540" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">so the two can never</text>
+<text x="1144" y="566" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">drift apart.</text>
+<text x="1144" y="592" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start"></text>
+<text x="1144" y="618" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">Collection can begin weeks</text>
+<text x="1144" y="644" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">before any component</text>
+<text x="1144" y="670" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">arrives.</text>
+<text x="60" y="866" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#6B7280" text-anchor="start" font-style="italic">Every row is written to local storage first, then synced — a dropped connection never loses data or interrupts a session.</text>
+</svg>

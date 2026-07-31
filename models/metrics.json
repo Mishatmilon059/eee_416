@@ -6,10 +6,10 @@
   },
   "test": {
     "teaching_combined": 0.967032967032967,
-    "teaching_real_only": NaN,
+    "teaching_real_only": null,
     "teaching_majority_baseline": 0.37362637362637363,
     "confidence_combined": 0.8791208791208791,
-    "confidence_real_only": NaN,
+    "confidence_real_only": null,
     "confidence_majority_baseline": 0.5274725274725275
   },
   "rule_agreement": 0.967032967032967,

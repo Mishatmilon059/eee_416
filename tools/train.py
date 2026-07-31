@@ -354,16 +354,24 @@ def main():
                     "vectors": golden}, indent=2), encoding="utf-8")
 
     model.save(args.out / "model.keras")
+
+    # Python's json writes bare NaN, which is NOT valid JSON -- every other
+    # language rejects the file. A metric with no data behind it (real-only
+    # accuracy when no real rows were collected) is genuinely absent, so it is
+    # written as null rather than as a number that is not a number.
+    def clean(v):
+        return None if isinstance(v, float) and (v != v or v in (float("inf"), float("-inf"))) else v
+
     (args.out / "metrics.json").write_text(json.dumps({
         "params": int(model.count_params()),
         "rows": {"real": len(real_rows), "synthetic": len(synth_rows)},
         "test": {
-            "teaching_combined": acc(true_ta, pred_ta),
-            "teaching_real_only": acc(true_ta[real_mask], pred_ta[real_mask]),
-            "teaching_majority_baseline": base_ta,
-            "confidence_combined": acc(true_cs, pred_cs),
-            "confidence_real_only": acc(true_cs[real_mask], pred_cs[real_mask]),
-            "confidence_majority_baseline": base_cs,
+            "teaching_combined": clean(acc(true_ta, pred_ta)),
+            "teaching_real_only": clean(acc(true_ta[real_mask], pred_ta[real_mask])),
+            "teaching_majority_baseline": clean(base_ta),
+            "confidence_combined": clean(acc(true_cs, pred_cs)),
+            "confidence_real_only": clean(acc(true_cs[real_mask], pred_cs[real_mask])),
+            "confidence_majority_baseline": clean(base_cs),
         },
         "rule_agreement": agree_ta / len(true_ta),
         "disagreements": {"total": len(disagree), "real": len(real_disagree)},

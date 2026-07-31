@@ -16,3 +16,6 @@ models/*.keras
 models/*.h5
 .tmp_*.wav
 package-lock.json
+.pptx_work/
+docs/*.pdf
+docs/slide-*.jpg

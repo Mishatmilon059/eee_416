@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<title>TinyML model architecture</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1600" height="900" fill="#FFFFFF"/>
+<text x="60" y="66" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#111827" text-anchor="start">TinyML model architecture</text>
+<text x="60" y="96" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="normal" fill="#6B7280" text-anchor="start">Multi-task network — 1,161 trainable parameters</text>
+<rect x="1480.0" y="44" width="58.400000000000006" height="26" rx="13.0" ry="13.0" fill="#ECFAF4" stroke="#059669" stroke-width="1.5"/>
+<text x="1509.2" y="61.68" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">BUILT</text>
+<rect x="60" y="170" width="215" height="380" rx="12" ry="12" fill="#F5F0FE" stroke="#7C3AED" stroke-width="2.5"/>
+<text x="167.5" y="212" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#111827" text-anchor="middle">INPUT</text>
+<text x="167.5" y="238" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="middle">14 features</text>
+<circle cx="167.5" cy="276" r="8" fill="#7C3AED" stroke="#7C3AED" stroke-width="2"/>
+<circle cx="167.5" cy="302" r="8" fill="#7C3AED" stroke="#7C3AED" stroke-width="2"/>
+<circle cx="167.5" cy="328" r="8" fill="#7C3AED" stroke="#7C3AED" stroke-width="2"/>
+<circle cx="167.5" cy="354" r="8" fill="#7C3AED" stroke="#7C3AED" stroke-width="2"/>
+<circle cx="167.5" cy="380" r="8" fill="#7C3AED" stroke="#7C3AED" stroke-width="2"/>
+<circle cx="167.5" cy="406" r="8" fill="#7C3AED" stroke="#7C3AED" stroke-width="2"/>
+<circle cx="167.5" cy="432" r="8" fill="#7C3AED" stroke="#7C3AED" stroke-width="2"/>
+<circle cx="167.5" cy="468" r="2.6" fill="#7C3AED" stroke="#7C3AED" stroke-width="2"/>
+<circle cx="167.5" cy="479" r="2.6" fill="#7C3AED" stroke="#7C3AED" stroke-width="2"/>
+<circle cx="167.5" cy="490" r="2.6" fill="#7C3AED" stroke="#7C3AED" stroke-width="2"/>
+<path d="M 280 360.0 L 330 360.0" fill="none" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="335" y="170" width="215" height="380" rx="12" ry="12" fill="#EDFAF8" stroke="#0D9488" stroke-width="2.5"/>
+<text x="442.5" y="212" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#111827" text-anchor="middle">DENSE 32</text>
+<text x="442.5" y="238" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="middle">ReLU</text>
+<circle cx="442.5" cy="276" r="8" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<circle cx="442.5" cy="302" r="8" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<circle cx="442.5" cy="328" r="8" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<circle cx="442.5" cy="354" r="8" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<circle cx="442.5" cy="380" r="8" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<circle cx="442.5" cy="406" r="8" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<circle cx="442.5" cy="432" r="8" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<circle cx="442.5" cy="468" r="2.6" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<circle cx="442.5" cy="479" r="2.6" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<circle cx="442.5" cy="490" r="2.6" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<text x="442.5" y="528" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#0D9488" text-anchor="middle">480 params</text>
+<path d="M 555 360.0 L 605 360.0" fill="none" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="610" y="170" width="215" height="380" rx="12" ry="12" fill="#EDFAF8" stroke="#0D9488" stroke-width="2.5"/>
+<text x="717.5" y="212" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#111827" text-anchor="middle">DENSE 16</text>
+<text x="717.5" y="238" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="middle">ReLU</text>
+<circle cx="717.5" cy="276" r="8" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<circle cx="717.5" cy="302" r="8" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<circle cx="717.5" cy="328" r="8" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<circle cx="717.5" cy="354" r="8" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<circle cx="717.5" cy="380" r="8" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<circle cx="717.5" cy="406" r="8" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<circle cx="717.5" cy="442" r="2.6" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<circle cx="717.5" cy="453" r="2.6" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<circle cx="717.5" cy="464" r="2.6" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<text x="717.5" y="528" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#0D9488" text-anchor="middle">528 params</text>
+<path d="M 830 360.0 L 875 360.0 L 875 250 L 915 250" fill="none" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path d="M 830 360.0 L 875 360.0 L 875 460 L 915 460" fill="none" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="920" y="200" width="265" height="100" rx="12" ry="12" fill="#FDF0F6" stroke="#DB2777" stroke-width="2.5"/>
+<text x="1052" y="236" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="bold" fill="#111827" text-anchor="middle">DENSE 3 — softmax</text>
+<text x="1052" y="262" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="middle">confidence state</text>
+<text x="1052" y="284" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="bold" fill="#DB2777" text-anchor="middle">51 params</text>
+<rect x="920" y="410" width="265" height="100" rx="12" ry="12" fill="#EDFAF8" stroke="#0D9488" stroke-width="2.5"/>
+<text x="1052" y="446" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="bold" fill="#111827" text-anchor="middle">DENSE 6 — softmax</text>
+<text x="1052" y="472" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="middle">teaching action</text>
+<text x="1052" y="494" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="bold" fill="#0D9488" text-anchor="middle">102 params</text>
+<rect x="1225" y="170" width="315" height="380" rx="12" ry="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+<text x="1249" y="208" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#6B7280" text-anchor="start">MEASURED</text>
+<text x="1249" y="252" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">Trainable parameters</text>
+<text x="1516" y="252" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="bold" fill="#0D9488" text-anchor="end">1,161</text>
+<line x1="1249" y1="265" x2="1516" y2="265" stroke="#EEF1F5" stroke-width="1" stroke-linecap="round"/>
+<text x="1249" y="290" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">Float32 model</text>
+<text x="1516" y="290" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="bold" fill="#0D9488" text-anchor="end">~4.6 KB</text>
+<line x1="1249" y1="303" x2="1516" y2="303" stroke="#EEF1F5" stroke-width="1" stroke-linecap="round"/>
+<text x="1249" y="328" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">After int8 quantization</text>
+<text x="1516" y="328" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="bold" fill="#0D9488" text-anchor="end">5,928 B</text>
+<line x1="1249" y1="341" x2="1516" y2="341" stroke="#EEF1F5" stroke-width="1" stroke-linecap="round"/>
+<text x="1249" y="366" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">Teaching accuracy</text>
+<text x="1516" y="366" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="bold" fill="#0D9488" text-anchor="end">96.7%</text>
+<line x1="1249" y1="379" x2="1516" y2="379" stroke="#EEF1F5" stroke-width="1" stroke-linecap="round"/>
+<text x="1249" y="404" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">Confidence accuracy</text>
+<text x="1516" y="404" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="bold" fill="#0D9488" text-anchor="end">87.9%</text>
+<line x1="1249" y1="417" x2="1516" y2="417" stroke="#EEF1F5" stroke-width="1" stroke-linecap="round"/>
+<text x="1249" y="442" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">TFLite vs Keras match</text>
+<text x="1516" y="442" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="bold" fill="#0D9488" text-anchor="end">100%</text>
+<line x1="1249" y1="455" x2="1516" y2="455" stroke="#EEF1F5" stroke-width="1" stroke-linecap="round"/>
+<text x="1249" y="480" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">Inference time</text>
+<text x="1516" y="480" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="bold" fill="#0D9488" text-anchor="end">&lt; 1 ms</text>
+<line x1="1249" y1="493" x2="1516" y2="493" stroke="#EEF1F5" stroke-width="1" stroke-linecap="round"/>
+<text x="1249" y="518" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#111827" text-anchor="start">Training time</text>
+<text x="1516" y="518" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="bold" fill="#0D9488" text-anchor="end">&lt; 30 s, CPU</text>
+<rect x="60" y="580" width="1480" height="145" rx="12" ry="12" fill="#FEF6EC" stroke="#D97706" stroke-width="2.5"/>
+<text x="84" y="616" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="bold" fill="#D97706" text-anchor="start">WHAT THIS MODEL ACTUALLY DOES — state this plainly in the report</text>
+<text x="84" y="650" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">The training labels are produced by a hand-written rule engine, so the network learns to REPRODUCE that engine — measured at 96.7% agreement.</text>
+<text x="84" y="676" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">That is a real TinyML achievement: an adaptive teaching policy compressed into 1,161 parameters that run offline on a low-cost microcontroller.</text>
+<text x="84" y="702" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">It is not autonomous discovery of teaching strategy and must not be described that way. The interesting evidence is where the model disagrees with the engine.</text>
+<text x="60" y="866" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#6B7280" text-anchor="start" font-style="italic">Quantization to int8 changed zero predictions on the test set — the deployed model is exactly the validated model.</text>
+</svg>

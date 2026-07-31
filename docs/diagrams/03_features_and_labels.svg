@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<title>Features and labels</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1600" height="900" fill="#FFFFFF"/>
+<text x="60" y="66" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#111827" text-anchor="start">What the model sees, and what it predicts</text>
+<text x="60" y="96" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="normal" fill="#6B7280" text-anchor="start">14 numeric inputs, two simultaneous outputs</text>
+<rect x="1480.0" y="44" width="58.400000000000006" height="26" rx="13.0" ry="13.0" fill="#ECFAF4" stroke="#059669" stroke-width="1.5"/>
+<text x="1509.2" y="61.68" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">BUILT</text>
+<rect x="60" y="150" width="320" height="330" rx="12" ry="12" fill="#F5F0FE" stroke="#7C3AED" stroke-width="2.5"/>
+<text x="78" y="186" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#7C3AED" text-anchor="start">SAMPLED BEFORE THE ATTEMPT</text>
+<text x="78" y="226" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">•  character id</text>
+<text x="78" y="256" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">•  prev accuracy</text>
+<text x="78" y="286" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">•  prev mastery</text>
+<text x="78" y="316" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">•  prev mistakes</text>
+<text x="78" y="346" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">•  prev confidence</text>
+<text x="78" y="376" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">•  session number</text>
+<text x="78" y="406" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">•  difficulty level</text>
+<text x="78" y="436" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">•  time since last practice</text>
+<rect x="406" y="150" width="250" height="330" rx="12" ry="12" fill="#EFF4FE" stroke="#2563EB" stroke-width="2.5"/>
+<text x="424" y="186" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#2563EB" text-anchor="start">MEASURED DURING</text>
+<text x="424" y="226" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">•  response time</text>
+<text x="424" y="256" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">•  press duration</text>
+<text x="424" y="286" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">•  retry count</text>
+<text x="424" y="316" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">•  hint count</text>
+<rect x="682" y="150" width="250" height="330" rx="12" ry="12" fill="#ECFAF4" stroke="#059669" stroke-width="2.5"/>
+<text x="700" y="186" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#059669" text-anchor="start">READ AFTER SCORING</text>
+<text x="700" y="226" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">•  current streak</text>
+<text x="700" y="256" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">•  wrong streak</text>
+<rect x="60" y="510" width="916" height="290" rx="12" ry="12" fill="#FEF6EC" stroke="#D97706" stroke-width="2.5"/>
+<text x="84" y="548" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#D97706" text-anchor="start">KEY DESIGN POINT</text>
+<text x="84" y="578" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#111827" text-anchor="start">There is deliberately no "is correct" input.</text>
+<text x="84" y="614" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">The two streaks are read AFTER the answer is scored, so correctness is</text>
+<text x="84" y="638" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">already implied by them:</text>
+<rect x="84" y="658" width="420" height="40" rx="8" ry="8" fill="#FFFFFF" stroke="#059669" stroke-width="2"/>
+<text x="294" y="684" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="bold" fill="#059669" text-anchor="middle">current streak &gt; 0   →   answer was RIGHT</text>
+<rect x="520" y="658" width="420" height="40" rx="8" ry="8" fill="#FFFFFF" stroke="#DC2626" stroke-width="2"/>
+<text x="730" y="684" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="bold" fill="#DC2626" text-anchor="middle">wrong streak &gt; 0   →   answer was WRONG</text>
+<text x="84" y="728" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">Exactly one is ever non-zero. This lets the network reproduce every rule the</text>
+<text x="84" y="749" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">engine applies — had the streaks been read before scoring, the engine would</text>
+<text x="84" y="770" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">branch on information the model cannot see, and accuracy would cap out for</text>
+<text x="84" y="791" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">reasons that look like a training bug but are not.</text>
+<rect x="1006" y="150" width="534" height="300" rx="12" ry="12" fill="#EDFAF8" stroke="#0D9488" stroke-width="2.5"/>
+<text x="1030" y="186" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#0D9488" text-anchor="start">OUTPUT 1 — TEACHING ACTION</text>
+<text x="1030" y="210" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="normal" fill="#6B7280" text-anchor="start">6 classes</text>
+<rect x="1030" y="232" width="242" height="52" rx="10" ry="10" fill="#FFFFFF" stroke="#0D9488" stroke-width="1.5"/>
+<text x="1151" y="265" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Repeat</text>
+<rect x="1288" y="232" width="242" height="52" rx="10" ry="10" fill="#FFFFFF" stroke="#0D9488" stroke-width="1.5"/>
+<text x="1409" y="265" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Hint</text>
+<rect x="1030" y="300" width="242" height="52" rx="10" ry="10" fill="#FFFFFF" stroke="#0D9488" stroke-width="1.5"/>
+<text x="1151" y="333" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Normal practice</text>
+<rect x="1288" y="300" width="242" height="52" rx="10" ry="10" fill="#FFFFFF" stroke="#0D9488" stroke-width="1.5"/>
+<text x="1409" y="333" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Increase difficulty</text>
+<rect x="1030" y="368" width="242" height="52" rx="10" ry="10" fill="#FFFFFF" stroke="#0D9488" stroke-width="1.5"/>
+<text x="1151" y="401" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Review previous</text>
+<rect x="1288" y="368" width="242" height="52" rx="10" ry="10" fill="#FFFFFF" stroke="#0D9488" stroke-width="1.5"/>
+<text x="1409" y="401" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Word practice</text>
+<rect x="1006" y="480" width="534" height="175" rx="12" ry="12" fill="#FDF0F6" stroke="#DB2777" stroke-width="2.5"/>
+<text x="1030" y="516" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#DB2777" text-anchor="start">OUTPUT 2 — CONFIDENCE STATE</text>
+<text x="1030" y="540" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="normal" fill="#6B7280" text-anchor="start">3 classes</text>
+<rect x="1030" y="558" width="158" height="48" rx="10" ry="10" fill="#FFFFFF" stroke="#DB2777" stroke-width="1.5"/>
+<text x="1109" y="589" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Confident</text>
+<rect x="1202" y="558" width="158" height="48" rx="10" ry="10" fill="#FFFFFF" stroke="#DB2777" stroke-width="1.5"/>
+<text x="1281" y="589" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Hesitant</text>
+<rect x="1374" y="558" width="158" height="48" rx="10" ry="10" fill="#FFFFFF" stroke="#DB2777" stroke-width="1.5"/>
+<text x="1453" y="589" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Guessing</text>
+<text x="1030" y="636" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Inferred from speed, retries and hesitation.</text>
+<rect x="1006" y="685" width="534" height="115" rx="12" ry="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+<text x="1030" y="723" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">Both heads share one trunk: a single</text>
+<text x="1030" y="747" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">network gives two answers from one</text>
+<text x="1030" y="771" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">inference. That is what keeps it small</text>
+<text x="1030" y="795" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">enough for a microcontroller.</text>
+<text x="60" y="866" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#6B7280" text-anchor="start" font-style="italic">Feature scaling uses fixed ranges from the spec, never dataset statistics — so retraining can never desynchronise the device from the model.</text>
+</svg>

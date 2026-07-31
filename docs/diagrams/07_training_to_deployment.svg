@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<title>Training to deployment</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1600" height="900" fill="#FFFFFF"/>
+<text x="60" y="66" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#111827" text-anchor="start">From CSV to a microcontroller</text>
+<text x="60" y="96" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="normal" fill="#6B7280" text-anchor="start">Five automated steps — no hand-copied numbers anywhere</text>
+<rect x="1480.0" y="44" width="58.400000000000006" height="26" rx="13.0" ry="13.0" fill="#ECFAF4" stroke="#059669" stroke-width="1.5"/>
+<text x="1509.2" y="61.68" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">BUILT</text>
+<rect x="60" y="170" width="262" height="210" rx="12" ry="12" fill="#F5F0FE" stroke="#7C3AED" stroke-width="2.5"/>
+<circle cx="191.0" cy="212" r="22" fill="#7C3AED" stroke="#7C3AED" stroke-width="2"/>
+<text x="191.0" y="220" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle">1</text>
+<text x="191.0" y="272" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">CSV dataset</text>
+<text x="191.0" y="302" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="middle">real + synthetic</text>
+<text x="191.0" y="324" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="middle">rows, audited</text>
+<text x="191.0" y="362" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" fill="#7C3AED" text-anchor="middle">export_dataset.py</text>
+<path d="M 326 275 L 347 275" fill="none" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="352" y="170" width="262" height="210" rx="12" ry="12" fill="#EDFAF8" stroke="#0D9488" stroke-width="2.5"/>
+<circle cx="483.0" cy="212" r="22" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<text x="483.0" y="220" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle">2</text>
+<text x="483.0" y="272" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Keras model</text>
+<text x="483.0" y="302" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="middle">1,161 parameters</text>
+<text x="483.0" y="324" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="middle">trained on CPU</text>
+<text x="483.0" y="362" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" fill="#0D9488" text-anchor="middle">train.py</text>
+<path d="M 618 275 L 639 275" fill="none" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="644" y="170" width="262" height="210" rx="12" ry="12" fill="#EDFAF8" stroke="#0D9488" stroke-width="2.5"/>
+<circle cx="775.0" cy="212" r="22" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<text x="775.0" y="220" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle">3</text>
+<text x="775.0" y="272" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">TFLite int8</text>
+<text x="775.0" y="302" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="middle">5,928 bytes</text>
+<text x="775.0" y="324" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="middle">quantized</text>
+<text x="775.0" y="362" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" fill="#0D9488" text-anchor="middle">converter</text>
+<path d="M 910 275 L 931 275" fill="none" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="936" y="170" width="262" height="210" rx="12" ry="12" fill="#FEF3EC" stroke="#EA580C" stroke-width="2.5"/>
+<circle cx="1067.0" cy="212" r="22" fill="#EA580C" stroke="#EA580C" stroke-width="2"/>
+<text x="1067.0" y="220" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle">4</text>
+<text x="1067.0" y="272" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">C header</text>
+<text x="1067.0" y="302" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="middle">model_data.h</text>
+<text x="1067.0" y="324" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="middle">compiled in</text>
+<text x="1067.0" y="362" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" fill="#EA580C" text-anchor="middle">tflite_to_header.py</text>
+<path d="M 1202 275 L 1223 275" fill="none" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="1228" y="170" width="262" height="210" rx="12" ry="12" fill="#FEF3EC" stroke="#EA580C" stroke-width="2.5"/>
+<circle cx="1359.0" cy="212" r="22" fill="#EA580C" stroke="#EA580C" stroke-width="2"/>
+<text x="1359.0" y="220" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle">5</text>
+<text x="1359.0" y="272" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">ESP32 flash</text>
+<text x="1359.0" y="302" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="middle">runs offline</text>
+<text x="1359.0" y="324" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="middle">in under 1 ms</text>
+<text x="1359.0" y="362" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="bold" fill="#EA580C" text-anchor="middle">Arduino IDE</text>
+<rect x="60" y="425" width="740" height="375" rx="12" ry="12" fill="#ECFAF4" stroke="#059669" stroke-width="2.5"/>
+<text x="84" y="463" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="bold" fill="#059669" text-anchor="start">HOW WE KNOW THE DEVICE RUNS THE RIGHT MODEL</text>
+<text x="84" y="500" font-family="Arial, Helvetica, sans-serif" font-size="15.5" font-weight="normal" fill="#111827" text-anchor="start">During training, 12 test cases are saved together with the answers</text>
+<text x="84" y="527" font-family="Arial, Helvetica, sans-serif" font-size="15.5" font-weight="normal" fill="#111827" text-anchor="start">the desktop computed for them. Those cases are compiled into the</text>
+<text x="84" y="554" font-family="Arial, Helvetica, sans-serif" font-size="15.5" font-weight="normal" fill="#111827" text-anchor="start">firmware itself.</text>
+<text x="84" y="581" font-family="Arial, Helvetica, sans-serif" font-size="15.5" font-weight="normal" fill="#111827" text-anchor="start"></text>
+<text x="84" y="608" font-family="Arial, Helvetica, sans-serif" font-size="15.5" font-weight="normal" fill="#111827" text-anchor="start">At every boot the ESP32 runs all 12 and compares the results.</text>
+<rect x="84" y="650" width="330" height="50" rx="8" ry="8" fill="#FFFFFF" stroke="#059669" stroke-width="2"/>
+<text x="249" y="681" font-family="Arial, Helvetica, sans-serif" font-size="15.5" font-weight="bold" fill="#059669" text-anchor="middle">match  →  use the model</text>
+<rect x="438" y="650" width="338" height="50" rx="8" ry="8" fill="#FFFFFF" stroke="#DC2626" stroke-width="2"/>
+<text x="607" y="681" font-family="Arial, Helvetica, sans-serif" font-size="15.5" font-weight="bold" fill="#DC2626" text-anchor="middle">mismatch  →  fall back to rules</text>
+<text x="84" y="735" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Without this check a stale or corrupted model would run silently, and every</text>
+<text x="84" y="758" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">session recorded afterwards would be measuring an unknown function.</text>
+<rect x="830" y="425" width="710" height="375" rx="12" ry="12" fill="#FEF6EC" stroke="#D97706" stroke-width="2.5"/>
+<text x="854" y="463" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="bold" fill="#D97706" text-anchor="start">ONE SOURCE OF TRUTH — NOTHING HAND-COPIED</text>
+<text x="854" y="500" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">The teaching rules, the 14 feature definitions and the scaling</text>
+<text x="854" y="525" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#111827" text-anchor="start">ranges are written ONCE, then code-generated into three languages:</text>
+<rect x="854" y="560" width="250" height="42" rx="21" ry="21" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
+<text x="979" y="588" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">JavaScript</text>
+<text x="1130" y="588" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#6B7280" text-anchor="start">→   the web app</text>
+<rect x="854" y="616" width="250" height="42" rx="21" ry="21" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
+<text x="979" y="644" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">C</text>
+<text x="1130" y="644" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#6B7280" text-anchor="start">→   the ESP32 firmware</text>
+<rect x="854" y="672" width="250" height="42" rx="21" ry="21" fill="#FFFFFF" stroke="#D97706" stroke-width="1.5"/>
+<text x="979" y="700" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Python</text>
+<text x="1130" y="700" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="normal" fill="#6B7280" text-anchor="start">→   training + synthetic data</text>
+<rect x="854" y="735" width="660" height="44" rx="8" ry="8" fill="#FFFFFF" stroke="#D97706" stroke-width="2"/>
+<text x="1184" y="763" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="bold" fill="#D97706" text-anchor="middle">A test pushes 3,000 cases through all three and proves they agree</text>
+<text x="60" y="866" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#6B7280" text-anchor="start" font-style="italic">This removes the failure where the browser and the device compute features slightly differently — invisible until integration, expensive to find then.</text>
+</svg>

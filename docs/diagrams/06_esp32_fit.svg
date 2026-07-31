@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<title>ESP32 fit — memory, latency, offline</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1600" height="900" fill="#FFFFFF"/>
+<text x="60" y="66" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#111827" text-anchor="start">Does it fit on the ESP32?</text>
+<text x="60" y="96" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="normal" fill="#6B7280" text-anchor="start">Memory, latency and offline operation — measured, not estimated</text>
+<rect x="1480.0" y="44" width="58.400000000000006" height="26" rx="13.0" ry="13.0" fill="#ECFAF4" stroke="#059669" stroke-width="1.5"/>
+<text x="1509.2" y="61.68" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">BUILT</text>
+<rect x="60" y="150" width="940" height="270" rx="12" ry="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+<text x="84" y="188" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#6B7280" text-anchor="start">SRAM USAGE — 520 KB available</text>
+<rect x="84" y="216" width="892" height="62" rx="8" ry="8" fill="#F3F5F8" stroke="#CBD5E1" stroke-width="2"/>
+<rect x="84" y="216" width="23.65354567307692" height="62" rx="8" ry="8" fill="#0D9488" stroke="#0D9488" stroke-width="0"/>
+<text x="958" y="254" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#6B7280" text-anchor="end">free  ·  506 KB</text>
+<circle cx="91" cy="312" r="7" fill="#0D9488" stroke="#0D9488" stroke-width="2"/>
+<text x="104" y="316.5" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#6B7280" text-anchor="start">Model 5,928 B</text>
+<circle cx="209.95" cy="312" r="7" fill="#EA580C" stroke="#EA580C" stroke-width="2"/>
+<text x="222.95" y="316.5" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#6B7280" text-anchor="start">Tensor arena 8 KB</text>
+<circle cx="357.5" cy="312" r="7" fill="#6B7280" stroke="#6B7280" stroke-width="2"/>
+<text x="370.5" y="316.5" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#6B7280" text-anchor="start">Free 506 KB</text>
+<text x="84" y="368" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#6B7280" text-anchor="start">TOTAL USED</text>
+<text x="300" y="374" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="bold" fill="#0D9488" text-anchor="start">13.8 KB   =   2.7% of SRAM</text>
+<rect x="60" y="450" width="940" height="350" rx="12" ry="12" fill="#ECFAF4" stroke="#059669" stroke-width="2.5"/>
+<text x="84" y="488" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="bold" fill="#059669" text-anchor="start">WHY OFFLINE INFERENCE IS THE WHOLE POINT</text>
+<circle cx="102" cy="525" r="7" fill="#059669" stroke="#059669" stroke-width="2"/>
+<text x="124" y="530" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="start">No internet needed</text>
+<text x="330" y="530" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">Works in any classroom or village school, with no connectivity at all.</text>
+<circle cx="102" cy="577" r="7" fill="#059669" stroke="#059669" stroke-width="2"/>
+<text x="124" y="582" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="start">No recurring cost</text>
+<text x="330" y="582" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">No server, no API bill, no subscription for the school to maintain.</text>
+<circle cx="102" cy="629" r="7" fill="#059669" stroke="#059669" stroke-width="2"/>
+<text x="124" y="634" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="start">Instant response</text>
+<text x="330" y="634" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">Sub-millisecond decision — no round trip to a remote service.</text>
+<circle cx="102" cy="681" r="7" fill="#059669" stroke="#059669" stroke-width="2"/>
+<text x="124" y="686" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="start">Data stays local</text>
+<text x="330" y="686" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">Learner records are written to an SD card, never uploaded.</text>
+<circle cx="102" cy="733" r="7" fill="#059669" stroke="#059669" stroke-width="2"/>
+<text x="124" y="738" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#111827" text-anchor="start">Runs on batteries</text>
+<text x="330" y="738" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">With the radio switched off, power is dominated by the motors.</text>
+<rect x="1030" y="150" width="510" height="156" rx="12" ry="12" fill="#EDFAF8" stroke="#0D9488" stroke-width="2.5"/>
+<text x="1054" y="186" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#0D9488" text-anchor="start">LATENCY</text>
+<text x="1054" y="236" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="bold" fill="#111827" text-anchor="start">&lt; 1 ms</text>
+<text x="1054" y="266" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">per inference</text>
+<text x="1256" y="208" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="normal" fill="#111827" text-anchor="start">Two small dense layers.</text>
+<text x="1256" y="230" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="normal" fill="#111827" text-anchor="start">The audio prompt takes</text>
+<text x="1256" y="252" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="normal" fill="#111827" text-anchor="start">about 1000x longer.</text>
+<rect x="1030" y="322" width="510" height="156" rx="12" ry="12" fill="#FEF3EC" stroke="#EA580C" stroke-width="2.5"/>
+<text x="1054" y="358" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#EA580C" text-anchor="start">FLASH</text>
+<text x="1054" y="408" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="bold" fill="#111827" text-anchor="start">~30 KB</text>
+<text x="1054" y="438" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">model + runtime</text>
+<text x="1256" y="380" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="normal" fill="#111827" text-anchor="start">The ESP32 has 4 MB.</text>
+<text x="1256" y="402" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="normal" fill="#111827" text-anchor="start">Ample room for the model,</text>
+<text x="1256" y="424" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="normal" fill="#111827" text-anchor="start">audio index and logs.</text>
+<rect x="1030" y="494" width="510" height="156" rx="12" ry="12" fill="#ECFAF4" stroke="#059669" stroke-width="2.5"/>
+<text x="1054" y="530" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#059669" text-anchor="start">NETWORK</text>
+<text x="1054" y="580" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="bold" fill="#111827" text-anchor="start">NONE</text>
+<text x="1054" y="610" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">fully offline</text>
+<text x="1256" y="552" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="normal" fill="#111827" text-anchor="start">WiFi and Bluetooth are</text>
+<text x="1256" y="574" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="normal" fill="#111827" text-anchor="start">switched off in firmware.</text>
+<text x="1256" y="596" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="normal" fill="#111827" text-anchor="start">No cloud, no data leaves.</text>
+<text x="60" y="866" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#6B7280" text-anchor="start" font-style="italic">Golden test vectors from training are replayed on the device at boot — if the ESP32 disagrees with the desktop, it refuses to trust the model.</text>
+</svg>

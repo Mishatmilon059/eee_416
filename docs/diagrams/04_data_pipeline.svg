@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<title>Data pipeline</title>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<rect width="1600" height="900" fill="#FFFFFF"/>
+<text x="60" y="66" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#111827" text-anchor="start">From learner sessions to a training set</text>
+<text x="60" y="96" font-family="Arial, Helvetica, sans-serif" font-size="16.5" font-weight="normal" fill="#6B7280" text-anchor="start">Real data first — synthetic data is fitted to it, never invented before it</text>
+<rect x="1480.0" y="44" width="58.400000000000006" height="26" rx="13.0" ry="13.0" fill="#ECFAF4" stroke="#059669" stroke-width="1.5"/>
+<text x="1509.2" y="61.68" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">BUILT</text>
+<rect x="60" y="150" width="340" height="230" rx="12" ry="12" fill="#EFF4FE" stroke="#2563EB" stroke-width="2"/>
+<text x="76" y="180" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#111827" text-anchor="start">1.  Learner sessions</text>
+<text x="76" y="206" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">10–20 volunteers</text>
+<text x="76" y="226" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Short sessions, spread</text>
+<text x="76" y="246" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">across several days</text>
+<text x="76" y="266" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start"></text>
+<text x="76" y="286" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Target: about 400 real rows</text>
+<path d="M 405 265 L 455 265" fill="none" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="460" y="150" width="340" height="230" rx="12" ry="12" fill="#F5F0FE" stroke="#7C3AED" stroke-width="2"/>
+<text x="476" y="180" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#111827" text-anchor="start">2.  Supabase database</text>
+<text x="476" y="206" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">One flat 'attempts' table</text>
+<text x="476" y="226" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Append-only, deduplicated</text>
+<text x="476" y="246" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Live class-balance views</text>
+<text x="476" y="266" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start"></text>
+<text x="476" y="286" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Both laptops write to it</text>
+<path d="M 805 265 L 855 265" fill="none" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="860" y="150" width="340" height="230" rx="12" ry="12" fill="#F5F0FE" stroke="#7C3AED" stroke-width="2"/>
+<text x="876" y="180" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#111827" text-anchor="start">3.  CSV export</text>
+<text x="876" y="206" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Merges every source</text>
+<text x="876" y="226" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Audits the result</text>
+<text x="876" y="246" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Flags starved classes</text>
+<text x="876" y="266" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start"></text>
+<text x="876" y="286" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">→ dataset/real.csv</text>
+<rect x="460" y="425" width="740" height="215" rx="12" ry="12" fill="#EDFAF8" stroke="#0D9488" stroke-width="2"/>
+<text x="476" y="455" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#111827" text-anchor="start">4.  Synthetic generation — fitted to the real data</text>
+<text x="476" y="481" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Timing distributions are measured from the real rows, then virtual learners</text>
+<text x="476" y="501" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">are simulated through the SAME state machine the web app uses.</text>
+<text x="476" y="521" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start"></text>
+<text x="476" y="541" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Every generated row is internally consistent because it came from a simulated</text>
+<text x="476" y="561" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">session — not from sampling 14 numbers independently, which would produce</text>
+<text x="476" y="581" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">impossible combinations the model would waste capacity learning.</text>
+<path d="M 1030 383 L 1030 404 L 830 404 L 830 423" fill="none" stroke="#0D9488" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<rect x="60" y="425" width="340" height="215" rx="12" ry="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+<text x="84" y="461" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#6B7280" text-anchor="start">TARGET MIX</text>
+<rect x="84" y="485" width="120" height="54" rx="8" ry="8" fill="#EFF4FE" stroke="#2563EB" stroke-width="2"/>
+<text x="144" y="519" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#2563EB" text-anchor="middle">40% real</text>
+<rect x="216" y="485" width="160" height="54" rx="8" ry="8" fill="#EDFAF8" stroke="#0D9488" stroke-width="2"/>
+<text x="296" y="519" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="bold" fill="#0D9488" text-anchor="middle">60% synthetic</text>
+<text x="84" y="568" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">Synthetic data fills the rare</text>
+<text x="84" y="590" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">teaching actions that seldom</text>
+<text x="84" y="612" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="normal" fill="#6B7280" text-anchor="start">occur in natural practice.</text>
+<rect x="1230" y="150" width="310" height="490" rx="12" ry="12" fill="#FEF6EC" stroke="#D97706" stroke-width="2.5"/>
+<text x="1254" y="186" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#D97706" text-anchor="start">ORDER MATTERS</text>
+<text x="1254" y="226" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">Generating synthetic data</text>
+<text x="1254" y="251" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">BEFORE collecting real data</text>
+<text x="1254" y="276" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">produces rows fitted to</text>
+<text x="1254" y="301" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">nothing — a distribution</text>
+<text x="1254" y="326" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">that exists nowhere.</text>
+<text x="1254" y="351" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start"></text>
+<text x="1254" y="376" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">The generator refuses to</text>
+<text x="1254" y="401" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">pretend. With no real file</text>
+<text x="1254" y="426" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">it falls back to documented</text>
+<text x="1254" y="451" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">priors and says so loudly</text>
+<text x="1254" y="476" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">in its output.</text>
+<text x="1254" y="501" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start"></text>
+<text x="1254" y="526" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">Every synthetic row is</text>
+<text x="1254" y="551" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">flagged, and training always</text>
+<text x="1254" y="576" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">reports real-only accuracy</text>
+<text x="1254" y="601" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#111827" text-anchor="start">separately from combined.</text>
+<rect x="60" y="670" width="1480" height="130" rx="12" ry="12" fill="#FFFFFF" stroke="#111827" stroke-width="2.5"/>
+<text x="84" y="706" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#111827" text-anchor="start">FILLING THE RARE CLASSES HONESTLY</text>
+<text x="84" y="738" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">"Increase difficulty" needs high mastery and a long correct streak, so simulating more struggling learners can never produce it,</text>
+<text x="84" y="761" font-family="Arial, Helvetica, sans-serif" font-size="14.5" font-weight="normal" fill="#6B7280" text-anchor="start">however long it runs. Those classes are topped up with a strong learner drilling a small set of letters — a scenario that genuinely triggers them.</text>
+<text x="60" y="866" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="normal" fill="#6B7280" text-anchor="start" font-style="italic">No label is ever edited after the fact. Rare classes are produced by scenarios that legitimately cause them.</text>
+</svg>
