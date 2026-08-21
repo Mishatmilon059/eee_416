@@ -41,13 +41,14 @@ regenerate, re-run parity.
 ## Quick start
 
 ```bash
-pip install tensorflow numpy Pillow
-sudo apt-get install -y espeak-ng ffmpeg
+pip install tensorflow numpy Pillow gTTS
+sudo apt-get install -y ffmpeg espeak-ng   # espeak-ng only needed for --engine espeak
 
 python3 tools/gen_engine.py            # 3 rule engines
 python3 tools/gen_braille_header.py    # firmware dot table
 python3 tools/gen_braille_images.py    # 50 SVG + 50 PNG + contact sheet
-python3 tools/gen_audio.py             # 50 letters + 10 prompts
+python3 tools/gen_audio.py             # 50 letters + 10 prompts, gTTS (natural), needs internet
+python3 tools/gen_audio.py --engine espeak   # offline fallback, robotic
 
 python3 tools/import_braille_images.py --write   # read braille_img/ into the map
 python3 tools/verify_braille_images.py           # QA sheet -- then look at it
