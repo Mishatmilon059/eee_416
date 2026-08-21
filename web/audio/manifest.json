@@ -1,6 +1,6 @@
 {
   "_comment": "Track number -> meaning. DFPlayer plays by number, not name.",
-  "voice": "espeak-ng bn",
+  "voice": "gtts bn (slow=True)",
   "human_recorded": false,
   "letters": {
     "1": {
