@@ -35,6 +35,10 @@ static void buttons_begin() {
   for (int i = 0; i < 6; i++) pinMode(PIN_BUTTON[i], INPUT_PULLUP);
   memset(&g_btn, 0, sizeof(g_btn));
   for (int i = 0; i < 6; i++) g_btn.stable[i] = g_btn.raw[i] = false;
+
+  // GPIO34 has no internal pull-up -- needs the external 10k resistor noted
+  // in pins.h. Plain INPUT, not INPUT_PULLUP (which would fail silently here).
+  pinMode(PIN_SUBMIT, INPUT);
 }
 
 static void buttons_reset_attempt() {
@@ -47,6 +51,52 @@ static void buttons_reset_attempt() {
     g_btn.press_ms[i] = 0;
     g_btn.release_ms[i] = 0;
   }
+}
+
+// ---------------------------------------------------------------------------
+// Submit button: a 7th, separate button. response_time is measured to the
+// debounced press of THIS button, not to the first dot press -- the learner
+// is expected to hold the pattern on the 6 dot buttons, then press submit.
+// ---------------------------------------------------------------------------
+
+typedef struct {
+  bool     raw;
+  bool     stable;
+  uint32_t last_change_ms;
+  uint32_t press_ms;     // 0 until debounced-pressed this attempt
+} SubmitState;
+
+static SubmitState g_submit;
+
+static void submit_reset_attempt() {
+  g_submit.press_ms = 0;
+}
+
+static inline bool submit_raw() {
+#if BUTTON_ACTIVE_LOW
+  return digitalRead(PIN_SUBMIT) == LOW;
+#else
+  return digitalRead(PIN_SUBMIT) == HIGH;
+#endif
+}
+
+// Call every poll iteration alongside buttons_poll(). Returns true the instant
+// the submit press debounces -- i.e. once, on the rising edge.
+static bool submit_poll() {
+  uint32_t now = millis();
+  bool r = submit_raw();
+  if (r != g_submit.raw) {
+    g_submit.raw = r;
+    g_submit.last_change_ms = now;
+  }
+  if (r != g_submit.stable && (now - g_submit.last_change_ms) >= BUTTON_DEBOUNCE_MS) {
+    g_submit.stable = r;
+    if (r && g_submit.press_ms == 0) {
+      g_submit.press_ms = now;
+      return true;
+    }
+  }
+  return false;
 }
 
 static inline bool button_raw(int i) {
@@ -102,11 +152,6 @@ static double buttons_mean_press_duration() {
     }
   }
   return n == 0 ? 0.0 : (double)total / (double)n;
-}
-
-static inline bool buttons_any_held() {
-  for (int i = 0; i < 6; i++) if (g_btn.stable[i]) return true;
-  return false;
 }
 
 // ---------------------------------------------------------------------------

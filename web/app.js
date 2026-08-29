@@ -349,10 +349,11 @@ function submit() {
   };
 
   // current-attempt measurements
+  // response_time: prompt end -> the submit click itself, not the first key
+  // press -- `now` was captured at the top of submit(). Must match
+  // response_time in braille_tutor.ino (prompt end -> PIN_SUBMIT press).
   const promptEnd = cur.promptEndMs === null ? now : cur.promptEndMs;
-  const responseTime = state.pad.firstPressMs === null
-    ? now - promptEnd
-    : Math.max(0, state.pad.firstPressMs - promptEnd);
+  const responseTime = Math.max(0, now - promptEnd);
 
   // post-attempt: update history, THEN read the streaks
   const confidencePlaceholder = c.lastConfidence;

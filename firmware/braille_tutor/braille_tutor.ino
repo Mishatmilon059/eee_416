@@ -225,21 +225,18 @@ static uint8_t run_attempt(uint8_t id, int tries, int hints) {
 
   // --- prompt ---------------------------------------------------------
   buttons_reset_attempt();
+  submit_reset_attempt();
   audio_play_blocking(braille_track(id));
   uint32_t prompt_end_ms = millis();   // clock starts when the prompt ENDS
 
   // --- collect the answer ---------------------------------------------
-  // Submit = all six released after at least one press, or a 15 s timeout.
+  // The learner holds the dot pattern, then presses the dedicated submit
+  // button (PIN_SUBMIT). Submit = that debounced press, or a 15 s timeout.
   uint32_t deadline = prompt_end_ms + 15000;
-  bool saw_press = false;
+  bool submitted = false;
   while (millis() < deadline) {
     buttons_poll();
-    if (g_btn.mask) saw_press = true;
-    if (saw_press && !buttons_any_held()) {
-      delay(450);                       // settle window for multi-dot patterns
-      buttons_poll();
-      if (!buttons_any_held()) break;
-    }
+    if (submit_poll()) { submitted = true; break; }
     delay(3);
   }
 
@@ -253,8 +250,10 @@ static uint8_t run_attempt(uint8_t id, int tries, int hints) {
   double pre_conf     = c->last_confidence;
   double gap_s        = time_since_last_practice(id);
 
-  double response_time = g_btn.first_press_ms
-                           ? (double)(g_btn.first_press_ms - prompt_end_ms)
+  // response_time: prompt end -> SUBMIT press, not the first dot press.
+  // Must match submit()'s responseTime calc in web/app.js exactly.
+  double response_time = submitted
+                           ? (double)(g_submit.press_ms - prompt_end_ms)
                            : (double)(millis() - prompt_end_ms);
   if (response_time < 0) response_time = 0;
 

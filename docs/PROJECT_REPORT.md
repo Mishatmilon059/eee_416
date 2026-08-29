@@ -273,17 +273,23 @@ discarded.
 ### 8.1 Bill of materials
 
 ESP32-WROOM-32 · DFPlayer Mini + 3 W speaker · **ULN2803A** · 6 coin vibration
-motors · 6 tactile buttons · microSD module · 5 V 2 A supply · 1000 µF
-capacitor · 6 × 1 kΩ · 2 × 10 kΩ · *(recommended)* DS3231 RTC
+motors · 6 tactile dot buttons + 1 submit button · microSD module · 5 V 2 A
+supply · 1000 µF capacitor · 6 × 1 kΩ · 3 × 10 kΩ · *(recommended)* DS3231 RTC
 
-### 8.2 Pin allocation — 18 of ~25 usable
+### 8.2 Pin allocation — 19 of ~25 usable
 
 | Function | GPIO | Note |
 |---|---|---|
-| Buttons 1–6 | 32, 33, 25, 26, 27, 14 | all have usable internal pull-ups |
+| Buttons 1–6 (dots) | 32, 33, 25, 26, 27, 14 | all have usable internal pull-ups |
+| Submit | 34 | input-only, no internal pull-up — needs an external 10 kΩ pull-up to 3V3 |
 | Motors 1–6 → ULN2803A | 13, 4, 21, 22, 2, 15 | GPIO 2 and 15 need 10 kΩ pulldowns |
 | DFPlayer (UART2) | 16 RX, 17 TX | 1 kΩ series resistor on DFPlayer RX |
 | microSD (VSPI) | 18 CLK, 19 MISO, 23 MOSI, 5 CS | |
+
+`response_time` (feature 2) is measured from prompt-end to the debounced
+**submit** press, not the first dot press — see `hardware.h`/`run_attempt()`.
+`web/app.js` measures the same way (prompt end → the submit click) so the two
+stay comparable, per the project's central parity rule.
 
 GPIO 12 is deliberately unused — it must be LOW at boot or the chip selects the
 wrong flash voltage.

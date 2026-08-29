@@ -27,7 +27,7 @@
 
   "features": [
     { "index": 0,  "name": "char_id",                  "unit": "id",      "min": 0,     "max": 49,    "desc": "Index into data/braille_map.json letters[]" },
-    { "index": 1,  "name": "response_time",            "unit": "ms",      "min": 0,     "max": 15000, "desc": "Audio prompt end -> first key press. Clamped at max." },
+    { "index": 1,  "name": "response_time",            "unit": "ms",      "min": 0,     "max": 15000, "desc": "Audio prompt end -> submit button press. Clamped at max." },
     { "index": 2,  "name": "press_duration",           "unit": "ms",      "min": 0,     "max": 2000,  "desc": "Mean press->release duration across the keys used in this attempt" },
     { "index": 3,  "name": "retry_count",              "unit": "count",   "min": 0,     "max": 10,    "desc": "Retries on THIS character within the current prompt" },
     { "index": 4,  "name": "prev_accuracy",            "unit": "ratio",   "min": 0,     "max": 1,     "desc": "Rolling accuracy on this character across all prior attempts" },

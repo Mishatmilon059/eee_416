@@ -213,15 +213,21 @@ The genuinely interesting material is `models/disagreements.csv`: the held-out
 ## Hardware
 
 ESP32-WROOM-32 · DFPlayer Mini + 3 W speaker · **ULN2803A** · 6 coin motors ·
-6 tactile buttons · microSD module · 5 V 2 A supply · 1000 µF cap · 6× 1 kΩ ·
-2× 10 kΩ · *(recommended)* DS3231 RTC
+6 tactile dot buttons + 1 submit button · microSD module · 5 V 2 A supply ·
+1000 µF cap · 6× 1 kΩ · 3× 10 kΩ · *(recommended)* DS3231 RTC
 
 | Function | GPIO |
 |---|---|
-| Buttons 1–6 | 32, 33, 25, 26, 27, 14 |
+| Buttons 1–6 (dots) | 32, 33, 25, 26, 27, 14 |
+| Submit | 34 *(input-only — needs an external 10 kΩ pull-up to 3V3)* |
 | Motors 1–6 → ULN2803A | 13, 4, 21, 22, 2, 15 |
 | DFPlayer (UART2) | 16 RX, 17 TX |
 | microSD (VSPI) | 18 CLK, 19 MISO, 23 MOSI, 5 CS |
+
+`response_time` is measured from the end of the prompt audio to the debounced
+**submit** press, not to the first dot press — the learner is expected to hold
+the pattern on the 6 dot buttons, then press submit. `web/app.js` measures the
+same way (prompt end → the submit click), so the two stay comparable.
 
 Three things that will bite you, in order of likelihood:
 

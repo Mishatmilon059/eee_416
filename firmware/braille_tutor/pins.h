@@ -13,6 +13,15 @@ static const int PIN_BUTTON[6] = { 32, 33, 25, 26, 27, 14 };
 #define BUTTON_ACTIVE_LOW 1
 #define BUTTON_DEBOUNCE_MS 20
 
+// --- submit button -----------------------------------------------------
+// A 7th button, separate from the 6 dots: the learner holds the dot pattern,
+// then presses this to submit. response_time is measured to THIS press, not
+// to the first dot press -- see hardware.h / run_attempt().
+// GPIO34 is input-only and has no internal pull-up (unlike 32/33/25/26/27/14),
+// so this needs an EXTERNAL 10k pull-up resistor to 3V3; the button pulls it
+// to GND when pressed, matching BUTTON_ACTIVE_LOW.
+#define PIN_SUBMIT 34
+
 // --- vibration motors, through a ULN2803A ----------------------------------
 // Use the ULN2803A, not six discrete transistors. Coin motors are inductive;
 // the ULN2803A has flyback diodes built in (tie its COM pin to +5V). Driving
