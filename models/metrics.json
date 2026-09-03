@@ -1,24 +1,24 @@
 {
-  "params": 1161,
+  "params": 790,
   "rows": {
     "real": 0,
     "synthetic": 600
   },
   "test": {
-    "teaching_combined": 0.967032967032967,
+    "teaching_combined": 1.0,
     "teaching_real_only": null,
-    "teaching_majority_baseline": 0.37362637362637363,
-    "confidence_combined": 0.8791208791208791,
+    "teaching_majority_baseline": 0.4945054945054945,
+    "confidence_combined": 0.989010989010989,
     "confidence_real_only": null,
-    "confidence_majority_baseline": 0.5274725274725275
+    "confidence_majority_baseline": 0.4725274725274725
   },
-  "rule_agreement": 0.967032967032967,
+  "rule_agreement": 1.0,
   "disagreements": {
-    "total": 3,
+    "total": 0,
     "real": 0
   },
-  "tflite_bytes": 5928,
-  "tflite_vs_keras_teaching": 1.0,
-  "spec_version": 1,
+  "tflite_bytes": 5480,
+  "tflite_vs_keras_teaching": 0.2967032967032967,
+  "spec_version": 2,
   "trained_on_real_data": false
 }

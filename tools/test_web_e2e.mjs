@@ -174,11 +174,11 @@ async function main() {
       pd.every((v) => v > 0 && v < 2000), `range ${Math.min(...pd).toFixed(0)}..${Math.max(...pd).toFixed(0)}ms`);
 
     check('labels in range',
-      rows.every((r) => r.teaching_action >= 0 && r.teaching_action <= 5 &&
+      rows.every((r) => r.teaching_action >= 0 && r.teaching_action <= 2 &&
                         r.confidence_state >= 0 && r.confidence_state <= 2));
     check('provenance stamped',
       rows.every((r) => r.source === 'web' && r.is_synthetic === false &&
-                        r.spec_version === 1));
+                        r.spec_version === 2));
 
     // braille_map_verified is PER CHARACTER, not per map: a row for a letter
     // read from a supplied image must be marked verified even while other

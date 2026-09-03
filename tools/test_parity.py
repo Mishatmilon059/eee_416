@@ -5,8 +5,9 @@
   firmware/rule_engine.h      runs on the ESP32
   tools/rule_engine_gen.py    labels synthetic rows and evaluates the model
 
-Pushes N feature vectors through all three and compares the teaching action,
-the confidence state, and all 14 normalized values.
+Pushes N feature vectors (all 14 logged features) through all three and
+compares the teaching action, the confidence state, and the model-input
+normalized values.
 
 This failing means one of three things, all bad: a model trained on
 web-collected data will misbehave on the ESP32, or 60% of the dataset carries
@@ -28,22 +29,27 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SPEC = json.loads((ROOT / "spec" / "engine_spec.json").read_text(encoding="utf-8"))
-FEATURES = SPEC["features"]
+FEATURES = SPEC["features"]              # all 14 logged features, full spec order
+MODEL_FEATURES = [f for f in FEATURES if f.get("model_input", True)]  # fed to the model
 TOL = 1e-6
 
+# The harness feeds ALL 14 logged features per vector (matching the Features
+# struct / DB schema), then compares the MODEL-INPUT-only normalized output
+# (FEATURE_COUNT of them) plus both rule-engine decisions, which read named
+# fields from the full struct regardless of model_input status.
 C_HARNESS = r"""
 #include <stdio.h>
 #include "rule_engine.h"
 
 int main(void) {
-  double v[FEATURE_COUNT];
+  double v[ALL_FEATURE_COUNT];
   while (1) {
-    for (int i = 0; i < FEATURE_COUNT; i++) {
+    for (int i = 0; i < ALL_FEATURE_COUNT; i++) {
       if (scanf("%lf", &v[i]) != 1) return 0;
     }
     Features f;
     double *p = (double *)&f;
-    for (int i = 0; i < FEATURE_COUNT; i++) p[i] = v[i];
+    for (int i = 0; i < ALL_FEATURE_COUNT; i++) p[i] = v[i];
 
     float norm[FEATURE_COUNT];
     normalize_features(&f, norm);
@@ -57,10 +63,10 @@ int main(void) {
 JS_HARNESS = """
 import { readFileSync } from 'node:fs';
 import {
-  evaluateTeachingAction, evaluateConfidence, normalizeFeatures, FEATURE_RANGES,
+  evaluateTeachingAction, evaluateConfidence, normalizeFeatures, ALL_FEATURE_NAMES,
 } from '%s';
 
-const names = FEATURE_RANGES.map((r) => r.name);
+const names = ALL_FEATURE_NAMES;
 const lines = readFileSync(0, 'utf-8').trim().split('\\n');
 const out = [];
 for (const line of lines) {
@@ -148,7 +154,7 @@ def main():
 
     py_lines = []
     for row in rows:
-        f = {name: row[i] for i, name, _, _ in py_engine.FEATURE_RANGES}
+        f = {name: row[i] for i, name in enumerate(py_engine.ALL_FEATURE_NAMES)}
         norm = py_engine.normalize_features(f)
         parts = [str(int(py_engine.evaluate_teaching_action(f))),
                  str(int(py_engine.evaluate_confidence(f)))]
@@ -179,16 +185,17 @@ def main():
             if cf[1] != other[1]:
                 mismatches.append(f"row {i}: confidence C={cs_names[int(cf[1])]} "
                                   f"{label}={cs_names[int(other[1])]}  in={rows[i]}")
-        for k in range(len(FEATURES)):
+        for k in range(len(MODEL_FEATURES)):
             cv = float(cf[2 + k])
             for other, label in ((jf, "JS"), (pf, "PY")):
                 ov = float(other[2 + k])
                 if abs(cv - ov) > TOL:
-                    mismatches.append(f"row {i}: norm[{FEATURES[k]['name']}] "
+                    mismatches.append(f"row {i}: norm[{MODEL_FEATURES[k]['name']}] "
                                       f"C={cv!r} {label}={ov!r} delta={abs(cv - ov):.3g}")
 
     print(f"vectors compared : {n}")
-    print(f"fields per vector: {2 + len(FEATURES)}")
+    print(f"fields per vector: {2 + len(MODEL_FEATURES)} model-input "
+          f"({len(FEATURES)} logged)")
     print("\nteaching action coverage:")
     for idx, name in enumerate(ta_names):
         print(f"  {name:<22} {ta_hist.get(idx, 0)}")

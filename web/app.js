@@ -243,11 +243,6 @@ function pickLetter(prevAction, prevLetter) {
   if (prevAction === TEACHING_ACTION.REPEAT || prevAction === TEACHING_ACTION.HINT) {
     return prevLetter;
   }
-  if (prevAction === TEACHING_ACTION.REVIEW_PREVIOUS && seen.length) {
-    const weak = seen.filter((l) => state.learner.char(l.id).mastery < 0.6);
-    const pool = weak.length ? weak : seen;
-    return pool[Math.floor(Math.random() * pool.length)];
-  }
 
   if (state.session.mode === 'review') {
     const weak = seen.filter((l) => state.learner.char(l.id).mastery < 0.5);
@@ -385,8 +380,6 @@ function submit() {
   after.lastConfidence = confidence;
   state.learner.save();
 
-  applyDifficulty(action);
-
   state.logger.log({
     created_at: new Date().toISOString(),
     user_id: state.learner.userId,
@@ -431,13 +424,6 @@ function submit() {
       nextPrompt(action, letter);
     }
   }, correct ? 1100 : 1800);
-}
-
-function applyDifficulty(action) {
-  const d = state.learner.data;
-  if (action === TEACHING_ACTION.INCREASE_DIFFICULTY) d.difficulty = Math.min(5, d.difficulty + 1);
-  else if (action === TEACHING_ACTION.REVIEW_PREVIOUS) d.difficulty = Math.max(1, d.difficulty - 1);
-  state.learner.save();
 }
 
 function showFeedback(correct, action, confidence, expectedMask, enteredMask) {

@@ -196,12 +196,15 @@ sd_card/mp3/  →  copy to the microSD card root (DFPlayer needs a folder named 
 
 ## What this model actually is — read before writing it up
 
-The labels come from the rule engine. A 1,161-parameter network trained on them
-learns to **compress your if/else logic**, reaching ~96–97% agreement. It does
-not discover teaching policy.
+The labels come from the rule engine. A 790-parameter network trained on them
+learns to **compress your if/else logic**, reaching ~100% agreement on
+synthetic data. It does not discover teaching policy. Only 4 of the 14 logged
+features (`response_time`, `press_duration`, `retry_count`, `wrong_streak`)
+are actually fed to the model — the rest are kept in the database for
+analysis but read by no rule, so the model has nothing to gain from them.
 
 That is a legitimate TinyML result — train → quantize → deploy → real-time
-offline inference at ~5.8 KB — and it should be written up that way. Describing
+offline inference at ~5.5 KB — and it should be written up that way. Describing
 it as autonomous adaptive learning would be false, and any examiner who asks
 "where did the labels come from?" will find that out in one question.
 
@@ -241,7 +244,7 @@ Three things that will bite you, in order of likelihood:
 3. **GPIO 2 and 15 are strapping pins** — add 10 kΩ pulldowns. GPIO 12 is
    deliberately unused; it must be LOW at boot.
 
-**Fit:** model 5,928 B + 8 KB arena ≈ **13.8 KB of 520 KB SRAM**. Size was never
+**Fit:** model 5,480 B + 8 KB arena ≈ **13.4 KB of 520 KB SRAM**. Size was never
 the risk on this project.
 
 ### The RTC, and why it matters

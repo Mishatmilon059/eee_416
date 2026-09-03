@@ -30,11 +30,11 @@ Three statements that must appear in any write-up of this project:
 
 **2.1 The model imitates a rule engine; it does not discover teaching policy.**
 The training labels are produced by a hand-written rule engine. A network
-trained on them learns to reproduce that rule engine — measured at 96.7%
-agreement. This is a legitimate TinyML result (train → quantize → deploy →
-real-time offline inference in 5,928 bytes), but describing it as autonomous
-adaptive learning would be false. One question — *"where did the labels come
-from?"* — exposes the difference.
+trained on them learns to reproduce that rule engine — measured at 100%
+agreement on this synthetic-only run. This is a legitimate TinyML result
+(train → quantize → deploy → real-time offline inference in 5,480 bytes), but
+describing it as autonomous adaptive learning would be false. One question —
+*"where did the labels come from?"* — exposes the difference.
 
 **2.2 No real learner data exists yet.** Every accuracy figure in this report
 comes from a synthetic-data pipeline test. Those numbers are circular: the rows
@@ -75,10 +75,10 @@ consonants are also wrong, and there is no way to tell which without images.
                   └──────┬──────┘                           │
                          ▼                                  │
                   ┌─────────────┐                           │
-                  │  train.py   │  1,161 params             │
+                  │  train.py   │  790 params               │
                   └──────┬──────┘                           │
                          ▼                                  │
-                  model.tflite (5,928 B int8) ──────────────┘
+                  model.tflite (5,480 B int8) ──────────────┘
 ```
 
 ### 3.1 The central design decision
@@ -103,27 +103,33 @@ retrained, silently desynchronising the ESP32 from the model it is running.
 
 ## 4. The learning model
 
-### 4.1 Features (14)
+### 4.1 Features — 14 logged, 4 fed to the model
 
-Sampled at three distinct moments. Web and firmware must sample identically or
-the model misbehaves on hardware.
+All 14 are sampled at three distinct moments (web and firmware must sample
+identically or the model misbehaves on hardware) and kept in the database/CSV
+schema for logging and analysis. Only the 4 marked **model input** below are
+actually fed to the neural network — the other 10 are read by no rule in
+`spec/engine_spec.json`, so the model has nothing to gain from seeing them.
+`hint_count` in particular is now an exact function of `retry_count`
+(`hint_count = max(0, retry_count-1)` under the current rules), not just
+weakly correlated with it.
 
-| # | Feature | Unit | Sampled |
-|---|---|---|---|
-| 1 | `char_id` | 0–49 | before attempt |
-| 2 | `response_time` | ms | during attempt |
-| 3 | `press_duration` | ms | during attempt |
-| 4 | `retry_count` | count | during attempt |
-| 5 | `prev_accuracy` | 0–1 | before attempt |
-| 6 | `prev_mastery` | 0–1 | before attempt |
-| 7 | `hint_count` | count | during attempt |
-| 8 | `session_number` | count | before attempt |
-| 9 | `difficulty_level` | 1–5 | before attempt |
-| 10 | `time_since_last_practice` | s | before attempt |
-| 11 | `prev_confidence` | 0–2 | before attempt |
-| 12 | `current_streak` | count | **after attempt** |
-| 13 | `wrong_streak` | count | **after attempt** |
-| 14 | `prev_mistakes` | count | before attempt |
+| # | Feature | Unit | Sampled | Model input? |
+|---|---|---|---|---|
+| 1 | `char_id` | 0–49 | before attempt | — |
+| 2 | `response_time` | ms | during attempt | ✅ |
+| 3 | `press_duration` | ms | during attempt | ✅ |
+| 4 | `retry_count` | count | during attempt | ✅ |
+| 5 | `prev_accuracy` | 0–1 | before attempt | — |
+| 6 | `prev_mastery` | 0–1 | before attempt | — |
+| 7 | `hint_count` | count | during attempt | — |
+| 8 | `session_number` | count | before attempt | — |
+| 9 | `difficulty_level` | 1–5 | before attempt | — |
+| 10 | `time_since_last_practice` | s | before attempt | — |
+| 11 | `prev_confidence` | 0–2 | before attempt | — |
+| 12 | `current_streak` | count | **after attempt** | — |
+| 13 | `wrong_streak` | count | **after attempt** | ✅ |
+| 14 | `prev_mistakes` | count | before attempt | — |
 
 **There is deliberately no `is_correct` feature.** Because the two streaks are
 sampled *after* scoring, correctness is derivable: `current_streak > 0` means
@@ -131,21 +137,37 @@ the attempt was correct, `wrong_streak > 0` means it was wrong, and exactly one
 is non-zero. This matters — the rule engine branches on `wrong_streak`. Had the
 streaks been sampled before scoring, the engine would be branching on
 information absent from the model's input, and accuracy would cap out for
-reasons that look like a training bug but are not.
+reasons that look like a training bug but are not. `current_streak` is kept as
+a logged column (it still gates nothing once `INCREASE_DIFFICULTY`/
+`WORD_PRACTICE` were removed, see §4.2) but is no longer a model input either.
 
 ### 4.2 Outputs
 
-- **Teaching action (6):** Repeat · Hint · Normal Practice · Increase Difficulty · Review Previous · Word Practice
+- **Teaching action (3):** Repeat · Hint · Normal Practice
+  `Increase Difficulty`, `Review Previous`, and `Word Practice` were removed:
+  `difficulty_level` was never read back by anything once removed as a rule
+  condition, `Word Practice` had no word-level content built, and abandoning
+  the current letter after 3 wrong tries taught nothing about the letter the
+  learner actually needed — the rules now keep giving `Hint` on the same
+  letter for every wrong try after the first, uncapped.
 - **Confidence state (3):** Confident · Hesitant · Guessing
 
 ### 4.3 Network
 
 ```
-Input(14) → Dense(32, ReLU) → Dense(16, ReLU) → ┬→ Dense(3, softmax)  confidence
-                                                 └→ Dense(6, softmax)  teaching
+Input(4) → Dense(32, ReLU) → Dense(16, ReLU) → ┬→ Dense(3, softmax)  confidence
+                                                └→ Dense(3, softmax)  teaching
 ```
 
-**1,161 trainable parameters.** Trains in seconds on a laptop CPU; no GPU.
+**790 trainable parameters.** Trains in seconds on a laptop CPU; no GPU.
+
+| Layer | Params | Calculation |
+|---|---|---|
+| Dense 32 | 160 | 4×32 + 32 |
+| Dense 16 | 528 | 32×16 + 16 |
+| Dense 3 (confidence) | 51 | 16×3 + 3 |
+| Dense 3 (teaching) | 51 | 16×3 + 3 |
+| **Total** | **790** | |
 
 Class balancing is folded into the loss function because Keras 3 rejects both
 `class_weight` and `sample_weight` on multi-output models. Without it the rare
@@ -160,15 +182,27 @@ From `models/metrics.json`, trained on 600 synthetic rows:
 
 | Metric | Value | Interpretation |
 |---|---|---|
-| Trainable parameters | 1,161 | |
-| Teaching action accuracy | 96.7% | vs 37.4% majority baseline |
-| Confidence state accuracy | 87.9% | vs 52.7% majority baseline |
-| Rule-engine agreement | 96.7% | expected — the labels *are* the rule engine |
-| TFLite vs Keras agreement | **100%** | 8-bit quantization changed nothing |
-| Quantized model size | **5,928 bytes** | |
+| Trainable parameters | 790 | |
+| Teaching action accuracy | 100% | vs 49.5% majority baseline |
+| Confidence state accuracy | 98.9% | vs 47.3% majority baseline |
+| Rule-engine agreement | 100% | expected — the labels *are* the rule engine |
+| TFLite vs Keras agreement (teaching) | **29.7%** | int8 quantization badly mismatched this run — see warning below |
+| Quantized model size | **5,480 bytes** | |
 | Real-data accuracy | **N/A** | no real rows collected |
 
-The majority baseline is reported beside every accuracy because "96.7%
+⚠ **The 29.7% TFLite-vs-Keras figure is a real warning, not a typo.** On this
+particular 600-row synthetic-only run, int8 quantization shifted the teaching
+head's predictions far more than the training script's own 97% threshold
+allows (`train.py` prints this warning itself). The deployed `.tflite` is
+*not* the model validated above for the teaching head, even though the
+confidence head quantized cleanly (100%). This is a known risk with a small,
+narrow-range synthetic dataset and representative-sample quantization; it must
+be re-checked after retraining on real data, and is exactly the kind of thing
+`test_firmware_headers.py`'s golden-vector self-test exists to catch on the
+actual board before it does any harm — a mismatch there makes the firmware
+fall back to the plain rule engine automatically.
+
+The majority baseline is reported beside every accuracy because "100%
 accurate" is unreadable without it — a model barely above baseline has learned
 almost nothing.
 
@@ -176,9 +210,9 @@ almost nothing.
 
 | Item | Size |
 |---|---|
-| Model | 5,928 B |
+| Model | 5,480 B |
 | Tensor arena | 8 KB |
-| **Total** | **13.8 KB of 520 KB SRAM (2.7%)** |
+| **Total** | **13.4 KB of 520 KB SRAM (2.6%)** |
 
 **Model size was never a risk on this project.** The constraints are recruiting
 participants and building hardware.
@@ -203,11 +237,14 @@ capacity on a region that will never be seen.
 
 ### 6.3 Rare classes
 
-Some teaching actions occur rarely in natural use. The generator tops these up
-with scenarios **capable of producing them**: `INCREASE_DIFFICULTY` and
-`WORD_PRACTICE` require high mastery and long streaks, so simulating more
-struggling learners can never yield them however long it runs. Those classes
-draw a strong learner drilling a small character pool instead.
+Some classes occur rarely in natural use. The generator tops these up with
+scenarios **capable of producing them**: `CONFIDENT` needs a fast, clean,
+first-try answer, which a struggling learner rarely gives no matter how long
+the simulation runs, so that class draws a strong learner drilling a small
+character pool instead. `REPEAT`, `HINT`, and `NORMAL_PRACTICE` all show up
+naturally in the main population once `WORD_PRACTICE`/`INCREASE_DIFFICULTY`/
+`REVIEW_PREVIOUS` were removed from `teaching_action` (see §4.2) — there is no
+longer a high-mastery class that only a narrow scenario can reach.
 
 Every synthetic row carries `is_synthetic = true`. `train.py` always reports
 real-only metrics separately.
@@ -312,7 +349,8 @@ wrong flash voltage.
 
 `millis()` resets on every power-up, so **without a real-time clock the board
 cannot know how long it was switched off** — and `time_since_last_practice` is
-one of the 14 features the model consumes.
+one of the 14 logged features (no longer a model input, but still recorded for
+per-character analysis).
 
 Rather than log a silently wrong number, the firmware advances a persisted epoch
 by a **declared assumption** and stamps every affected row `rtc_present = 0`, so
@@ -334,7 +372,7 @@ falls back to the rule engine rather than producing garbage.
 | Suite | Checks | Status |
 |---|---|---|
 | `validate_braille_map.py` | 50 letters, no duplicate patterns, per-letter verification | ✅ |
-| `test_parity.py` | 3,000 vectors × 16 fields, JS = C = Python | ✅ |
+| `test_parity.py` | 3,000 vectors (14 logged fields each), JS = C = Python agree on both labels + the 4 model-input normalized values | ✅ |
 | `test_web_e2e.mjs` | 28 checks in a real browser session | ✅ |
 | `test_firmware_headers.py` | 21 checks — headers compile, agree with source data | ✅ |
 | `test_supabase.py` | backend reachable, table, RLS, dedupe | ⚠ see §10 |
@@ -369,7 +407,7 @@ failures**, and the session ran to completion.
 | 5 | Hardware never assembled | Medium | Work through `firmware/tests/` t1–t6 |
 | 6 | No RTC → `time_since_last_practice` assumed across power cycles | Medium | Add DS3231, set `USE_RTC 1` |
 | 7 | Audio is synthetic (espeak-ng), robotic | Low | Re-record; drop-in replacement by track number |
-| 8 | Word Practice class has no word content | Low | Cut to a 5-class head if time is short |
+| 8 | ~~Word Practice class has no word content~~ | Resolved | `WORD_PRACTICE`, `INCREASE_DIFFICULTY`, and `REVIEW_PREVIOUS` were removed from `teaching_action` — see §4.2. The head is now 3 classes. |
 
 ### 10.1 Testing limitation affecting this report
 
@@ -411,8 +449,10 @@ system prompts), duplicated to `sd_card/mp3/` for the DFPlayer.
 | 6 | Retrain on real data, redeploy | final result | 1 day |
 
 **Task 2 is the critical path.** Sessions must be spread across several days per
-participant, or `session_number` and `time_since_last_practice` carry no signal
-and two of the fourteen features are dead. This is calendar time that cannot be
+participant, or `session_number` and `time_since_last_practice` carry no
+signal at all in the collected data — they are already logged-only (not model
+inputs, see §4.1), but a flat single-session dataset would still make them
+useless even for future analysis. This is calendar time that cannot be
 compressed by working harder. Everything else can proceed in parallel.
 
 ---
@@ -421,13 +461,13 @@ compressed by working harder. Everything else can proceed in parallel.
 
 **Demonstrated:**
 - A complete software pipeline from interaction logging to a deployable 8-bit model
-- A 1,161-parameter multi-task network reproducing an adaptive teaching rule engine at 96.7%
-- Quantization to 5,928 bytes with **zero** change in predictions
-- 2.7% SRAM footprint, leaving ample headroom on ESP32
-- A generator-based architecture that makes browser/firmware divergence structurally impossible, verified across 3,000 vectors
+- A 790-parameter multi-task network reproducing a 3-class teaching rule engine at 100% agreement on synthetic data
+- 2.6% SRAM footprint, leaving ample headroom on ESP32
+- A generator-based architecture that makes browser/firmware divergence structurally impossible, verified across 3,000 vectors, that separates the 14 *logged* features from the 4 the model actually reads
 - Braille pattern extraction from reference images, which corrected a real error
 
 **Not demonstrated:**
+- That int8 quantization preserves this model's predictions: on this run the teaching head shifted to only 29.7% agreement with the unquantized model (§5) — a real, unresolved risk to re-check after every retrain
 - Any behaviour with real learners
 - Any execution on physical hardware
 - That the model generalises beyond the rule engine it was trained to imitate

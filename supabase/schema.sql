@@ -50,13 +50,21 @@ create table if not exists attempts (
   braille_map_verified boolean not null default false,
 
   constraint attempts_char_id_range     check (char_id between 0 and 49),
-  constraint attempts_teaching_range    check (teaching_action between 0 and 5),
+  constraint attempts_teaching_range    check (teaching_action between 0 and 2),
   constraint attempts_confidence_range  check (confidence_state between 0 and 2),
   constraint attempts_difficulty_range  check (difficulty_level between 1 and 5),
   constraint attempts_source_valid      check (source in ('web','esp32','synthetic')),
   -- enforces the timing contract: exactly one streak is non-zero after scoring
   constraint attempts_streak_exclusive  check (current_streak = 0 or wrong_streak = 0)
 );
+
+-- teaching_action shrank from 6 classes to 3 (REPEAT, HINT, NORMAL_PRACTICE --
+-- WORD_PRACTICE/INCREASE_DIFFICULTY/REVIEW_PREVIOUS were removed from the rule
+-- engine). Widen-then-narrow so this block is safe to re-run whether the table
+-- was created before or after that change, and whether or not the constraint
+-- already has the new bound.
+alter table attempts drop constraint if exists attempts_teaching_range;
+alter table attempts add constraint attempts_teaching_range check (teaching_action between 0 and 2);
 
 create index if not exists attempts_user_session_idx on attempts (user_id, session_id);
 create index if not exists attempts_created_idx      on attempts (created_at);

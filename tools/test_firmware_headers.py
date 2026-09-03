@@ -55,10 +55,10 @@ int main() {
   // exercise the rule engine + normalizer exactly as the firmware does
   Features f{};
   f.char_id = 3; f.response_time = 1200; f.press_duration = 150;
-  f.retry_count = 0; f.prev_accuracy = 0.9; f.prev_mastery = 0.9;
+  f.retry_count = 1; f.prev_accuracy = 0.9; f.prev_mastery = 0.9;
   f.hint_count = 0; f.session_number = 4; f.difficulty_level = 2;
   f.time_since_last_practice = 300; f.prev_confidence = 0;
-  f.current_streak = 6; f.wrong_streak = 0; f.prev_mistakes = 1;
+  f.current_streak = 0; f.wrong_streak = 2; f.prev_mistakes = 1;
   printf("RULE_TA %d\n", (int)evaluate_teaching_action(&f));
   printf("RULE_CS %d\n", (int)evaluate_confidence(&f));
   float norm[FEATURE_COUNT];
@@ -140,17 +140,19 @@ def main():
     spec = json.loads((ROOT / "spec" / "engine_spec.json").read_text(encoding="utf-8"))
     bmap = json.loads((ROOT / "data" / "braille_map.json").read_text(encoding="utf-8"))
 
+    model_feature_count = sum(1 for f in spec["features"] if f.get("model_input", True))
+
     print("\n-- consistency with the source data --")
-    check("FEATURE_COUNT matches the spec",
-          int(vals["FEATURE_COUNT"]) == len(spec["features"]),
-          f'header {vals["FEATURE_COUNT"]} vs spec {len(spec["features"])}')
+    check("FEATURE_COUNT matches the spec's model_input features",
+          int(vals["FEATURE_COUNT"]) == model_feature_count,
+          f'header {vals["FEATURE_COUNT"]} vs spec {model_feature_count}')
     check("SPEC_VERSION matches the spec",
           int(vals["SPEC_VERSION"]) == spec["version"])
     check("letter count is 50", int(vals["LETTERS"]) == 50, vals["LETTERS"])
     check("vowel count is 11", int(vals["VOWELS"]) == 11, vals["VOWELS"])
-    check("teaching head is 6 classes",
+    check(f'teaching head matches spec ({len(spec["outputs"]["teaching_action"]["classes"])} classes)',
           int(vals["TEACH_CLASSES"]) == len(spec["outputs"]["teaching_action"]["classes"]))
-    check("confidence head is 3 classes",
+    check(f'confidence head matches spec ({len(spec["outputs"]["confidence_state"]["classes"])} classes)',
           int(vals["CONF_CLASSES"]) == len(spec["outputs"]["confidence_state"]["classes"]))
 
     # C masks must equal the JSON dot arrays
@@ -213,13 +215,18 @@ def main():
           f'{vals["GOLDEN_BAD"]} bad values')
 
     print("\n-- rule engine runs in C++ --")
-    # high mastery + 6-streak + high accuracy => WORD_PRACTICE (index 5)
-    check("rule engine returns WORD_PRACTICE for a mastered character",
-          vals["RULE_TA"] == "5", f'got {vals["RULE_TA"]}')
-    check("rule engine returns CONFIDENT for a fast clean answer",
-          vals["RULE_CS"] == "0", f'got {vals["RULE_CS"]}')
-    check("normalizer maps char_id 3 of 0..49 to 3/49",
-          abs(float(vals["NORM0"]) - 3.0 / 49.0) < 1e-6, vals["NORM0"])
+    # wrong_streak=2 (>=1) with retry_count=1 (already past the first-wrong
+    # REPEAT) => HINT (index 1), per ta_hint_while_stuck
+    check("rule engine returns HINT while stuck on a retry",
+          vals["RULE_TA"] == "1", f'got {vals["RULE_TA"]}')
+    # same vector: retry_count=1 fails cs_confident's retry_count==0 and
+    # retry_count<2 so it is not cs_guessing either => default HESITANT (index 1)
+    check("rule engine returns HESITANT for a mid-retry answer",
+          vals["RULE_CS"] == "1", f'got {vals["RULE_CS"]}')
+    # norm[0] is the first MODEL INPUT feature (response_time, not char_id --
+    # char_id is not a model input any more), 1200 of 0..15000
+    check("normalizer maps response_time 1200 of 0..15000 to 0.08",
+          abs(float(vals["NORM0"]) - 1200.0 / 15000.0) < 1e-6, vals["NORM0"])
     check("mastery EMA matches the spec (0.5 correct -> 0.625)",
           abs(float(vals["MASTERY_UP"]) - 0.625) < 1e-9, vals["MASTERY_UP"])
 

@@ -10,7 +10,7 @@ web/config.js if you already filled those in there.
 Also runs the sanity checks that matter before training, because every one of
 these has a habit of surfacing at training time when it is far too late to
 re-collect:
-  - are all 9 classes populated?
+  - are all 6 classes populated (3 teaching_action + 3 confidence_state)?
   - did sessions actually happen on different days?
   - are any rows carrying an unverified Braille map?
   - do the streak/correctness invariants hold?
@@ -33,7 +33,7 @@ import rule_engine_gen as engine  # noqa: E402
 
 CSV_COLUMNS = [
     "created_at", "user_id", "session_id", "device_id", "attempt_index",
-    *engine.FEATURE_NAMES,
+    *engine.ALL_FEATURE_NAMES,
     "teaching_action", "confidence_state",
     "expected_pattern", "entered_pattern", "is_correct", "press_order",
     "source", "is_synthetic", "spec_version", "braille_map_verified",

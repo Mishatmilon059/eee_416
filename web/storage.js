@@ -5,7 +5,7 @@
 // pushed to Supabase. Failed pushes stay queued and retry later.
 
 import { SUPABASE_URL, SUPABASE_ANON_KEY, DEVICE_ID_KEY } from './config.js';
-import { FEATURE_RANGES, MASTERY_INITIAL, updateMastery } from './rule_engine.js';
+import { ALL_FEATURE_RANGES, MASTERY_INITIAL, updateMastery } from './rule_engine.js';
 
 const QUEUE_KEY = 'braille.queue';
 const ROWS_KEY = 'braille.rows';
@@ -14,7 +14,7 @@ const STATE_PREFIX = 'braille.state.';
 // Column order for CSV export and for the Supabase payload.
 export const CSV_COLUMNS = [
   'created_at', 'user_id', 'session_id', 'device_id', 'attempt_index',
-  ...FEATURE_RANGES.map((r) => r.name),
+  ...ALL_FEATURE_RANGES.map((r) => r.name),
   'teaching_action', 'confidence_state',
   'expected_pattern', 'entered_pattern', 'is_correct', 'press_order',
   'source', 'is_synthetic', 'spec_version', 'braille_map_verified',
@@ -94,7 +94,7 @@ export class LearnerState {
   timeSinceLastPractice(id, nowMs) {
     const c = this.char(id);
     if (c.lastPracticeMs == null) {
-      return FEATURE_RANGES.find((r) => r.name === 'time_since_last_practice').max;
+      return ALL_FEATURE_RANGES.find((r) => r.name === 'time_since_last_practice').max;
     }
     return Math.max(0, (nowMs - c.lastPracticeMs) / 1000);
   }

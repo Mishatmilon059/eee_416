@@ -135,7 +135,7 @@ static inline float char_accuracy(uint8_t id) {
 // rule engine, which is the opposite of the truth.
 static inline double time_since_last_practice(uint8_t id) {
   CharState *c = char_state(id);
-  if (c->last_practice_s < 0) return FEATURE_MAX[9];
+  if (c->last_practice_s < 0) return ALL_FEATURE_MAX[9];  // index 9 = time_since_last_practice
   double d = (double)(now_seconds() - c->last_practice_s);
   return d < 0 ? 0.0 : d;
 }

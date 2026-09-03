@@ -60,18 +60,24 @@ def build_rule_block(rules, accessor, enum_prefix, indent, comment_tok):
 
 def gen_js(spec):
     feats = spec["features"]
+    model_feats = [f for f in feats if f.get("model_input", True)]
     ta = spec["outputs"]["teaching_action"]["classes"]
     cs = spec["outputs"]["confidence_state"]["classes"]
     mu = spec["mastery_update"]
 
     acc = lambda name: f"f.{name}"
 
+    all_names_json = json.dumps([f["name"] for f in feats])
+    all_norm_lines = "\n".join(
+        f"  {{ name: '{f['name']}', min: {fmt_num(f['min'])}, max: {fmt_num(f['max'])} }},"
+        for f in feats
+    )
     idx_lines = "\n".join(
-        f"  {f['name']}: {f['index']}," for f in feats
+        f"  {f['name']}: {i}," for i, f in enumerate(model_feats)
     )
     norm_lines = "\n".join(
         f"  {{ name: '{f['name']}', min: {fmt_num(f['min'])}, max: {fmt_num(f['max'])} }},"
-        for f in feats
+        for f in model_feats
     )
     ta_enum = "\n".join(f"  {n}: {i}," for i, n in enumerate(ta))
     cs_enum = "\n".join(f"  {n}: {i}," for i, n in enumerate(cs))
@@ -91,7 +97,15 @@ export const CONFIDENCE_STATE = {{
 }};
 export const CONFIDENCE_STATE_NAMES = {json.dumps(cs)};
 
-// Canonical feature order. The model input vector MUST be built in this order.
+// All {len(feats)} sampled/logged features, in spec order. This is the CSV/DB
+// column list -- use this for logging, NOT for the model input vector.
+export const ALL_FEATURE_NAMES = {all_names_json};
+export const ALL_FEATURE_RANGES = [
+{all_norm_lines}
+];
+
+// Canonical MODEL INPUT order -- only features with model_input=true in the
+// spec. The model input vector MUST be built in this order.
 export const FEATURE_INDEX = {{
 {idx_lines}
 }};
@@ -100,7 +114,7 @@ export const FEATURE_RANGES = [
 {norm_lines}
 ];
 
-export const FEATURE_COUNT = {len(feats)};
+export const FEATURE_COUNT = {len(model_feats)};
 
 /**
  * Fixed min-max scaling with clamping. Ranges come from the spec, NOT from the
@@ -150,6 +164,7 @@ export const SESSION_TARGET_ATTEMPTS = {spec['session']['target_attempts']};
 
 def gen_h(spec):
     feats = spec["features"]
+    model_feats = [f for f in feats if f.get("model_input", True)]
     ta = spec["outputs"]["teaching_action"]["classes"]
     cs = spec["outputs"]["confidence_state"]["classes"]
     mu = spec["mastery_update"]
@@ -159,10 +174,12 @@ def gen_h(spec):
     struct_lines = "\n".join(f"  double {f['name']};" for f in feats)
     ta_enum = ",\n".join(f"  TA_{n} = {i}" for i, n in enumerate(ta))
     cs_enum = ",\n".join(f"  CS_{n} = {i}" for i, n in enumerate(cs))
-    min_arr = ", ".join(fmt_num(f["min"]) for f in feats)
-    max_arr = ", ".join(fmt_num(f["max"]) for f in feats)
+    all_min_arr = ", ".join(fmt_num(f["min"]) for f in feats)
+    all_max_arr = ", ".join(fmt_num(f["max"]) for f in feats)
+    min_arr = ", ".join(fmt_num(f["min"]) for f in model_feats)
+    max_arr = ", ".join(fmt_num(f["max"]) for f in model_feats)
     order_lines = "\n".join(
-        f"  v[{f['index']}] = f->{f['name']};" for f in feats
+        f"  v[{i}] = f->{f['name']};" for i, f in enumerate(model_feats)
     )
     ta_names = ", ".join(f'"{n}"' for n in ta)
     cs_names = ", ".join(f'"{n}"' for n in cs)
@@ -173,7 +190,8 @@ def gen_h(spec):
 #define RULE_ENGINE_H
 
 #define SPEC_VERSION {spec['version']}
-#define FEATURE_COUNT {len(feats)}
+#define ALL_FEATURE_COUNT {len(feats)}
+#define FEATURE_COUNT {len(model_feats)}
 
 typedef enum {{
 {ta_enum}
@@ -190,14 +208,25 @@ __attribute__((unused)) static const char *CONFIDENCE_STATE_NAMES[] = {{ {cs_nam
 
 // All fields are the state AFTER the current attempt has been scored.
 // current_streak > 0 => that attempt was CORRECT; wrong_streak > 0 => WRONG.
+// This struct holds ALL {len(feats)} logged features (the CSV/DB schema), not
+// just the ones fed to the model -- see FEATURE_COUNT vs ALL_FEATURE_COUNT.
 typedef struct {{
 {struct_lines}
 }} Features;
 
+// Min/max for ALL {len(feats)} logged features, in spec order (index i here
+// matches feature i in spec/engine_spec.json). Use this array (not the
+// model-only FEATURE_MIN/MAX below) when a specific feature's raw range is
+// needed regardless of whether it feeds the model -- e.g. the "never
+// practiced" sentinel in learner_state.h.
+__attribute__((unused)) static const double ALL_FEATURE_MIN[ALL_FEATURE_COUNT] = {{ {all_min_arr} }};
+__attribute__((unused)) static const double ALL_FEATURE_MAX[ALL_FEATURE_COUNT] = {{ {all_max_arr} }};
+
+// Model input only (model_input=true in the spec). Must match FEATURE_INDEX
+// in web/rule_engine.js.
 static const double FEATURE_MIN[FEATURE_COUNT] = {{ {min_arr} }};
 static const double FEATURE_MAX[FEATURE_COUNT] = {{ {max_arr} }};
 
-// Canonical order. Must match FEATURE_INDEX in web/rule_engine.js.
 static inline void features_to_vector(const Features *f, double *v) {{
 {order_lines}
 }}
@@ -245,6 +274,7 @@ def gen_py(spec):
     poisoning 60% of the dataset in a way that is very hard to notice.
     """
     feats = spec["features"]
+    model_feats = [f for f in feats if f.get("model_input", True)]
     ta = spec["outputs"]["teaching_action"]["classes"]
     cs = spec["outputs"]["confidence_state"]["classes"]
     mu = spec["mastery_update"]
@@ -253,9 +283,14 @@ def gen_py(spec):
 
     ta_enum = "\n".join(f"    {n} = {i}" for i, n in enumerate(ta))
     cs_enum = "\n".join(f"    {n} = {i}" for i, n in enumerate(cs))
-    ranges = "\n".join(
-        f"    ({f['index']}, '{f['name']}', {fmt_num(f['min'])}, {fmt_num(f['max'])}),"
+    all_names = json.dumps([f["name"] for f in feats])
+    all_ranges = "\n".join(
+        f"    ('{f['name']}', {fmt_num(f['min'])}, {fmt_num(f['max'])}),"
         for f in feats
+    )
+    ranges = "\n".join(
+        f"    ({i}, '{f['name']}', {fmt_num(f['min'])}, {fmt_num(f['max'])}),"
+        for i, f in enumerate(model_feats)
     )
 
     body_ta = build_rule_block(spec["teaching_action_rules"], acc, "TeachingAction.", 4, "#")
@@ -284,12 +319,25 @@ class ConfidenceState(IntEnum):
 TEACHING_ACTION_NAMES = {json.dumps(ta)}
 CONFIDENCE_STATE_NAMES = {json.dumps(cs)}
 
-# (index, name, min, max) in canonical model-input order
+# All {len(feats)} sampled/logged features, in spec order -- the CSV/DB column
+# list. Use this for logging (export_dataset.py, gen_synthetic.py), NOT for
+# building the model input vector.
+ALL_FEATURE_NAMES = {all_names}
+# (name, min, max) for ALL {len(feats)} logged features -- use this (not the
+# model-only FEATURE_RANGES below) to look up a specific feature's raw range
+# regardless of whether it feeds the model, e.g. the "never practiced"
+# sentinel for time_since_last_practice.
+ALL_FEATURE_RANGES = [
+{all_ranges}
+]
+
+# (index, name, min, max) in canonical MODEL INPUT order -- only features with
+# model_input=true in the spec.
 FEATURE_RANGES = [
 {ranges}
 ]
 FEATURE_NAMES = [r[1] for r in FEATURE_RANGES]
-FEATURE_COUNT = {len(feats)}
+FEATURE_COUNT = {len(model_feats)}
 
 
 def normalize_features(f):
@@ -335,7 +383,8 @@ def main():
     print(f"wrote {JS_OUT.relative_to(ROOT)}")
     print(f"wrote {H_OUT.relative_to(ROOT)}")
     print(f"wrote {PY_OUT.relative_to(ROOT)}")
-    print(f"\n{len(spec['features'])} features, "
+    model_count = sum(1 for f in spec["features"] if f.get("model_input", True))
+    print(f"\n{len(spec['features'])} logged features ({model_count} fed to the model), "
           f"{len(spec['teaching_action_rules'])} teaching rules, "
           f"{len(spec['confidence_rules'])} confidence rules")
     print("\nNow run: python3 tools/test_parity.py")

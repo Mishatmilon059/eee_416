@@ -46,7 +46,7 @@ MAX_TRIES_PER_PROMPT = 4          # must match MAX_TRIES_PER_PROMPT in web/app.j
 
 CSV_COLUMNS = [
     "created_at", "user_id", "session_id", "device_id", "attempt_index",
-    *engine.FEATURE_NAMES,
+    *engine.ALL_FEATURE_NAMES,
     "teaching_action", "confidence_state",
     "expected_pattern", "entered_pattern", "is_correct", "press_order",
     "source", "is_synthetic", "spec_version", "braille_map_verified",
@@ -236,7 +236,9 @@ def simulate_learner(rng, fit, user_index, profile, sessions, attempts_per_sessi
             while attempt_index < attempts_per_session:
                 clock += timedelta(seconds=rng.uniform(3, 14))
                 now_ms = clock.timestamp() * 1000.0
-                gap_s = (engine.FEATURE_RANGES[9][3] if c.last_practice is None
+                never_practiced_s = next(r[2] for r in engine.ALL_FEATURE_RANGES
+                                         if r[0] == "time_since_last_practice")
+                gap_s = (never_practiced_s if c.last_practice is None
                          else max(0.0, (now_ms - c.last_practice) / 1000.0))
 
                 # --- pre-attempt history -------------------------------------
@@ -290,11 +292,6 @@ def simulate_learner(rng, fit, user_index, profile, sessions, attempts_per_sessi
                 action = int(engine.evaluate_teaching_action(f))
                 c.last_confidence = confidence
 
-                if action == int(engine.TeachingAction.INCREASE_DIFFICULTY):
-                    lrn.difficulty = min(5, lrn.difficulty + 1)
-                elif action == int(engine.TeachingAction.REVIEW_PREVIOUS):
-                    lrn.difficulty = max(1, lrn.difficulty - 1)
-
                 order = list(range(1, 7))
                 rng.shuffle(order)
                 pressed = [d for d in order if entered & (1 << (d - 1))]
@@ -305,7 +302,7 @@ def simulate_learner(rng, fit, user_index, profile, sessions, attempts_per_sessi
                     "session_id": session_id,
                     "device_id": device,
                     "attempt_index": attempt_index,
-                    **{k: f[k] for k in engine.FEATURE_NAMES},
+                    **{k: f[k] for k in engine.ALL_FEATURE_NAMES},
                     "teaching_action": action,
                     "confidence_state": confidence,
                     "expected_pattern": expected,
@@ -339,9 +336,6 @@ def pick_char(rng, lrn, pool, prev_action, prev_cid, stale_bias):
             and prev_cid is not None:
         return prev_cid
     seen = [cid for cid in pool if lrn.char(cid).seen > 0]
-    if prev_action == int(engine.TeachingAction.REVIEW_PREVIOUS) and seen:
-        weak = [cid for cid in seen if lrn.char(cid).mastery < 0.6]
-        return rng.choice(weak or seen)
     if stale_bias and seen and rng.random() < 0.5:
         return min(seen, key=lambda cid: lrn.char(cid).last_practice or 0)
     weights = [0.15 + (1.0 - lrn.char(cid).mastery) for cid in pool]
@@ -414,21 +408,15 @@ def main():
         idx += 1
 
     # --- top up starved classes -------------------------------------------
-    # The scenario must be able to PRODUCE the starved class. INCREASE_DIFFICULTY
-    # needs prev_mastery>=0.70 with a 3-streak and WORD_PRACTICE needs >=0.85
-    # with a 5-streak, so simulating more struggling learners can never yield
-    # either one no matter how long it runs. High-mastery classes need a strong
-    # learner drilling a SMALL character pool, so the same characters recur often
-    # enough for mastery and streaks to build.
-    TA = engine.TeachingAction
+    # The scenario must be able to PRODUCE the starved class. CONFIDENT needs a
+    # fast, clean, first-try answer, which a struggling learner rarely gives no
+    # matter how long the simulation runs -- so it gets a strong learner
+    # drilling a small character pool instead. REPEAT/HINT/NORMAL_PRACTICE and
+    # the other confidence classes all show up naturally in the main population.
     CS = engine.ConfidenceState
-    HIGH_MASTERY = {int(TA.INCREASE_DIFFICULTY), int(TA.WORD_PRACTICE)}
 
     def scenario_for(kind, class_id):
         """(profile, char_pool, stale_bias) able to actually trigger this class."""
-        if kind == "ta" and class_id in HIGH_MASTERY:
-            size = 3 if class_id == int(TA.WORD_PRACTICE) else 6
-            return "fast", rng.sample(pool, size), False
         if kind == "cs" and class_id == int(CS.CONFIDENT):
             return "fast", rng.sample(pool, 6), False
         return "struggling", pool, True

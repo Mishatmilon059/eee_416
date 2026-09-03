@@ -159,14 +159,6 @@ static uint8_t pick_letter(uint8_t prev_action, uint8_t prev_id, bool have_prev)
   // Mirrors pickLetter() in web/app.js.
   if (have_prev && (prev_action == TA_REPEAT || prev_action == TA_HINT)) return prev_id;
 
-  if (have_prev && prev_action == TA_REVIEW_PREVIOUS) {
-    uint8_t weak[BRAILLE_LETTER_COUNT];
-    int n = 0;
-    for (int i = 0; i < BRAILLE_LETTER_COUNT; i++)
-      if (g_state.chars[i].seen > 0 && g_state.chars[i].mastery < 0.6f) weak[n++] = i;
-    if (n > 0) return weak[random(n)];
-  }
-
   // weight inversely to mastery so weak characters recur more often
   float weights[BRAILLE_LETTER_COUNT], total = 0.0f;
   for (int i = 0; i < BRAILLE_LETTER_COUNT; i++) {
@@ -289,9 +281,6 @@ static uint8_t run_attempt(uint8_t id, int tries, int hints) {
     confidence = (uint8_t)evaluate_confidence(&f);
   }
   c->last_confidence = confidence;
-
-  if (action == TA_INCREASE_DIFFICULTY && g_state.difficulty < 5) g_state.difficulty++;
-  else if (action == TA_REVIEW_PREVIOUS && g_state.difficulty > 1) g_state.difficulty--;
 
   // --- feedback ---------------------------------------------------------
   if (correct) {
